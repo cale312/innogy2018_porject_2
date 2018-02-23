@@ -1,21 +1,22 @@
+import 'reflect-metadata';
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Place {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    ID: number;
 
     @Column({ type: 'varchar'})
-    name: string;
+    Name: string;
 
     @Column({ type: 'varchar'})
-    address: string;
+    Address: string;
 
     @Column({ type: 'varchar'})
-    city: string;
+    City: string;
 
     @Column({ type: 'varchar'})
-    category: string
+    Category: string;
 
 }
