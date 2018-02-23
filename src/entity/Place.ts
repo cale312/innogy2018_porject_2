@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Place {
@@ -14,5 +14,8 @@ export class Place {
 
     @Column({ type: 'varchar'})
     city: string;
+
+    @Column({ type: 'varchar'})
+    category: string
 
 }
