@@ -20,7 +20,7 @@ class PlacesRouter {
   
     // set up our routes
     routes() {
-      this.router.get('/api/v1/places', this.GetPlaces);
+      this.router.get('/', this.GetPlaces);
     }
   
 }
