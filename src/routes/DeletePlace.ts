@@ -1,4 +1,5 @@
 import * as express from 'express';
+import {getRepository} from 'typeorm';
 import { Router, Request, Response, NextFunction } from 'express';
 import { Place } from "../entities/Place";
 
@@ -11,10 +12,15 @@ class PlacesRouter {
       this.routes();
     }
 
-    public DeletePlace(req: Request, res: Response, next: NextFunction): void {
+    public async DeletePlace(req: Request, res: Response, next: NextFunction){
         let code = res.statusCode;
+
+        let placesRepository = getRepository(Place);
+        let placesToRemove = await placesRepository.findOneById({id:1});
+        await placesRepository.remove(placesToRemove);
+
         res.json({
-            code
+            placesToRemove
         });
     }
   
