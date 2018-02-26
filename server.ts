@@ -15,6 +15,7 @@ import {
 
 // Import all the routes
 import GetPlaces from "./src/routes/GetPlaces";
+import AddPlace from "./src/routes/AddPlace";
 // import AddPlace from "./src/routes/AddPlace";
 // import DeletePlace from "./src/routes/DeletePlace";
 // import UpdatePlace from "./src/routes/UpdatePlace";
@@ -60,6 +61,7 @@ class Server {
     this.app.use('/', router);
     // this.app.use('/api/v1/places', AddPlace);
     this.app.use('/api/v1/places', GetPlaces);
+    this.app.use('/api/v1/places', AddPlace);
     // this.app.use('/api/v1/places', DeletePlace);
     // this.app.use('/api/v1/places', UpdatePlace);
   }

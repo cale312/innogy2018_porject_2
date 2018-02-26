@@ -1,6 +1,8 @@
 import * as express from 'express';
 import { Router, Request, Response, NextFunction } from 'express';
 import { Place } from "../entities/Place";
+import { error } from 'util';
+import {getRepository} from "typeorm";
 
 class PlacesRouter {
 
@@ -11,16 +13,26 @@ class PlacesRouter {
       this.routes();
     }
 
-    public AddPlace(req: Request, res: Response, next: NextFunction): void {
-        let code = res.statusCode;
+    public async AddPlace(req: Request, res: Response, next: NextFunction){
+        
+        var AddPlaces=new Place();
+          AddPlaces.Name="ArtsCape";
+          AddPlaces.Address=" 45 Avenue";
+          AddPlaces.City="Cape Town";
+
+          let PlaceRepository = getRepository(Place);
+          await PlaceRepository.save(AddPlaces);
+          console.log("M i saved?");
+          
         res.json({
-            code
+          Results:AddPlaces
         });
+      
     }
   
     // set up our routes
     routes() {
-      this.router.get('/add', this.AddPlace);
+      this.router.post('/add', this.AddPlace);
     }
   
 }
