@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { Router, Request, Response, NextFunction } from 'express';
+import { Place } from "../entities/Place";
 
 class PlacesRouter {
 
@@ -19,12 +20,9 @@ class PlacesRouter {
   
     // set up our routes
     routes() {
-      this.router.get('/', this.GetPlaces);
+      this.router.get('/api/v1/places', this.GetPlaces);
     }
   
 }
-  
-const placesRoute = new PlacesRouter();
-placesRoute.routes();
 
-export default placesRoute.router;
+export default new PlacesRouter().router;

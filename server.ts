@@ -2,17 +2,19 @@ import "reflect-metadata";
 import * as logger from 'morgan';
 import * as express from 'express';
 import * as cors from 'cors';
-import { Place } from "./entity/Place";
 import * as bodyParser from 'body-parser';
 import { createConnection } from "typeorm";
 import * as cookieParser from 'cookie-parser';
 
+// Import the entities
+import { Place } from "./src/entities/Place";
+
 // Import all the routes
-import GetPlaces from "./routes/GetPlaces";
+import GetPlaces from "./src/routes/GetPlaces";
 
 createConnection()
   .then(async connection => {
-    console.log('database connection was a success');
+    console.log('database connection was a success!');
   }).then( () => {
         // Creates and configures an ExpressJS web server.
         class App {
@@ -43,6 +45,9 @@ createConnection()
     
           // Configure API endpoints.
           public routes(): void {
+            let router = express.Router();
+
+            this.app.use('/', router);
             this.app.use('/api/v1/places', GetPlaces);
           }
         }
