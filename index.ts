@@ -2,7 +2,6 @@ import * as http from 'http';
 import * as debug from 'debug';
 
 import Server from './server';
-console.log('test');
 
 debug('ts-express:server');
 
