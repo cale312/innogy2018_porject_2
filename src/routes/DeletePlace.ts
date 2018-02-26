@@ -12,9 +12,9 @@ class PlacesRouter {
     }
 
     public DeletePlace(req: Request, res: Response, next: NextFunction): void {
-        let msg = res.statusMessage;
+        let code = res.statusCode;
         res.json({
-            msg
+            code
         });
     }
   

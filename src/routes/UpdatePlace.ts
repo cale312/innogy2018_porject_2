@@ -12,9 +12,9 @@ class PlacesRouter {
     }
 
     public UpdatePlace(req: Request, res: Response, next: NextFunction): void {
-        let msg = res.statusMessage;
+        let code = res.statusCode;
         res.json({
-            msg
+            code
         });
     }
   
