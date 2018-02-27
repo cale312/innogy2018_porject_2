@@ -3,21 +3,11 @@ import * as logger from 'morgan';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
-import {
-  createConnection
-} from "typeorm";
+import { createConnection } from "typeorm";
 import * as cookieParser from 'cookie-parser';
 
 // Import the entities
-import {
-  Place
-} from "./src/entities/Place";
-
-// Import all the routes
-import GetPlaces from "./src/routes/GetPlaces";
-// import AddPlace from "./src/routes/AddPlace";
-// import DeletePlace from "./src/routes/DeletePlace";
-// import UpdatePlace from "./src/routes/UpdatePlace";
+import { Place } from "./src/entity/Place.entity";
 
 createConnection()
   .then(async connection => {
@@ -57,11 +47,54 @@ class Server {
   public routes(): void {
     let router = express.Router();
 
+    // Home route
     this.app.use('/', router);
-    // this.app.use('/api/v1/places', AddPlace);
-    this.app.use('/api/v1/places', GetPlaces);
-    // this.app.use('/api/v1/places', DeletePlace);
-    // this.app.use('/api/v1/places', UpdatePlace);
+
+    // Get all places route
+    this.app.get('/api/v1/places', (req: any, res: any, next: any) => {
+      const code = res.statusCode;
+      res.json({
+        code,
+        msg: 'Get all places route'
+      });
+    });
+
+    // Get place by ID
+    this.app.get('/api/v1/places/:_placeId', (req: any, res: any, next: any) => {
+      const code = res.statusCode;
+      res.json({
+        code,
+        msg: 'Get place by id route'
+      });
+    });
+
+    // Add new places route
+    this.app.post('/api/v1/places', (req: any, res: any, next: any) => {
+      const code = res.statusCode;
+      res.json({
+        code,
+        msg: 'Add place route'
+      });
+    });
+
+    // Update places route
+    this.app.post('/api/v1/places/:_placeId/update', (req: any, res: any, next: any) => {
+      const code = res.statusCode;
+      res.json({
+        code,
+        msg: 'Update places route'
+      });
+    });
+
+    // Delete places route
+    this.app.get('/api/v1/places/:_placeId/delete', (req: any, res: any, next: any) => {
+      const code = res.statusCode;
+      res.json({
+        code,
+        msg: 'Delete places route'
+      });
+    });
+
   }
 }
 
