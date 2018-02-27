@@ -3,13 +3,14 @@ import * as logger from 'morgan';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
-import { createConnection } from "typeorm";
+import { createConnection, getRepository } from "typeorm";
 import * as cookieParser from 'cookie-parser';
 
 // Import the entities
 import { Place } from "./src/entity/Place.entity";
+import connection from "./src/config/connection";
 
-createConnection()
+createConnection(connection)
   .then(async connection => {
     console.log('database connection was a success!');
   })
@@ -51,11 +52,14 @@ class Server {
     this.app.use('/', router);
 
     // Get all places route
-    this.app.get('/api/v1/places', (req: any, res: any, next: any) => {
+    this.app.get('/api/v1/places', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
+      // create repository for the places entity
+      const _placesRepository = await getRepository(Place);
+      const places = await _placesRepository.find();
       res.json({
         code,
-        msg: 'Get all places route'
+        places
       });
     });
 
