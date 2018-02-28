@@ -58,10 +58,10 @@ class Server {
       const _placesRepository = await getRepository(Place);
       await _placesRepository
         .find()
-        .then( async (places: any) => {
+        .then( async (result: any) => {
           res.json({
             code,
-            places
+            result
           });
         })
         
@@ -75,10 +75,10 @@ class Server {
 
       await _placesRepository
         .findOneById(placeId)
-        .then( async (places: any) => {
+        .then( async (result: any) => {
           res.json({
             code,
-            places
+            result
           });
         })
 
