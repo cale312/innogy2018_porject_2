@@ -10,7 +10,7 @@ import * as cookieParser from 'cookie-parser';
 import { Place } from "./src/entity/Place.entity";
 import connection from "./src/config/connection";
 
-createConnection()
+createConnection(connection)
   .then(async connection => {
     console.log('database connection was a success!');
   })

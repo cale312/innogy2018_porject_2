@@ -7,10 +7,10 @@ import { Place } from '../entity/Place.entity';
 
 let connection: MysqlConnectionOptions = {
     type: "mysql",
-    host: "localhost",
+    host: "127.0.0.1",
     port: 3306,
     username: "root",
-    password: "yolanda1995",
+    password: "password",
     database: "placesofinterest",
     synchronize: true,
     logging: false,
