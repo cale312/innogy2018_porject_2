@@ -97,7 +97,8 @@ class Server {
     this.app.post('/api/v1/places/:_placeId/update', async(req: any, res: any, next: any) => {
       const code = res.statusCode;
       let toUpdate = await getRepository(Place);
-      let placeToUpdate = await toUpdate.findOneById(1);
+      let param = req.params._placeId;
+      let placeToUpdate = await toUpdate.findOneById(param);
   
       placeToUpdate.Name = req.body.Name;
       placeToUpdate.Address = req.body.Address;
@@ -112,10 +113,11 @@ class Server {
     });
 
     // Delete places route
-    this.app.get('/api/v1/places/:_placeId/delete', async(req: any, res: any, next: any) => {
+    this.app.post('/api/v1/places/:_Id/delete', async(req: any, res: any, next: any) => {
       const code = res.statusCode;
       let placeToDelete = await getRepository(Place);
-      let toDelete = await placeToDelete.findOneById(1);
+      let param = req.params._Id
+      let toDelete = await placeToDelete.findOneById(param);
       await placeToDelete.remove(toDelete)
 
       res.json({
