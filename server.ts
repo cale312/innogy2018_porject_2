@@ -76,10 +76,17 @@ class Server {
       await _placesRepository
         .findOneById(placeId)
         .then( async (place: any) => {
-          res.json({
-            code,
-            place
-          });
+          if (place) {
+            res.json({
+              code,
+              place
+            });
+          } else {
+            res.json({
+              code,
+              msg: 'Place does not exist, add it!'
+            });
+          }
         })
 
     });
