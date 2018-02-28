@@ -58,10 +58,10 @@ class Server {
       const _placesRepository = await getRepository(Place);
       await _placesRepository
         .find()
-        .then( async (result: any) => {
+        .then( async (places: any) => {
           res.json({
             code,
-            result
+            places
           });
         })
         
@@ -75,10 +75,10 @@ class Server {
 
       await _placesRepository
         .findOneById(placeId)
-        .then( async (result: any) => {
+        .then( async (place: any) => {
           res.json({
             code,
-            result
+            place
           });
         })
 
@@ -139,10 +139,11 @@ class Server {
 
       await placesRepository
         .remove(toDelete)
-        .then( (result) => {
+        .then( async (result) => {
+          let places = await placesRepository.find();
           res.json({
             code,
-            result
+            places
           });
         })
     });
