@@ -10,7 +10,17 @@ import * as cookieParser from 'cookie-parser';
 import { Place } from "./src/entity/Place.entity";
 import connection from "./src/config/connection";
 
+<<<<<<< HEAD
 createConnection(connection)
+=======
+// Import all the routes
+import GetPlaces from "./src/routes/GetPlaces";
+// import AddPlace from "./src/routes/AddPlace";
+import DeletePlace from "./src/routes/DeletePlace";
+// import UpdatePlace from "./src/routes/UpdatePlace";
+
+createConnection()
+>>>>>>> bec7043a9fa15960c9ce4bb1e9fb42867075cc39
   .then(async connection => {
     console.log('database connection was a success!');
   })
@@ -50,6 +60,7 @@ class Server {
 
     // Home route
     this.app.use('/', router);
+<<<<<<< HEAD
 
     // Get all places route
     this.app.get('/api/v1/places', async (req: any, res: any, next: any) => {
@@ -112,6 +123,12 @@ class Server {
       });
     });
 
+=======
+    // this.app.use('/api/v1/places', AddPlace);
+    this.app.use('/api/v1/places', GetPlaces);
+    this.app.use('/api/v1/places', DeletePlace);
+    // this.app.use('/api/v1/places', UpdatePlace);
+>>>>>>> bec7043a9fa15960c9ce4bb1e9fb42867075cc39
   }
 }
 
