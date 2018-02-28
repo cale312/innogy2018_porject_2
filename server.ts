@@ -73,25 +73,33 @@ class Server {
     });
 
     // Add new places route
+    
+
     this.app.post('/api/v1/places', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
-      console.log(req.body);
+      
       let AddPlace =new Place();
       let placesRepository= await getRepository(Place);
-      AddPlace.Name=req.body.Name;
-      AddPlace.Address=req.body.Address;
-      AddPlace.City=req.body.City;
-      AddPlace.Category=req.body.Category;
+      let toAvoidDuplicates=await placesRepository.findOne();
+      toAvoidDuplicates.Name=req.body.Name;
+      toAvoidDuplicates.Address=req.body.Address;
+      toAvoidDuplicates.City=req.body.City;
+      toAvoidDuplicates.Category=req.body.Category;
      
 
-      await placesRepository.save(AddPlace);
-         console.log("******",AddPlace);
+      await placesRepository.save(toAvoidDuplicates);
+         console.log("******",toAvoidDuplicates);
         res.json({
-         Results:AddPlace,
+         Results:toAvoidDuplicates,
          code,
          msg: 'Add place route'
-      }).catch(error => console.log(error));;
+      });
     });
+
+
+
+
+
 
     // Update places route
     this.app.post('/api/v1/places/:_placeId/update', async(req: any, res: any, next: any) => {
