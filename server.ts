@@ -10,12 +10,6 @@ import * as cookieParser from 'cookie-parser';
 import { Place } from "./src/entity/Place.entity";
 import connection from "./src/config/connection";
 
-// Import all the routes
-import GetPlaces from "./src/routes/GetPlaces";
-// import AddPlace from "./src/routes/AddPlace";
-import DeletePlace from "./src/routes/DeletePlace";
-// import UpdatePlace from "./src/routes/UpdatePlace";
-
 createConnection()
   .then(async connection => {
     console.log('database connection was a success!');
