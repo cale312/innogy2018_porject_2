@@ -82,8 +82,17 @@ class Server {
     });
 
     // Update places route
-    this.app.post('/api/v1/places/:_placeId/update', (req: any, res: any, next: any) => {
+    this.app.post('/api/v1/places/:_placeId/update', async(req: any, res: any, next: any) => {
       const code = res.statusCode;
+      let toUpdate = await getRepository(Place);
+      let placeToUpdate = await toUpdate.findOneById(1);
+  
+      placeToUpdate.Name = "req.body.Name";
+      placeToUpdate.Address = "req.body.Address";
+      placeToUpdate.City = "req.body.City";
+      placeToUpdate.Category = "req.body.Category";
+
+      await toUpdate.save(placeToUpdate);
       res.json({
         code,
         msg: 'Update places route'
@@ -91,8 +100,12 @@ class Server {
     });
 
     // Delete places route
-    this.app.get('/api/v1/places/:_placeId/delete', (req: any, res: any, next: any) => {
+    this.app.get('/api/v1/places/:_placeId/delete', async(req: any, res: any, next: any) => {
       const code = res.statusCode;
+      let placeToDelete = await getRepository(Place);
+      let toDelete = await placeToDelete.findOneById(1);
+      await placeToDelete.remove(toDelete)
+
       res.json({
         code,
         msg: 'Delete places route'
