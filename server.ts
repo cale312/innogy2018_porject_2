@@ -10,9 +10,7 @@ import * as cookieParser from 'cookie-parser';
 import { Place } from "./src/entity/Place.entity";
 import connection from "./src/config/connection";
 
-<<<<<<< HEAD
-createConnection(connection)
-=======
+
 // Import all the routes
 import GetPlaces from "./src/routes/GetPlaces";
 import AddPlace from "./src/routes/AddPlace";
@@ -21,7 +19,7 @@ import AddPlace from "./src/routes/AddPlace";
 // import UpdatePlace from "./src/routes/UpdatePlace";
 
 createConnection()
->>>>>>> 74ba8fc7ba37db0b611304dd04176d658c400bb6
+
   .then(async connection => {
     console.log('database connection was a success!');
   })
@@ -61,7 +59,7 @@ class Server {
 
     // Home route
     this.app.use('/', router);
-<<<<<<< HEAD
+
 
     // Get all places route
     this.app.get('/api/v1/places', async (req: any, res: any, next: any) => {
@@ -99,7 +97,7 @@ class Server {
       AddPlace.City=req.body.City;
       AddPlace.Category=req.body.Category;
      
-
+      let avoidDuplicate= await placesRepository.findOne();
       await placesRepository.save(AddPlace);
          console.log("******",AddPlace);
         res.json({
@@ -127,13 +125,12 @@ class Server {
       });
     });
 
-=======
+
     // this.app.use('/api/v1/places', AddPlace);
-    this.app.use('/api/v1/places', GetPlaces);
+    //this.app.use('/api/v1/places', GetPlaces);
     this.app.use('/api/v1/places', AddPlace);
     // this.app.use('/api/v1/places', DeletePlace);
     // this.app.use('/api/v1/places', UpdatePlace);
->>>>>>> 74ba8fc7ba37db0b611304dd04176d658c400bb6
   }
 }
 
