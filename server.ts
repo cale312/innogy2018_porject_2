@@ -64,8 +64,12 @@ class Server {
     });
 
     // Get place by ID
-    this.app.get('/api/v1/places/:_placeId', (req: any, res: any, next: any) => {
+    this.app.get('/api/v1/places/:_placeId', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
+      const placeId = req.params._placeId;
+      const _placesRepository = await getRepository(Place);
+      const places = await _placesRepository.findOneById(placeId);
+      
       res.json({
         code,
         msg: 'Get place by id route'
