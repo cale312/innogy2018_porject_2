@@ -87,10 +87,10 @@ class Server {
       let toUpdate = await getRepository(Place);
       let placeToUpdate = await toUpdate.findOneById(1);
   
-      placeToUpdate.Name = "Input.value";
-      placeToUpdate.Address = "adress.value";
-      placeToUpdate.City = "city.value";
-      placeToUpdate.Category = "category.value";
+      placeToUpdate.Name = "req.body.Name";
+      placeToUpdate.Address = "req.body.Address";
+      placeToUpdate.City = "req.body.City";
+      placeToUpdate.Category = "req.body.Category";
 
       await toUpdate.save(placeToUpdate);
       res.json({

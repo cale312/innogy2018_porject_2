@@ -11,7 +11,7 @@ let connection: MysqlConnectionOptions = {
     port: 3306,
     username: "root",
     password: "hellsgate",
-    database: "placesOfInterest",
+    database: "placesofinterest",
     synchronize: true,
     logging: false,
     entities: [
