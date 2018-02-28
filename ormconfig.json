@@ -1,0 +1,28 @@
+{
+   "type": "mysql",
+   "host": "localhost",
+   "port": 3306,
+   "username": "root",
+<<<<<<< HEAD
+   "password": "yolanda1995",
+=======
+   "password": "DoAiqfs5ro",
+>>>>>>> 58f4dc12edc8b826ea75dec47571a3c847fb866b
+   "database": "placesOfInterest",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}
