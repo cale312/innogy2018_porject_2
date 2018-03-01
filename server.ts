@@ -96,25 +96,22 @@ class Server {
 
     this.app.post('/api/v1/places', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
-      
       let AddPlace =new Place();
       let placesRepository= await getRepository(Place);
-
-      AddPlace.Name=req.body.Name;
-      AddPlace.Address=req.body.Address;
-      AddPlace.City=req.body.City;
-      AddPlace.Category=req.body.Category;
-
-      await placesRepository
-        .save(AddPlace)
-        .then( async (result: any) => {
-          let places = await placesRepository.find();
-          res.json({
-            code,
-            places
-          });
-        })
-    });
+      let toAvoidDuplicates=await placesRepository.findOne();
+      toAvoidDuplicates.Name=req.body.Name;
+      toAvoidDuplicates.Address=req.body.Address;
+      toAvoidDuplicates.City=req.body.City;
+      toAvoidDuplicates.Category=req.body.Category;
+      
+      await placesRepository.save(toAvoidDuplicates);
+      console.log("******",toAvoidDuplicates);
+      res.json({
+      Results:toAvoidDuplicates,
+      code,
+      msg: 'Add place route'
+      });
+      });
 
 
 
