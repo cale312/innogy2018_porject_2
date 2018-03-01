@@ -58,13 +58,13 @@ class Server {
       const _placesRepository = await getRepository(Place);
       await _placesRepository
         .find()
-        .then( async (places: any) => {
+        .then(async (places: any) => {
           res.json({
             code,
             places
           });
         })
-        
+
     });
 
     // Get place by ID
@@ -75,7 +75,7 @@ class Server {
 
       await _placesRepository
         .findOneById(placeId)
-        .then( async (place: any) => {
+        .then(async (place: any) => {
           if (place) {
             res.json({
               code,
@@ -92,26 +92,45 @@ class Server {
     });
 
     // Add new places route
-    
+
 
     this.app.post('/api/v1/places', async (req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      let AddPlace =new Place();
-      let placesRepository= await getRepository(Place);
-      let toAvoidDuplicates=await placesRepository.findOne();
-      toAvoidDuplicates.Name=req.body.Name;
-      toAvoidDuplicates.Address=req.body.Address;
-      toAvoidDuplicates.City=req.body.City;
-      toAvoidDuplicates.Category=req.body.Category;
       
-      await placesRepository.save(toAvoidDuplicates);
-      console.log("******",toAvoidDuplicates);
-      res.json({
-      Results:toAvoidDuplicates,
-      code,
-      msg: 'Add place route'
-      });
-      });
+      const code = res.statusCode;
+      let AddPlace = new Place();
+      let placesRepository = await getRepository(Place);
+
+      // Check if place with the same name exists 
+      let foundPlaceWithName = await placesRepository.findOne({ Name: req.body.Name });
+      console.log("FOUND PLACE WITH NAME", foundPlaceWithName);
+      // If place with same name is found, return error
+      if (foundPlaceWithName) {
+        res.json({
+          code,
+          msg: "Place already exist"
+        })
+        
+      }
+      else {
+        var place = {
+          Name:req.body.Name,
+          Address:req.body.Address,
+          City:req.body.City,
+          Category:req.body.Category
+        }
+        
+
+        await placesRepository.save(place);
+        console.log("******", place);
+        res.json({
+          Results: place,
+          code,
+          msg: 'Place is successfully added'
+        });
+        
+      }
+
+    });
 
 
 
@@ -119,12 +138,12 @@ class Server {
 
 
     // Update places route
-    this.app.post('/api/v1/places/:_placeId/update', async(req: any, res: any, next: any) => {
+    this.app.post('/api/v1/places/:_placeId/update', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
       let placesRepository = await getRepository(Place);
       let placeId = req.params._placeId;
       let placeToUpdate = await placesRepository.findOneById(placeId);
-  
+
       placeToUpdate.Name = req.body.Name;
       placeToUpdate.Address = req.body.Address;
       placeToUpdate.City = req.body.City;
@@ -132,7 +151,7 @@ class Server {
 
       await placesRepository
         .save(placeToUpdate)
-        .then( async (result: any) => {
+        .then(async (result: any) => {
           let places = await placesRepository.find();
           res.json({
             code,
@@ -142,7 +161,7 @@ class Server {
     });
 
     // Delete places route
-    this.app.post('/api/v1/places/:_placeId/delete', async(req: any, res: any, next: any) => {
+    this.app.post('/api/v1/places/:_placeId/delete', async (req: any, res: any, next: any) => {
       const code = res.statusCode;
       let placeId = req.params._Id;
       let placesRepository = await getRepository(Place);
@@ -150,7 +169,7 @@ class Server {
 
       await placesRepository
         .remove(toDelete)
-        .then( async (result) => {
+        .then(async (result) => {
           let places = await placesRepository.find();
           res.json({
             code,
