@@ -3,12 +3,21 @@ import * as logger from 'morgan';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
-import { createConnection, getRepository } from "typeorm";
+import {
+  createConnection,
+  getRepository
+} from "typeorm";
 import * as cookieParser from 'cookie-parser';
 
-// Import the entities
-import { Place } from "./src/entity/Place.entity";
+// import database connection configuration from the config folder
 import connection from "./src/config/connection";
+
+// import all the route files
+import getPlaceRoute from './src/routes/getPlacesRoute';
+import addPlaceRoute from './src/routes/addPlaceRoute';
+import deletePlaceRoute from './src/routes/deletePlaceRoute';
+import updatePlaceRoute from './src/routes/updatePlaceRoute';
+import getPlaceByIdRoute from './src/routes/getPlaceByIdRoute';
 
 createConnection(connection)
   .then(async connection => {
@@ -37,9 +46,9 @@ class Server {
 
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Credentials', 'true');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
-      res.header('Access-Control-Allow-Credentials', 'true');
       next();
     });
   }
@@ -50,110 +59,16 @@ class Server {
 
     // Home route
     this.app.use('/', router);
-
     // Get all places route
-    this.app.get('/api/v1/places', async (req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      // create repository for the places entity
-      const _placesRepository = await getRepository(Place);
-      await _placesRepository
-        .find()
-        .then( async (places: any) => {
-          res.json({
-            code,
-            places
-          });
-        })
-        
-    });
-
-    // Get place by ID
-    this.app.get('/api/v1/places/:_placeId', async (req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      const placeId = req.params._placeId;
-      const _placesRepository = await getRepository(Place);
-
-      await _placesRepository
-        .findOneById(placeId)
-        .then( async (place: any) => {
-          if (place) {
-            res.json({
-              code,
-              place
-            });
-          } else {
-            res.json({
-              code,
-              msg: 'Place does not exist, add it!'
-            });
-          }
-        })
-
-    });
-
+    this.app.use('/api/v1/places', getPlaceRoute);
     // Add new places route
-    this.app.post('/api/v1/places', async (req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      console.log(req.body);
-      let AddPlace =new Place();
-      let placesRepository= await getRepository(Place);
-
-      AddPlace.Name=req.body.Name;
-      AddPlace.Address=req.body.Address;
-      AddPlace.City=req.body.City;
-      AddPlace.Category=req.body.Category;
-
-      await placesRepository
-        .save(AddPlace)
-        .then( async (result: any) => {
-          let places = await placesRepository.find();
-          res.json({
-            code,
-            places
-          });
-        })
-    });
-
+    this.app.use('/api/v1/places', addPlaceRoute);
+    // Get place by ID
+    this.app.use('/api/v1/places/:_placeId', getPlaceByIdRoute);
     // Update places route
-    this.app.post('/api/v1/places/:_placeId/update', async(req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      let placesRepository = await getRepository(Place);
-      let placeId = req.params._placeId;
-      let placeToUpdate = await placesRepository.findOneById(placeId);
-  
-      placeToUpdate.Name = req.body.Name;
-      placeToUpdate.Address = req.body.Address;
-      placeToUpdate.City = req.body.City;
-      placeToUpdate.Category = req.body.Category;
-
-      await placesRepository
-        .save(placeToUpdate)
-        .then( async (result: any) => {
-          let places = await placesRepository.find();
-          res.json({
-            code,
-            places
-          });
-        })
-    });
-
+    this.app.use('/api/v1/places/:_placeId/update', updatePlaceRoute)
     // Delete places route
-    this.app.post('/api/v1/places/:_placeId/delete', async(req: any, res: any, next: any) => {
-      const code = res.statusCode;
-      let placeId = req.params._Id;
-      let placesRepository = await getRepository(Place);
-      let toDelete = await placesRepository.findOneById(placeId);
-
-      await placesRepository
-        .remove(toDelete)
-        .then( async (result) => {
-          let places = await placesRepository.find();
-          res.json({
-            code,
-            places
-          });
-        })
-    });
+    this.app.use('/api/v1/places/:_placeId/delete', deletePlaceRoute);
   }
 }
 
