@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
- let world = new google.maps.LatLng(-33.918861,18.423300)
+let world = new google.maps.LatLng(-33.918861,18.423300)
 var mapOptions1 = {
       center: world,
       zoom: 15,
@@ -9,26 +9,6 @@ var mapOptions1 = {
     }
     var map1 = new google.maps.Map(document.getElementById("googleMap1"), mapOptions1);
     return map1;
-  //}
-  
-  // function myMarker(Latitude, Longitude, map1) { //function that renders markers on the map
-  //   var marker = new google.maps.Marker({
-  //     position: new google.maps.LatLng(Latitude, Longitude),
-  //     draggable: false,
-  //     animation: google.maps.Animation.DROP,
-  //     map: map1
-  //   });
-  //   marker.addListener('click', toggleBounce);
-  // }
-  
-  
-  // function toggleBounce() { //Function that controls the markers to bounce and toggle as well as animation
-  //   if (marker.getAnimation() !== null) {
-  //     marker.setAnimation(null);
-  //   } else {
-  //     marker.setAnimation(google.maps.Animation.BOUNCE);
-  //   }
-  // }
 
   var infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
