@@ -35,6 +35,7 @@ class Server {
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
+    this.app.use(express.static('public'));
     this.app.use(bodyParser.json());
     this.app.use(cookieParser());
     this.app.use(logger('dev'));
@@ -64,7 +65,7 @@ class Server {
     // Get place by ID
     this.app.use('/api/v1/places', getPlaceByIdRoute);
     // Update places route
-    this.app.use('/api/v1/places', updatePlaceRoute)
+    this.app.use('/api/v1/places', updatePlaceRoute);
     // Delete places route
     this.app.use('/api/v1/places', deletePlaceRoute);
   }
