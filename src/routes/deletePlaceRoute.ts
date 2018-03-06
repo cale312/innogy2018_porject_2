@@ -29,7 +29,7 @@ class Route {
       };
 
       route() {
-          this.router.post('/:_placeId', this.deletePlace);
+          this.router.post('/:_placeId/delete', this.deletePlace);
       }
 
 }
