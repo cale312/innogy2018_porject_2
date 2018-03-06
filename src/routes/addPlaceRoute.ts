@@ -13,7 +13,6 @@ class Route {
 
     public addPlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
-        console.log(req.body);
         let AddPlace = new Place();
         let placesRepository = await getRepository(Place);
     
