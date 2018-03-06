@@ -1,17 +1,28 @@
 import * as http from 'http';
 import * as debug from 'debug';
+const chalk = require('chalk');
 
 import Server from './server';
+import { createConnection } from 'typeorm';
+import connection from './src/config/connection';
 
 debug('ts-express:server');
 
-const port = normalizePort(process.env.PORT || 8000);
+const port = process.env.PORT || 8000;
 Server.set('port', port);
 
-console.log(`Server listening on port ${port}`);
+console.log(chalk.bgCyan(`====[ Server port config ]====\nServer listening on port ${port}`));
+
+createConnection(connection)
+  .then(async connection => {
+    console.log(chalk.bgMagenta(' =====[ Database Connection ]=====\nDatabase connection was a success!\n'));
+  })
+  .catch(error => console.log(error));
 
 const server = http.createServer(Server);
-server.listen(port);
+Server.listen(port);
+
+module.exports = Server;
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -44,3 +55,4 @@ function onListening(): void {
   let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
+  
