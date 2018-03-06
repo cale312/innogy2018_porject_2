@@ -32,14 +32,24 @@ describe('', () => {
                     Category: "tester",
                     Address: "tes"
                 }
+
+                let data2 = {
+                    Name: "test2",
+                    City: "testing2",
+                    Category: "tester2",
+                    Address: "tes2"
+                }
     
                 agent
                     .post('/api/v1/places')
                     .send(data)
-                    .then( (res) => {
-                        // console.log(res.body);
-                        done();
-                    })
+                    .then( (res) => {})
+
+                agent
+                    .post('/api/v1/places')
+                    .send(data2)
+                    .then( (res) => {})
+                    done();
             })
     })
 
@@ -51,7 +61,7 @@ describe('', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.places.should.be.a('array');
-                    res.body.places.length.should.be.eql(1);
+                    res.body.places.length.should.be.eql(2);
                     done();
                 });
         });
@@ -60,7 +70,6 @@ describe('', () => {
             agent
                 .get('/api/v1/places/test')
                 .end((err, res) => {
-                    // console.log(res.body);
                     res.should.have.status(200);
                     res.body.place.should.be.a('object');
                     res.body.place.Name.should.equal('test');
@@ -83,7 +92,7 @@ describe('', () => {
 
     after( (done) => {
         let PlaceRepo = getRepository(Place);
-        PlaceRepo.query("DELETE FROM place WHERE name = 'test'");
+        PlaceRepo.query("DELETE FROM place WHERE name = 'test' AND name = 'test2'");
         done();
     });
 

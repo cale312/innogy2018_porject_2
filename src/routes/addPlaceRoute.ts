@@ -26,7 +26,7 @@ class Route {
         let foundPlaceWithName = await placesRepository.findOne({
             Name: req.body.Name
         });
-        console.log("FOUND PLACE WITH NAME", foundPlaceWithName);
+        
         // If place with same name is found, return error
         if (foundPlaceWithName) {
             res.json({
@@ -44,7 +44,6 @@ class Route {
 
 
             await placesRepository.save(place);
-            console.log("******", place);
             res.json({
                 Results: place,
                 code,
