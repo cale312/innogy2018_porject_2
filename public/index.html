@@ -15,23 +15,26 @@
   </style>
 </head>
 <body>
+    <div class="container centre">
  <h1> Places of Interest Finder!</h1>
   <div class="myMap">
-    <div id="googleMap1" style="width:90%;height:500px;"></div>
-    <div class="container">
+    <div id="map" style="width:90%;height:500px;"></div>
+    
       <h1>Add a new Place</h1>
-    <input type="text" placeholder="name">
-    <input type="text" placeholder="Address">
-    <input type="text" placeholder="City">
-    <input type="text" placeholder="Category">
-    <input type="button" value="Add Place" >
+    <input type="text" id="name" placeholder="name">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="city" placeholder="City">
+    <input type="text" id="category" placeholder="Category">
+    <button onclick="add()">Add</button>
   </div>
+  <br>
+  <br>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="javascript/main.js"></script>
   <script src="handlebars-v4.0.5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
           
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
 </body>
 
 </html>
