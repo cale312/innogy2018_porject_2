@@ -49,8 +49,8 @@ describe('', () => {
                     .post('/api/v1/places')
                     .send(data2)
                     .then( (res) => {})
-                    done();
-            })
+                })
+                done();
     })
 
     describe('DATABASE TESTS', () => {
