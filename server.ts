@@ -18,12 +18,8 @@ import addPlaceRoute from './src/routes/addPlaceRoute';
 import deletePlaceRoute from './src/routes/deletePlaceRoute';
 import updatePlaceRoute from './src/routes/updatePlaceRoute';
 import getPlaceByIdRoute from './src/routes/getPlaceByIdRoute';
+import getPlaceByNameRoute from "./src/routes/getPlaceByNameRoute";
 
-createConnection(connection)
-  .then(async connection => {
-    console.log('database connection was a success!');
-  })
-  .catch(error => console.log(error));
 // Creates and configures an ExpressJS web server.
 class Server {
   // ref to Express instance
@@ -61,15 +57,18 @@ class Server {
     this.app.use('/', router);
     // Get all places route
     this.app.use('/api/v1/places', getPlaceRoute);
+    // Get place by Name
+    this.app.use('/api/v1/places', getPlaceByNameRoute);
     // Add new places route
     this.app.use('/api/v1/places', addPlaceRoute);
     // Get place by ID
-    this.app.use('/api/v1/places/:_placeId', getPlaceByIdRoute);
+    this.app.use('/api/v1/places', getPlaceByIdRoute);
     // Update places route
-    this.app.use('/api/v1/places/:_placeId/update', updatePlaceRoute)
+    this.app.use('/api/v1/places', updatePlaceRoute)
     // Delete places route
-    this.app.use('/api/v1/places/:_placeId/delete', deletePlaceRoute);
+    this.app.use('/api/v1/places', deletePlaceRoute);
   }
+
 }
 
 // export
