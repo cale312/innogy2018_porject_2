@@ -34,7 +34,7 @@ class Route {
       };
 
     route() {
-        this.router.post('/:_placeId', this.updatePlace);
+        this.router.post('/:_placeId/update', this.updatePlace);
     }
 
 }
