@@ -1,6 +1,12 @@
-import { Place } from "../entity/Place.entity";
-import { getRepository } from "typeorm";
-import { Router } from "express";
+import {
+    Place
+} from "../entity/Place.entity";
+import {
+    getRepository
+} from "typeorm";
+import {
+    Router
+} from "express";
 
 class Route {
 
@@ -15,26 +21,41 @@ class Route {
         const code = res.statusCode;
         let AddPlace = new Place();
         let placesRepository = await getRepository(Place);
-    
-        AddPlace.Name = req.body.Name;
-        AddPlace.Address = req.body.Address;
-        AddPlace.City = req.body.City;
-        AddPlace.Category = req.body.Category;
-    
-        await placesRepository
-          .save(AddPlace)
-          .then(async (result: any) => {
-            let places = await placesRepository.find();
-            res.json({
-              code,
-              places
-            });
-          })
-      };
 
-      route() {
-          this.router.post('/', this.addPlace);
-      }
+        // Check if place with the same name exists 
+        let foundPlaceWithName = await placesRepository.findOne({
+            Name: req.body.Name
+        });
+        
+        // If place with same name is found, return error
+        if (foundPlaceWithName) {
+            res.json({
+                code,
+                msg: "Place already exist"
+            })
+
+        } else {
+            var place = {
+                Name: req.body.Name,
+                Address: req.body.Address,
+                City: req.body.City,
+                Category: req.body.Category
+            }
+
+
+            await placesRepository.save(place);
+            res.json({
+                Results: place,
+                code,
+                msg: 'Place is successfully added'
+            });
+
+        }
+    };
+
+    route() {
+        this.router.post('/', this.addPlace);
+    }
 
 }
 

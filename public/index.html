@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Places of interest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
+    <!-- AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
+
+  </style>
+</head>
+<body>
+
+ <h1> Places of Interest Finder!</h1>
+  <div class="myMap">
+    <div id="googleMap1" style="width:90%;height:500px;"></div>
+  <div  class="container center" id="display"></div>  
+ <!-- <input type="text" name="name" id="name"> 
+  <input type="text" name="address" id="address"> 
+  <input type="text" name="city" id="city">
+  <input type="text" name="category" id="category">
+  <input type="submit" onclick="addingPlaces()" name="add" id="add">-->
+   <!-- handlebars template-->
+   <script id="placeTemplate" type="text/x-handlebars-template">
+    {{#each interestPlace}}
+    
+      <p>{{this}}</p>
+      <p>{{this}}</p>
+      <p>{{this}}</p>
+      <p>{{this}}</p>
+    
+    {{/each}}
+    </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="javascript/main.js"></script>
+  <script src="handlebars-v4.0.5.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A"></script>
+</body>
+
+
+</html>
