@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Places of interest</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
     <!-- AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
@@ -11,31 +15,30 @@
   </style>
 </head>
 <body>
-
+    <div class="container centre">
  <h1> Places of Interest Finder!</h1>
   <div class="myMap">
-    <div id="googleMap1" style="width:90%;height:500px;"></div>
-  <div  class="container center" id="display"></div>  
- <!-- <input type="text" name="name" id="name"> 
-  <input type="text" name="address" id="address"> 
-  <input type="text" name="city" id="city">
-  <input type="text" name="category" id="category">
-  <input type="submit" onclick="addingPlaces()" name="add" id="add">-->
-   <!-- handlebars template-->
-   <script id="placeTemplate" type="text/x-handlebars-template">
-    {{#each interestPlace}}
+    <div id="map" style="width:90%;height:500px;"></div>
     
-      <p>{{this}}</p>
-      <p>{{this}}</p>
-      <p>{{this}}</p>
-      <p>{{this}}</p>
+      <h1>Add a new Place</h1>
+    <input type="text" id="name" placeholder="name">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="city" placeholder="City">
+    <input type="text" id="category" placeholder="Category">
     
-    {{/each}}
-    </script>
+
+    <input type="button" id="addPlaces" value="Add Places">
+    <input type="button" id="getPlaces" value="Get Places">
+
+  </div>
+  <br>
+  <br>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="javascript/main.js"></script>
   <script src="handlebars-v4.0.5.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+          
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
 </body>
 
 

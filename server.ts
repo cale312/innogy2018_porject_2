@@ -8,6 +8,10 @@ import {
   getRepository
 } from "typeorm";
 import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
+import * as exphbs from 'express-handlebars';
+import * as flash from 'express-flash';
+
 
 // import database connection configuration from the config folder
 import connection from "./src/config/connection";
@@ -32,6 +36,7 @@ class Server {
   }
   // Configure Express middleware.
   private middleware(): void {
+    this.app.use(express.static('public'));
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -40,6 +45,7 @@ class Server {
     this.app.use(cookieParser());
     this.app.use(logger('dev'));
     this.app.use(cors());
+    
 
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
