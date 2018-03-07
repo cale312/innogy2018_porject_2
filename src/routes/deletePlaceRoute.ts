@@ -1,6 +1,12 @@
-import { getRepository } from "typeorm";
-import { Place } from "../entity/Place.entity";
-import { Router } from "express";
+import {
+    getRepository
+} from "typeorm";
+import {
+    Place
+} from "../entity/Place.entity";
+import {
+    Router
+} from "express";
 
 class Route {
 
@@ -13,24 +19,28 @@ class Route {
 
     public deletePlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
-        let placeId = req.params._Id;
+        let placeName = req.params._placeName;
         let placesRepository = await getRepository(Place);
-        let toDelete = await placesRepository.findOneById(placeId);
-    
-        await placesRepository
-          .remove(toDelete)
-          .then(async (result) => {
-            let places = await placesRepository.find();
-            res.json({
-              code,
-              places
-            });
-          })
-      };
 
-      route() {
-          this.router.post('/:_placeId/delete', this.deletePlace);
-      }
+        let toDelete = await placesRepository.findOne({
+            Name: placeName
+        });
+
+        await placesRepository
+            .remove(toDelete)
+            .then(async (result) => {
+                let places = await placesRepository.find();
+                res.json({
+                    code,
+                    places
+                });
+            })
+
+    };
+
+    route() {
+        this.router.post('/:_placeName/delete', this.deletePlace);
+    }
 
 }
 
