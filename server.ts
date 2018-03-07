@@ -5,16 +5,20 @@ import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { createConnection, getRepository } from "typeorm";
 import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
+import * as exphbs from 'express-handlebars';
+import * as flash from 'express-flash';
+
 
 // Import the entities
 import { Place } from "./src/entity/Place.entity";
 import connection from "./src/config/connection";
 
 createConnection(connection)
-  .then(async connection => {
-    console.log('database connection was a success!');
-  })
-  .catch(error => console.log(error));
+.then(async connection => {
+  console.log('database connection was a success!');
+})
+.catch(error => console.log(error));
 // Creates and configures an ExpressJS web server.
 class Server {
   // ref to Express instance
@@ -27,6 +31,7 @@ class Server {
   }
   // Configure Express middleware.
   private middleware(): void {
+    this.app.use(express.static('public'));
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
@@ -35,6 +40,7 @@ class Server {
     this.app.use(cookieParser());
     this.app.use(logger('dev'));
     this.app.use(cors());
+    
 
     this.app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
@@ -48,9 +54,6 @@ class Server {
   // Configure API endpoints.
   public routes(): void {
     let router = express.Router();
-
-    // Home route
-    this.app.use('/', router);
 
     // Get all places route
     this.app.get('/api/v1/places', async (req: any, res: any, next: any) => {
