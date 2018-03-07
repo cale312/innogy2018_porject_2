@@ -19,25 +19,27 @@ class Route {
 
     public updatePlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
-        let placesRepository = await getRepository(Place);
         let placeName = req.params._placeName;
-        let placeToUpdate = await placesRepository.findOneById(placeName);
-
-        placeToUpdate.Address = req.body.Address;
-
-        await placesRepository
-            .save(placeToUpdate)
-            .then(async (result: any) => {
-                let places = await placesRepository.find();
-                res.json({
-                    code,
-                    places
-                });
+        let placesRepository = await getRepository(Place);
+        
+        placesRepository.findOne({ Name: placeName })
+            .then( async (place) => {
+                place.Address = req.body.Address;
+        
+                await placesRepository
+                    .save(place)
+                    .then(async (place: any) => {
+                        res.json({
+                            code,
+                            place
+                        });
+                    })
             })
+
     };
 
     route() {
-        this.router.post('/:_placeName/update', this.updatePlace);
+        this.router.put('/:_placeName/update', this.updatePlace);
     }
 
 }
