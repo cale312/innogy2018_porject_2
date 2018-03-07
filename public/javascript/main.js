@@ -145,7 +145,7 @@ $(document).ready(function() {
 
                     //Delete ajax call from the database
                     $("#deletePlace").click(function(id){
-                      alert("mmmmm");
+                      alert("mmmmm")
                       id=$(id).data("id");
                       $.ajax({
                         url:"/api/v1/places"+id,
