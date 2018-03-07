@@ -25,7 +25,7 @@ describe('', () => {
 
     before((done: any) => {
         createConnection(connection)
-            .then( (connection) => {
+            .then((connection) => {
                 let data = {
                     Name: "test",
                     City: "testing",
@@ -39,18 +39,19 @@ describe('', () => {
                     Category: "tester2",
                     Address: "tes2"
                 }
-    
-                agent
-                    .post('/api/v1/places')
-                    .send(data)
-                    .then( (res) => {})
 
                 agent
                     .post('/api/v1/places')
-                    .send(data2)
-                    .then( (res) => {})
-                })
-                done();
+                    .send(data)
+                    .then((res) => {
+                        agent
+                            .post('/api/v1/places')
+                            .send(data2)
+                            .then((res) => {
+                                done();
+                            })
+                    })
+            })
     })
 
     describe('DATABASE TESTS', () => {
@@ -88,9 +89,20 @@ describe('', () => {
                 });
         });
 
+        it('should remove place from the dabase and return length of items decremented by one', (done: any) => {
+            agent
+                .post('/api/v1/places/test/delete')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.places.should.be.a('array');
+                    res.body.places.length.should.be.eql(1);
+                    done();
+                });
+        });
+
     });
 
-    after( (done) => {
+    after((done) => {
         let PlaceRepo = getRepository(Place);
         PlaceRepo.query("DELETE FROM place WHERE name = 'test' AND name = 'test2'");
         done();
