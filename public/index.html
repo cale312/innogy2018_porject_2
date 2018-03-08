@@ -1,43 +1,85 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Places of interest</title>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
-    <!-- AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Places of interest</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
+  <!-- API Key AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
 
   </style>
 </head>
-<body>
-    <div class="container centre">
- <h1> Places of Interest Finder!</h1>
-  <div class="myMap">
-    <div id="map" style="width:90%;height:500px;"></div>
-    
-      <h1>Add a new Place</h1>
-    <input type="text" id="name" placeholder="name">
-    <input type="text" id="address" placeholder="Address">
-    <input type="text" id="city" placeholder="City">
-    <input type="text" id="category" placeholder="Category">
-    
 
-    <input type="button" id="addPlaces" value="Add Places">
-    <input type="button" id="getPlaces" value="Get Places">
+<body class="pink">
 
+
+
+  <h1> Places of Interest Finder!</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+
+        <div class="myMap">
+          <div id="map" style="width:90%;height:500px;"></div>
+        </div>
+      </div>
+
+
+      <div class="col s12 m6">
+        <div class="listOfPlaces">
+          <script id="closePlaces" type="text/x-handlebars-template">
+            {{#each data}}
+            <div class="card">
+              <div class="card-image">
+                <img src="images/download.jpeg">
+                <span class="card-title">{{this.Name}}</span>
+                <a class="btn-floating halfway-fab waves-effect waves-light red">
+                  <i class="material-icons">add</i>
+                </a>
+              </div>
+              <div class="card-content">
+                <p> {{this.Address}} </p>
+                <p> {{this.City}} </p>
+                <p>{{this.Category}} </p>
+                <input type="button" id="{{_id}}" value="upadate" class="update">
+                <input type="button" id="{{_id}}" value="Delete" class="delete">
+              </div>
+            </div>
+            {{/each}}
+          </script>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m3">
+        <h1>Add a new Place</h1>
+        <input type="text" id="name" placeholder="name">
+        <input type="text" id="address" placeholder="Address">
+        <input type="text" id="city" placeholder="City">
+        <input type="text" id="category" placeholder="Category">
+
+
+        <input type="button" id="addPlaces" value="Add Places">
+        <input type="button" id="getPlaces" value="Get Places">
+      </div>
+    </div>
   </div>
   <br>
   <br>
+  <script src="handlebars-v4.0.5.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="javascript/main.js"></script>
-  <script src="handlebars-v4.0.5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-          
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
 </body>
 
