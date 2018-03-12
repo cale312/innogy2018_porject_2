@@ -1,0 +1,79 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.wrapper > div {
+    padding: 1em;
+}
+
+.places-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+    grid-column: 3;
+    grid-row: 1/3;
+}
+
+.filter-box {
+    margin-left: 50px;
+    white-space: nowrap;
+}
+
+.places-box > div {
+    padding: 1em;
+    background-color: #af4448;
+    color: whitesmoke;
+}
+
+.places-box .place-img {
+    padding: 10em;
+    background-image: url('http://www.sparrowhawkhotel.co.uk/wp-content/uploads/2017/07/the-art-shop-1024x768.jpg');
+    background-size: cover;
+}
+
+.places-box > div:nth-child(odd) {
+    background-color: #ff867f;
+}
+
+.place-action > span {
+    padding: .5em;cursor: pointer;
+}
+
+.place-action > span:hover {
+    color: lightblue;
+}
+
+.link {
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: lightpink;
+}
+
+@media(max-width: 550px) {
+    .places-box {
+        grid-template-columns: 1fr;
+        overflow: auto;
+        overflow-x: hidden;
+        height: 490px;
+    }
+    .wrapper {
+        display: inline;
+    }
+    .filter-box {
+        margin: 0px;
+        text-align: center;
+        white-space: normal;
+    }
+    .filter-box span {
+        padding: .9em;
+    }
+    br {
+        display: none;
+    }
+
+}
