@@ -25,7 +25,6 @@
   </nav>
 
 
-
   <input class="displayMap" type="button" value="Get Map"> 
   <div class="container">
     <div class="row">
@@ -52,8 +51,8 @@
                 <p> {{this.Address}} </p>
                 <p> {{this.City}} </p>
                 <p>{{this.Category}} </p>
-                <input type="button" id="{{_id}}" value="upadate" class="update">
-                <input type="button" id="{{_id}}" value="Delete" class="delete">
+                <input type="button" id="update{{this.ID}}" value="Update" class="update">
+                <input type="button" id="delete{{this.ID}}" value="Delete" class="delete">
               </div>
             </div>
             {{/each}}

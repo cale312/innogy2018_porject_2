@@ -52,7 +52,10 @@ $("#getPlaces").click(function () {
     document.querySelector(".listOfPlaces").innerHTML = template({
       data: data.places
     })
+ 
+ 
   })
+
 })
 
 
@@ -81,3 +84,44 @@ $("#addPlaces").on('click', function () {
     }
   })
 });
+
+$("#update").on('click',function(e){
+  console.log("I want to update you");
+  console.log(e);
+})
+
+function main()
+{
+    var inputFileToLoad = document.createElement("input");
+    inputFileToLoad.type = "file";
+    inputFileToLoad.id = "inputFileToLoad";
+    document.body.appendChild(inputFileToLoad);
+
+    var buttonLoadFile = document.createElement("button");
+    buttonLoadFile.onclick = loadImageFileAsURL;
+    buttonLoadFile.textContent = "Load Selected File";
+    document.body.appendChild(buttonLoadFile);
+}
+
+function loadImageFileAsURL()
+{
+    var filesSelected = document.getElementById("inputFileToLoad").files;
+    if (filesSelected.length > 0)
+    {
+        var fileToLoad = filesSelected[0];
+
+        if (fileToLoad.type.match("image.*"))
+        {
+            var fileReader = new FileReader();
+            fileReader.onload = function(fileLoadedEvent) 
+            {
+                var imageLoaded = document.createElement("img");
+                imageLoaded.src = fileLoadedEvent.target.result;
+                document.body.appendChild(imageLoaded);
+            };
+            fileReader.readAsDataURL(fileToLoad);
+        }
+    }
+}
+
+main();
