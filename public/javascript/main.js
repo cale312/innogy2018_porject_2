@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   var allCities;
 
@@ -33,17 +32,11 @@ $(document).ready(function () {
           });
         }
       }
-      return initialize();
-      
-      // Run the initialize function when the window has finished loading.
-      google.maps.event.addDomListener(window, 'load', initialize);
-    
-
-
-     
     });
-  }
-})
+  };
+  return initialize();
+});
+
     
         //get route that gets data from the database
       
@@ -85,24 +78,24 @@ $(document).ready(function () {
 
 
                    //get all from database
-                  function getAll(){
-                    var placeTemplate = document.querySelector('#placeTemplate').innerHTML;
-                    var template = Handlebars.compile(placeTemplate);
+                  // function getAll(){
+                  //   var placeTemplate = document.querySelector('#placeTemplate').innerHTML;
+                  //   var template = Handlebars.compile(placeTemplate);
                      
-                        $.ajax({
-                            url: 'http://localhost:8000/api/v1/places',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (results) {
-                                //handlebars template that will carry places details
-                                $("#display").html(template({
-                                  interestPlace: results.places
-                                  }));
+                  //       $.ajax({
+                  //           url: 'http://localhost:8000/api/v1/places',
+                  //           type: 'GET',
+                  //           dataType: 'json',
+                  //           success: function (results) {
+                  //               //handlebars template that will carry places details
+                  //               $("#display").html(template({
+                  //                 interestPlace: results.places
+                  //                 }));
                                 
-                            },
-                        });
-                      };
-                      getAll();
+                  //           },
+                  //       });
+                  //     };
+                  //     getAll();
 
 
 
