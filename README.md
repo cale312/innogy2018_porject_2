@@ -7,12 +7,12 @@ Innogy project Two, interacting two APIs
 
  #### App onload
   
-   ![Project Schools Finder](images/schoolfinder.png)
+   ![Selected places of Interest](images/schoolfinder.png)
 
 
  #### More information.
 
-   ![Project Schools Finder](images/results.png)
+   ![Place Description](images/results.png)
 
 
 
