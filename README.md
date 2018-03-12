@@ -1,17 +1,16 @@
-# Awesome Project Build with TypeORM
 # Places of interest
-# Where to go?
+
 Innogy project Two, interacting two APIs
 
-# Schools Projects Finder
+# Places of Interest.
 * This is a web app that allows users to add places of interest onto a map. Show a list of all the places added to the map, and make it easy for the user to search for places added to the map.
 
- #### Project Schools Finder
+ #### App onload
   
    ![Project Schools Finder](images/schoolfinder.png)
 
 
- #### Project Schools Finder search results
+ #### More information.
 
    ![Project Schools Finder](images/results.png)
 
