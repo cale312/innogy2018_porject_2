@@ -10,22 +10,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
 </head>
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Logo</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li>
-        <a href="sass.html">Sass</a>
-      </li>
-      <li>
-        <a href="badges.html">Components</a>
-      </li>
-      <li>
-        <a href="collapsible.html">JavaScript</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a href="sass.html">Sass</a>
+        </li>
+        <li>
+          <a href="badges.html">Components</a>
+        </li>
+        <li>
+          <a href="collapsible.html">JavaScript</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <body>
   <div class="main">
@@ -62,15 +65,16 @@
         </span>
       </div>
       <div class="listOfPlaces">
-      <script id="closePlaces" type="text/x-handlebars-template">
-        <div class="places-box">
+        <script id="closePlaces" type="text/x-handlebars-template">
+          <div class="places-box">
           {{#each data}}
-          <div>
 
-          <h3>{{this.Name}}</h3>
-          <div class="place-img center"></div>
+
+        <div>
+          <a href="place.html"><div class="place-img center"></div></a>
           <hr style="visibility: hidden;">
           <div class="place-action">
+            <h6 class="center"> {{this.Name}}</h6>
             <span>
               <i class="material-icons">thumb_up</i>
               <i>10k</i>
@@ -85,25 +89,21 @@
             </span>
           </div>
           <div class="place-content">
-            <p>{{this.Address}}</p>
+              <p>{{this.Address}}</p>
             <p>{{this.City}}</p>
             <p>{{this.Category}}</p>
-            <div class="car">
-              <hr>
-            </div>
-            <a class="link btn teal"><i class="tiny material-icons right">launch</i>show map</a>
           </div>
-          </div>
-          {{/each}}
-          </script> <br>
-          </div>
-          </div>
-          </div>
-          </div>
-   
-        
+        </div>
+        {{/each}}
+      </script>
 
-  <!-- <input type="button" value="get" id="getPlaces"> -->
+
+      <hr style="width: 50%;">
+      <div class="wrapper">
+        <div></div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script src="handlebars-v4.0.5.js"></script>
