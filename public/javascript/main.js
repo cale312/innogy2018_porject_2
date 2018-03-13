@@ -14,6 +14,11 @@
         mapTypeId: 'roadmap'
       });
 
+
+
+
+      
+
       // Create the search box and link it to the UI element.
       var input = document.getElementById('pac-input');
       var searchBox = new google.maps.places.SearchBox(input);
@@ -31,10 +36,10 @@
         var places = searchBox.getPlaces();
         if(places.length >1){
           places.map( (place) => {
-            console.log(place.formatted_address)
+            console.log(place)
           })
         } else{
-          console.log(places[0].formatted_address)
+          console.log(places[0])
 
         }
 
@@ -80,6 +85,7 @@
         });
         map.fitBounds(bounds);
       });
+      
     }
 
 
@@ -181,3 +187,8 @@
 // }
 
 // main();
+
+
+
+
+
