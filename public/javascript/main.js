@@ -1,42 +1,55 @@
 $(document).ready(function () {
   var allCities;
 
-  $(".displayMap").click(function(){
-  function initialize() {
-    var pyrmont = new google.maps.LatLng(-33.918861, 18.423300);
+  $('input.autocomplete').autocomplete({
+    data: {
+      "Mzoli": null,
+      "Fugard": null,
+      "Artscape": null
+    },
+    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+    onAutocomplete: function (val) {
+      // Callback function when value is autcompleted.
+    },
+    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+  });
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: pyrmont,
-      zoom: 15,
-      scrollwheel: false
-    });
+  $(".displayMap").click(function () {
+    function initialize() {
+      var pyrmont = new google.maps.LatLng(-33.918861, 18.423300);
 
-    // Specify location, radius and place types for your Places API search.
-    var request = {
-      location: pyrmont,
-      radius: '50000',
-      types: ['hotel,restaurant,cafe']
-    };
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: pyrmont,
+        zoom: 15,
+        scrollwheel: false
+      });
 
-    //Create the PlaceService and send the request.
-    //Handle the callback with an anonymous function. 
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, function (results, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          var place = results[i];
-          // console.log(place);
+      // Specify location, radius and place types for your Places API search.
+      var request = {
+        location: pyrmont,
+        radius: '50000',
+        types: ['hotel,restaurant,cafe']
+      };
 
-          var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
-          });
+      //Create the PlaceService and send the request.
+      //Handle the callback with an anonymous function. 
+      var service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(request, function (results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            // console.log(place);
+
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+          }
         }
-      }
-    });
-  };
-  return initialize();
-});
+      });
+    };
+    return initialize();
+  });
 });
 
 let interestingPlaces = document.getElementById("closePlaces").innerHTML;

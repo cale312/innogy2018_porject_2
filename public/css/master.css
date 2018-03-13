@@ -52,6 +52,10 @@
     cursor: pointer;
 }
 
+.search-box {
+    width: 100%;
+}
+
 /* For the selected place page */
  .reviews {
     display: grid;
@@ -87,7 +91,20 @@
     vertical-align: middle;
  }
 
-@media(max-width: 550px) {
+ .map {
+    
+ }
+
+ .map .top-title {
+     display: block;
+ }
+
+ .map .bottom-title {
+    display: none;
+}
+
+@media(max-width: 900px) {
+    /* Search Page */
     .places-box {
         grid-template-columns: 1fr;
         overflow: auto;
@@ -108,8 +125,31 @@
     .filter-box span {
         padding: .9em;
     }
-    br {
+    .filter-box br {
         display: none;
+    }
+    .search-box {
+        width: 50%;
+        margin-left: 30%;
+    }
+
+    /* Selected Place Page */
+    .selected-place-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .map {
+        display: block;
+    }
+    .map .top-title {
+        display: none;
+    }
+    .map .bottom-title {
+        display: block;
+    }
+    .reviews {
+        width: 100%;
+
     }
 
 }
