@@ -158,7 +158,7 @@ $(document).ready(function () {
                     
                   
 
-let interestingPlaces = document.getElementById("closePlaces").innerHTML;
+let interestingPlaces = document.getElementById("closePlaces").html();
 let template = Handlebars.compile(interestingPlaces);
 
 //get route that gets data from the database
@@ -200,3 +200,8 @@ $("#addPlaces").on('click', function () {
     }
   })
 })
+
+//filter 
+
+
+
