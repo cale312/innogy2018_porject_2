@@ -8,109 +8,22 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="css/map.css">
 </head>
 
-<div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>
-          <a href="sass.html">Sass</a>
-        </li>
-        <li>
-          <a href="badges.html">Components</a>
-        </li>
-        <li>
-          <a href="collapsible.html">JavaScript</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
 
+</head>
 <body>
-  <div class="main">
-    <div class="wrapper">
-      <div class="filter-box">
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="all" checked/>
-          <label for="all">All</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="coffee" />
-          <label for="coffee">Coffee Shops</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="museums" />
-          <label for="museums">Museums</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="artshops" />
-          <label for="artshops">Artshops</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="clubs" />
-          <label for="clubs">Clubs</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="park" />
-          <label for="park">Parks</label>
-        </span>
-      </div>
-      <div class="listOfPlaces">
-        <script id="closePlaces" type="text/x-handlebars-template">
-          <div class="places-box">
-          {{#each data}}
 
-
-        <div>
-          <a href="place.html"><div class="place-img center"></div></a>
-          <hr style="visibility: hidden;">
-          <div class="place-action">
-            <h6 class="center"> {{this.Name}}</h6>
-            <span>
-              <i class="material-icons">thumb_up</i>
-              <i>10k</i>
-            </span>
-            <span>
-              <i class="material-icons">thumb_down</i>
-              <i>1k</i>
-            </span>
-            <span>
-              <i class="material-icons">chat</i>
-              <i>10</i>
-            </span>
-          </div>
-          <div class="place-content">
-              <p>{{this.Address}}</p>
-            <p>{{this.City}}</p>
-            <p>{{this.Category}}</p>
-          </div>
-        </div>
-        {{/each}}
-      </script>
-
-
-      <hr style="width: 50%;">
-      <div class="wrapper">
-        <div></div>
-      </div>
-    </div>
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <div class="container center" id="map">
   </div>
-</body>
-
+  </body>
 <script src="handlebars-v4.0.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="javascript/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initAutocomplete"
+async defer></script>
 
 </html>

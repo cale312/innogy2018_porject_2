@@ -86,7 +86,7 @@
     padding: 5em;
     vertical-align: middle;
  }
-
+ 
 @media(max-width: 550px) {
     .places-box {
         grid-template-columns: 1fr;
