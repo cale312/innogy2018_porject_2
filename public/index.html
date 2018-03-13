@@ -65,13 +65,19 @@
           <label for="park">Parks</label>
         </span>
       </div>
-       
-      
-      <div class="places-box">
+
+      <div id="diplaySelectedPlaces"></div>
+      <div class="listOfPlaces">
+        <script id="closePlaces" type="text/x-handlebars-template">
+          <div class="places-box">
+          {{#each data}}
+
+
         <div>
           <a href="place.html"><div class="place-img center"></div></a>
           <hr style="visibility: hidden;">
           <div class="place-action">
+            <h6 class="center"> {{this.Name}}</h6>
             <span>
               <i class="material-icons">thumb_up</i>
               <i>10k</i>
@@ -86,94 +92,15 @@
             </span>
           </div>
           <div class="place-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloribus incidunt veniam facere harum maxime fugit voluptatibus rem deserunt est.</p>
+              <p>{{this.Address}}</p>
+            <p>{{this.City}}</p>
+            <p>{{this.Category}}</p>
           </div>
         </div>
-        <div>
-          <a href="place.html"><div class="place-img center"></div></a>
-          <hr style="visibility: hidden;">
-          <div class="place-action">
-            <span>
-              <i class="material-icons">thumb_up</i>
-              <i>10k</i>
-            </span>
-            <span>
-              <i class="material-icons">thumb_down</i>
-              <i>1k</i>
-            </span>
-            <span>
-              <i class="material-icons">chat</i>
-              <i>10</i>
-            </span>
-          </div>
-          <div class="place-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloribus incidunt veniam facere harum maxime fugit voluptatibus rem deserunt est.</p>
-          </div>
-        </div>
-        <div>
-          <a href="place.html"><div class="place-img center"></div></a>
-          <hr style="visibility: hidden;">
-          <div class="place-action">
-            <span>
-              <i class="material-icons">thumb_up</i>
-              <i>10k</i>
-            </span>
-            <span>
-              <i class="material-icons">thumb_down</i>
-              <i>1k</i>
-            </span>
-            <span>
-              <i class="material-icons">chat</i>
-              <i>10</i>
-            </span>
-          </div>
-          <div class="place-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloribus incidunt veniam facere harum maxime fugit voluptatibus rem deserunt est.</p>
-          </div>
-        </div>
-        <div>
-          <a href="place.html"><div class="place-img center"></div></a>
-          <hr style="visibility: hidden;">
-          <div class="place-action">
-            <span>
-              <i class="material-icons">thumb_up</i>
-              <i>10k</i>
-            </span>
-            <span>
-              <i class="material-icons">thumb_down</i>
-              <i>1k</i>
-            </span>
-            <span>
-              <i class="material-icons">chat</i>
-              <i>10</i>
-            </span>
-          </div>
-          <div class="place-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloribus incidunt veniam facere harum maxime fugit voluptatibus rem deserunt est.</p>
-          </div>
-        </div>
-        <div>
-          <a href="place.html"><div class="place-img center"></div></a>
-          <hr style="visibility: hidden;">
-          <div class="place-action">
-            <span>
-              <i class="material-icons">thumb_up</i>
-              <i>10k</i>
-            </span>
-            <span>
-              <i class="material-icons">thumb_down</i>
-              <i>1k</i>
-            </span>
-            <span>
-              <i class="material-icons">chat</i>
-              <i>10</i>
-            </span>
-          </div>
-          <div class="place-content">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum doloribus incidunt veniam facere harum maxime fugit voluptatibus rem deserunt est.</p>
-          </div>
-        </div>
-      </div>
+        {{/each}}
+      </script>
+
+
       <hr style="width: 50%;">
       <div class="wrapper">
         <div></div>
