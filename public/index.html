@@ -9,115 +9,131 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
-  <!-- API Key AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
-
-  </style>
 </head>
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Logo</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        <a href="sass.html">Sass</a>
+      </li>
+      <li>
+        <a href="badges.html">Components</a>
+      </li>
+      <li>
+        <a href="collapsible.html">JavaScript</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-<body class="pink">
-
-
-
-  <h1> Places of Interest Finder!</h1>
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-
-        <div class="myMap">
-          <div id="map" style="width:90%;height:500px;"></div>
-        </div>
+<body>
+  <div class="main">
+    <div class="wrapper">
+      <div class="filter-box">
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="all" checked/>
+          <label for="all">All</label>
+        </span>
+        <br>
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="coffee" />
+          <label for="coffee">Coffee Shops</label>
+        </span>
+        <br>
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="museums" />
+          <label for="museums">Museums</label>
+        </span>
+        <br>
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="artshops" />
+          <label for="artshops">Artshops</label>
+        </span>
+        <br>
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="clubs" />
+          <label for="clubs">Clubs</label>
+        </span>
+        <br>
+        <span>
+          <input class="with-gap" name="filter" type="radio" id="park" />
+          <label for="park">Parks</label>
+        </span>
       </div>
 
-
-      <div class="col s12 m6">
-        <div class="listOfPlaces">
-          <script id="closePlaces" type="text/x-handlebars-template">
-            {{#each data}}
-            <div class="card">
-              <div class="card-image">
-                <img src="images/download.jpeg">
-                <span class="card-title">{{this.Name}}</span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red">
-                  <i class="material-icons">add</i>
-                </a>
-              </div>
-              <div class="card-content">
-                <p> {{this.Address}} </p>
-                <p> {{this.City}} </p>
-                <p>{{this.Category}} </p>
-                <input type="button" id="{{_id}}" value="upadate" class="update">
-                <input type="button" id="{{_id}}" value="Delete" class="delete">
-              </div>
+      
+      <div class="places-box">
+        <div>
+          <h3>
+            <strong>Place Name</strong>
+          </h3>
+          <div class="place-img center"></div>
+          <hr style="visibility: hidden;">
+          <div class="place-action">
+            <span>
+              <i class="material-icons">thumb_up</i>
+              <i>10k</i>
+            </span>
+            <span>
+              <i class="material-icons">thumb_down</i>
+              <i>1k</i>
+            </span>
+            <span>
+              <i class="material-icons">chat</i>
+              <i>10</i>
+            </span>
+          </div>
+          <div class="place-content">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates odio accusamus consectetur aliquam consequuntur
+              nobis obcaecati numquam accusantium mollitia, cupiditate fugiat officia, harum adipisci odit ut repellat veniam
+              error veritatis!</p>
+            <div class="car">
+              <hr>
             </div>
-            {{/each}}
-          </script>
+            <a class="link btn teal"><i class="tiny material-icons right">launch</i>show map</a>
+          </div>
+        </div>
+        <div>
+          <h3>
+            <strong>Place Name</strong>
+          </h3>
+          <div class="place-img center"></div>
+          <hr style="visibility: hidden;">
+          <div class="place-action">
+            <span>
+              <i class="material-icons">thumb_up</i>
+              <i>10k</i>
+            </span>
+            <span>
+              <i class="material-icons">thumb_down</i>
+              <i>1k</i>
+            </span>
+            <span>
+              <i class="material-icons">chat</i>
+              <i>10</i>
+            </span>
+          </div>
+          <div class="place-content">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates odio accusamus consectetur aliquam consequuntur
+              nobis obcaecati numquam accusantium mollitia, cupiditate fugiat officia, harum adipisci odit ut repellat veniam
+              error veritatis!</p>
+            <div class="car">
+              <hr>
+            </div>
+            <a class="link btn teal"><i class="tiny material-icons right">launch</i>show map</a>
+          </div>
         </div>
       </div>
-
-
     </div>
   </div>
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m3">
-        <h1>Add a new Place</h1>
-        <input type="text" id="name" placeholder="name">
-        <input type="text" id="address" placeholder="Address">
-        <input type="text" id="city" placeholder="City">
-        <input type="text" id="category" placeholder="Category">
-
-
-        <input type="button" id="addPlaces" value="Add Places">
-        <input type="button" id="getPlaces" value="Get Places">
-      </div>
-    </div>
-  </div>
- 
-  <br>
-  <br>
-   <form class="rating">
-    
-    <label>
-      <input type="radio" name="stars" value="1" />
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="2" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="3" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>   
-    </label>
-    <label>
-      <input type="radio" name="stars" value="4" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="5" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-  </form>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
-  <script src="handlebars-v4.0.5.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript"  src="./handlebars-v4.0.5.js"></script>
-  <script src="javascript/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
+
+<script src="handlebars-v4.0.5.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="javascript/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
 
 
 </html>

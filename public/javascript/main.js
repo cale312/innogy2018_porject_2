@@ -1,6 +1,7 @@
 $(document).ready(function () {
   var allCities;
 
+  $(".displayMap").click(function(){
   function initialize() {
     var pyrmont = new google.maps.LatLng(-33.918861, 18.423300);
 
@@ -35,6 +36,7 @@ $(document).ready(function () {
     });
   };
   return initialize();
+});
 });
 
     
