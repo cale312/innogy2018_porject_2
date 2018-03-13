@@ -1,7 +1,6 @@
 $(document).ready(function () {
   var allCities;
 
-  $(".displayMap").click(function(){
   function initialize() {
     var pyrmont = new google.maps.LatLng(-33.918861, 18.423300);
 
@@ -25,7 +24,7 @@ $(document).ready(function () {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           var place = results[i];
-          // console.log(place);
+          console.log(place);
 
           var marker = new google.maps.Marker({
             map: map,
@@ -37,13 +36,13 @@ $(document).ready(function () {
   };
   return initialize();
 });
-});
+
 
 let interestingPlaces = document.getElementById("closePlaces").innerHTML;
 let template = Handlebars.compile(interestingPlaces);
 
 //get route that gets data from the database
-$("#getPlaces").click(function () {
+//$("#getPlaces").click(function () {
   $.ajax({
     url: 'http://localhost:8000/api/v1/places',
     type: 'GET',
@@ -56,7 +55,7 @@ $("#getPlaces").click(function () {
  
   })
 
-})
+// })
 
 
 $("#addPlaces").on('click', function () {
@@ -72,6 +71,16 @@ $("#addPlaces").on('click', function () {
     City: addCity,
     Category: addCategory
   });
+
+  if(!addname || addName === null){
+return;
+  } else if(!addAddress || addAddress === null){
+    return;
+  }else if(!addCity|| addCity === null){
+    return;
+  } else if(!addCategory || addCategory){
+    retun;
+  }
 
   console.log(myCity)
   $.ajax({
