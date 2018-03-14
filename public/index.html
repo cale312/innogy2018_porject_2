@@ -8,87 +8,47 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
-  <!-- API Key AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A -->
-
-  </style>
+  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/map.css">
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Places of Interest Finder</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul>
-    </div>
-  </nav>
 
-
-
-  <input class="displayMap" type="button" value="Get Map"> 
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="myMap">
-          <div id="map" style="width:90%;height:500px;"></div>
-        </div>
-      </div>
-
-
-      <div class="col s12 m6">
-        <div class="listOfPlaces">
-          <script id="closePlaces" type="text/x-handlebars-template">
-            {{#each data}}
-            <div class="card">
-              <div class="card-image">
-                <img src="images/download.jpeg">
-                <span class="card-title">{{this.Name}}</span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red">
-                  <i class="material-icons">add</i>
-                </a>
-              </div>
-              <div class="card-content">
-                <p> {{this.Address}} </p>
-                <p> {{this.City}} </p>
-                <p>{{this.Category}} </p>
-                <input type="button" id="{{_id}}" value="upadate" class="update">
-                <input type="button" id="{{_id}}" value="Delete" class="delete">
-              </div>
-            </div>
-            {{/each}}
-          </script>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m3">
-        <h1>Add a new Place</h1>
-        <input type="text" id="name" placeholder="name">
-        <input type="text" id="address" placeholder="Address">
-        <input type="text" id="city" placeholder="City">
-        <input type="text" id="category" placeholder="Category">
-
-
-        <input type="button" id="addPlaces" value="Add Places">
-        <input type="button" id="getPlaces" value="Get Places">
+  <div data-bind="html: loading"></div>
+  <div class="main container">
+    <div class="search-box-wrapper">
+      <div class="search-box input-field">
+        <i class="material-icons prefix center">search</i>
+        <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place">
+        <input data-bind="click: showMap" type="button" value="search" class="right btn black">
       </div>
     </div>
   </div>
   <br>
   <br>
-  <script src="handlebars-v4.0.5.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="javascript/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
+  <div class="mobile-view">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+  <div class="container">
+    <div class="places-wrapper center" data-bind="visible: map">
+      <div class="container center map" id="map"></div>
+      <div data-bind="text: place"></div>
+    </div>
+  </div>
+
 </body>
-
+<script src="javascript/handlebars-v4.0.5.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="javascript/knockout-3.4.2.js"></script>
+<script src="javascript/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initAutocomplete"
+  async defer></script>
 
 </html>

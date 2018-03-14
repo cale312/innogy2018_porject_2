@@ -1,0 +1,72 @@
+.main {
+    width: 100%;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.wrapper > div {
+    padding: 1em;
+}
+
+.display-map {
+    display: block;
+}
+
+.places-wrapper {
+    overflow: auto;
+    white-space: normal;
+    overflow-x: hidden;
+    height: 600px;
+}
+
+.search-box {
+    position: absolute;
+    width: 40%;
+    top: 40%;
+    left: 28%;
+    right: 15%;
+}
+
+.search-box-after {
+    position: fixed;
+    top: 5%;
+    animation: normal floatup .5s;
+}
+
+.btn-width {
+    width: 10%;
+}
+
+@keyframes floatup {
+    from {
+        position: absolute;
+        width: 40%;
+        top: 40%;
+        left: 28%;
+        right: 15%;
+    }
+    100% {
+        width: 40%;
+        top: 5%;
+        left: 28%;
+        right: 15%;
+    }
+}
+
+@media(max-width: 750px) {
+    .search-box, .search-box-after {
+        position: relative;
+        top: 5%;
+        width: 80%;
+        left: 5%;
+        right: 0;
+        animation: none;
+    }
+    .mobile-view br {
+        display: none;
+    }
+}
