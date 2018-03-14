@@ -38,9 +38,9 @@ class Route {
 
             newPlace.Name = req.body.Name;
             newPlace.Address = req.body.Address;
-            newPlace.City = req.body.City;
             newPlace.Category = req.body.Category;
-
+            newPlace.Likes = 0;
+            newPlace.Dislikes = 0;
 
             await placesRepository.save(newPlace)
                 .then((place) => {
