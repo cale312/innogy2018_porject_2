@@ -27,11 +27,6 @@ export class Place {
     @Column({
         type: 'varchar'
     })
-    City: string;
-
-    @Column({
-        type: 'varchar'
-    })
     Category: string;
 
     @Column({

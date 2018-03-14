@@ -37,8 +37,11 @@
   </div>
   <div class="container">
     <div class="places-wrapper center" data-bind="visible: map">
-      <div class="container center map" id="map"></div>
-      <div data-bind="text: place"></div>
+      <div class="container map" id="map"></div>
+      <div data-bind="foreach: place" class="align-left">
+        <p data-bind="text: $data.placeName"></p>
+        <p data-bind="text: $data.address"></p>
+      </div>
     </div>
   </div>
 
