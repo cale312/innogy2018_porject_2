@@ -9,8 +9,8 @@
 
     function initAutocomplete() {
       var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -33.8688, lng: 151.2195},
-        zoom: 13,
+        center: {lat:-30.559482, lng: 22.937505999999985},
+        zoom: 4,
         mapTypeId: 'roadmap'
       });
 
@@ -87,6 +87,37 @@
       });
       
     }
+
+
+    // $(document).ready(function(){
+
+
+
+    //   var options = {
+    //     enableHighAccuracy: true,
+    //     timeout: 5000,
+    //     maximumAge: 0
+    //   };
+      
+    //   function success(pos) {
+    //     var crd = pos.coords;
+      
+        
+      
+    //     console.log('Your current position is:');
+    //     console.log(`Latitude : ${crd.latitude}`);
+    //     console.log(`Longitude: ${crd.longitude}`);
+    //     console.log(`More or less ${crd.accuracy} meters.`);
+    //   }
+      
+    //   function error(err) {
+    //     console.warn(`ERROR(${err.code}): ${err.message}`);
+    //   }
+      
+    //   navigator.geolocation.getCurrentPosition(success, error, options);
+      
+      
+    //   })
 
 
 
