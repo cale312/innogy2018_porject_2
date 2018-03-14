@@ -1,96 +1,124 @@
-$(document).ready(function () {
-  var allCities;
+// $(document).ready(function () {
+//   // This example adds a search box to a map, using the Google Place Autocomplete
+// feature. People can enter geographical searches. The search box will return a
+// pick list containing a mix of places and predicted search terms.
 
-  $('input.autocomplete').autocomplete({
-    data: {
-      "Mzoli": null,
-      "Fugard": null,
-      "Artscape": null
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+var foundPlacesHolder = [];
+
+function Place(placeName, address, mapURL) {
+  this.placeName = placeName;
+  this.address = address;
+  this.mapURL = mapURL;
+}
+
+function initAutocomplete() {
+  foundPlacesHolder = [];
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: -33.8688,
+      lng: 151.2195
     },
-    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-    onAutocomplete: function (val) {
-      // Callback function when value is autcompleted.
-    },
-    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+    zoom: 13,
+    mapTypeId: 'roadmap'
   });
 
-  $(".displayMap").click(function () {
-    function initialize() {
-      var pyrmont = new google.maps.LatLng(-33.918861, 18.423300);
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        center: pyrmont,
-        zoom: 15,
-        scrollwheel: false
-      });
 
-      // Specify location, radius and place types for your Places API search.
-      var request = {
-        location: pyrmont,
-        radius: '50000',
-        types: ['hotel,restaurant,cafe']
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function () {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function () {
+    var places = searchBox.getPlaces();
+    if (places.length > 1) {
+      places.map((place) => {
+        foundPlacesHolder.push(JSON.stringify(place));
+      })
+    } else {
+      foundPlacesHolder = JSON.stringify(places[0]);
+
+    }
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function (marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function (place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
       };
 
-      //Create the PlaceService and send the request.
-      //Handle the callback with an anonymous function. 
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, function (results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            var place = results[i];
-            // console.log(place);
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
 
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
-          }
-        }
-      });
-    };
-    return initialize();
-  });
-});
-
-let interestingPlaces = document.getElementById("closePlaces").innerHTML;
-let template = Handlebars.compile(interestingPlaces);
-
-//get route that gets data from the database
-$("#getPlaces").click(function () {
-  $.ajax({
-    url: 'http://localhost:8000/api/v1/places',
-    type: 'GET',
-  }).then(function (data) {
-    console.log(data.places);
-    document.querySelector(".listOfPlaces").innerHTML = template({
-      data: data.places
-    })
-  })
-})
-
-
-$("#addPlaces").on('click', function () {
-
-  let addName = $('#name').val();
-  let addAddress = $('#address').val();
-  let addCity = $('#city').val();
-  let addCategory = $('#category').val();
-
-  var myCity = ({
-    Name: addName,
-    Address: addAddress,
-    City: addCity,
-    Category: addCategory
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
   });
 
-  console.log(myCity)
-  $.ajax({
+}
 
-    url: 'http://localhost:8000/api/v1/places',
-    type: 'POST',
-    data: myCity,
-    success: function (data) {
-      console.log(data);
-    }
-  })
-});
+function AppViewmodel() {
+  const self = this;
+
+  self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+  self.place = ko.observable();
+  self.map = ko.observable(false);
+
+  self.showMap = () => {
+    document.querySelector('.search-box').classList.add('search-box-after');
+    document.querySelector('.btn').classList.add('btn-width');
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    self.place('');
+
+    setTimeout( () => {
+      if (foundPlacesHolder.length === 0) {
+        self.place('could not find place');
+      } else {
+        self.map(true)
+        self.place(foundPlacesHolder);
+      }
+      self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    }, 2000)
+  }
+
+}
+
+ko.applyBindings(new AppViewmodel());

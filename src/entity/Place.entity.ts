@@ -44,7 +44,7 @@ export class Place {
     })
     Dislikes: number;
 
-    @OneToMany(type => Reviews, reviews => reviews.place)
+    @OneToMany(type => Reviews, reviews => reviews.Place)
     Reviews: Reviews[]
 
 }
