@@ -8,11 +8,12 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 var foundPlacesHolder = [];
+var apiURL = 'http://localhost:8000/api/v1/places'
 
-function Place(placeName, address, mapURL) {
-  this.placeName = placeName;
-  this.address = address;
-  this.mapURL = mapURL;
+function Place(placeName, adress, category) {
+  this.Name = placeName;
+  this.Address = adress;
+  this.Category = category;
 }
 
 function initAutocomplete() {
@@ -46,8 +47,7 @@ function initAutocomplete() {
         foundPlacesHolder.push(JSON.stringify(place));
       })
     } else {
-      foundPlacesHolder = JSON.stringify(places[0]);
-
+      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name), JSON.stringify(places[0].formatted_address, JSON.stringify(places[0].types[0]))));
     }
 
     if (places.length == 0) {
@@ -103,6 +103,18 @@ function AppViewmodel() {
   self.map = ko.observable(false);
 
   self.showMap = () => {
+    console.log(foundPlacesHolder[0]);
+
+    // saving shit to the database
+    $.ajax({
+      url: apiURL,
+      data: JSON.stringify(foundPlacesHolder[0]),
+      type: "POST", contentType: "application/json",
+      success: () => {
+        console.log('nawe viwe');
+      }
+    })
+
     document.querySelector('.search-box').classList.add('search-box-after');
     document.querySelector('.btn').classList.add('btn-width');
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
