@@ -17,7 +17,6 @@ function Place(placeName, adress, category) {
 }
 
 function initAutocomplete() {
-  foundPlacesHolder = [];
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: -33.8688,
@@ -42,6 +41,7 @@ function initAutocomplete() {
   // more details for that place.
   searchBox.addListener('places_changed', function () {
     var places = searchBox.getPlaces();
+    foundPlacesHolder.length = 0;
     if (places.length > 1) {
       places.map((place) => {
         foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
@@ -102,7 +102,8 @@ function AppViewmodel() {
   self.place = ko.observable();
   self.map = ko.observable(false);
 
-  self.showMap = () => {
+  self.search = () => {
+    self.map(false)
     document.querySelector('.search-box').classList.add('search-box-after');
     document.querySelector('.btn').classList.add('btn-width');
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
@@ -118,6 +119,7 @@ function AppViewmodel() {
       self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
     }, 2000)
   }
+
   self.savePlace = (data) => {
     // saving shit to the database
     $.ajax({
@@ -126,7 +128,13 @@ function AppViewmodel() {
       type: "POST",
       contentType: "application/json",
       success: (result) => {
-        console.log('saved places', result);
+        console.log('saved place', result);
+
+        if(result.msg === "exists"){
+          Materialize.toast(data.Name + " has already been saved", 4000)
+          return;
+        }
+        Materialize.toast(data.Name + " is saved for Viewing", 4000)
       }
     })
   }
