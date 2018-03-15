@@ -23,7 +23,7 @@ class Route {
         // create repository for the places entity
         const _placesRepository = await getRepository(Place);
         await _placesRepository
-            .find()
+            .find({ relations: ["Reviews"]})
             .then(async (places: any) => {
                 res.json({
                     code,
