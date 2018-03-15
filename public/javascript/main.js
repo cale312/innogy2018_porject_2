@@ -47,7 +47,7 @@ function initAutocomplete() {
         foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
       })
     } else {
-      console.log("******", places[0].types[0])
+      console.log("******", places[0])
       foundPlacesHolder.push(new Place(places[0].name.trim(), places[0].formatted_address.trim(), places[0].types[0]));
     }
 
@@ -96,11 +96,18 @@ function initAutocomplete() {
 
 }
 
+function Redirect() {
+  setTimeout(() => {
+    window.location = "places.html";
+  }, 3000);
+}
+
 function AppViewmodel() {
   const self = this;
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
   self.map = ko.observable(false);
+  self.placesPage = ko.observable('places.html');
 
   self.search = () => {
     self.map(false)
@@ -130,11 +137,12 @@ function AppViewmodel() {
       success: (result) => {
         console.log('saved place', result);
 
-        if(result.msg === "exists"){
-          Materialize.toast(data.Name + " has already been saved", 4000)
+        if (result.msg === "exists") {
+          Materialize.toast(data.Name + " has already been saved", 2000);
           return;
         }
-        Materialize.toast(data.Name + " is saved for Viewing", 4000)
+        Materialize.toast(data.Name + " is saved for Viewing", 2000);
+        window.location.replace("http://localhost:8000/places.html")
       }
     })
   }
