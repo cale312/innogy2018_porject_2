@@ -44,8 +44,7 @@ function initAutocomplete() {
     var places = searchBox.getPlaces();
     if (places.length > 1) {
       places.map((place) => {
-        console.log("-----", place)
-        foundPlacesHolder.push(JSON.stringify(place));
+        foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
       })
     } else {
       console.log("******", places[0].types[0])
@@ -119,17 +118,15 @@ function AppViewmodel() {
       self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
     }, 2000)
   }
-  self.savePlace = () =>{
-    console.log(foundPlacesHolder[0]);
-
+  self.savePlace = (data) => {
     // saving shit to the database
     $.ajax({
       url: apiURL,
-      data: JSON.stringify(foundPlacesHolder[0]),
+      data: JSON.stringify(data),
       type: "POST",
       contentType: "application/json",
-      success: () => {
-        console.log('nawe viwe');
+      success: (result) => {
+        console.log('saved places', result);
       }
     })
   }

@@ -36,14 +36,14 @@
     <br>
   </div>
   <div class="container">
-    <div class="places-wrapper center" data-bind="visible: map">
+    <div class="places-wrapper left" data-bind="visible: map">
       <div class="container map" id="map"></div>
 
-      <input data-bind="click: savePlace" type="button" value="Save" class="right btn black">
       
       <div data-bind="foreach: place" class="align-left">
-        <p data-bind="text: $data.placeName"></p>
-        <p data-bind="text: $data.address"></p>
+        <p data-bind="text: $data.Name"></p>
+        <p data-bind="text: $data.Address"></p>
+        <input data-bind="click: $parent.savePlace" type="button" value="Save" class="right btn black">
       </div>
     </div>
   </div>
