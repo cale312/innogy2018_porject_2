@@ -20,7 +20,7 @@ class Route {
     public addPlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
         let placesRepository = await getRepository(Place);
-        console.log("******",placesRepository);
+        
         // Check if place with the same name exists 
         let foundPlaceWithName = await placesRepository.findOne({
             Name: req.body.Name

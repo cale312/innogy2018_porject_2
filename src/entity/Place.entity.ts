@@ -2,7 +2,8 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    OneToMany
+    OneToMany,
+    JoinColumn
 } from 'typeorm';
 import {
     Reviews
@@ -39,7 +40,8 @@ export class Place {
     })
     Dislikes: number;
 
-    @OneToMany(type => Reviews, reviews => reviews.place)
-    Reviews: Reviews[]
+    @OneToMany(type => Reviews, reviews => reviews.Place)
+    @JoinColumn()
+    Reviews: Reviews[];
 
 }
