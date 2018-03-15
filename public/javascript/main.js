@@ -79,8 +79,8 @@ function initAutocomplete() {
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,
-        icon: icon,
         title: place.name,
+        animation: google.maps.Animation.DROP,
         position: place.geometry.location
       }));
 
