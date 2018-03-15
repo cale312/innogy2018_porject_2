@@ -8,11 +8,12 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 var foundPlacesHolder = [];
+var apiURL = 'http://localhost:8000/api/v1/places'
 
-function Place(placeName, address, mapURL) {
-  this.placeName = placeName;
-  this.address = address;
-  this.mapURL = mapURL;
+function Place(placeName, adress, category) {
+  this.Name = placeName;
+  this.Address = adress;
+  this.Category = category;
 }
 
 function initAutocomplete() {
@@ -43,12 +44,12 @@ function initAutocomplete() {
     var places = searchBox.getPlaces();
     if (places.length > 1) {
       places.map((place) => {
+        console.log("-----", place)
         foundPlacesHolder.push(JSON.stringify(place));
       })
     } else {
-      foundPlacesHolder = JSON.stringify(places[0]);
-      console.log(places[0]);
-
+      console.log("******", places[0].types[0])
+      foundPlacesHolder.push(new Place(places[0].name.trim(), places[0].formatted_address.trim(), places[0].types[0]));
     }
 
     if (places.length == 0) {
@@ -98,7 +99,6 @@ function initAutocomplete() {
 
 function AppViewmodel() {
   const self = this;
-
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
   self.map = ko.observable(false);
@@ -109,7 +109,7 @@ function AppViewmodel() {
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.place('');
 
-    setTimeout( () => {
+    setTimeout(() => {
       if (foundPlacesHolder.length === 0) {
         self.place('could not find place');
       } else {
@@ -118,6 +118,20 @@ function AppViewmodel() {
       }
       self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
     }, 2000)
+  }
+  self.savePlace = () =>{
+    console.log(foundPlacesHolder[0]);
+
+    // saving shit to the database
+    $.ajax({
+      url: apiURL,
+      data: JSON.stringify(foundPlacesHolder[0]),
+      type: "POST",
+      contentType: "application/json",
+      success: () => {
+        console.log('nawe viwe');
+      }
+    })
   }
 
 }
