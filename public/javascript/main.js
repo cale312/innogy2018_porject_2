@@ -47,7 +47,7 @@ function initAutocomplete() {
         foundPlacesHolder.push(JSON.stringify(place));
       })
     } else {
-      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name), JSON.stringify(places[0].formatted_address, JSON.stringify(places[0].types[0]))));
+      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name.replace('"', "")), JSON.stringify(places[0].formatted_address.replace('"', ""), JSON.stringify(places[0].types[0].replace('"', "")))));
     }
 
     if (places.length == 0) {
