@@ -99,7 +99,7 @@ function initAutocomplete() {
 function Redirect() {
   setTimeout(() => {
     window.location = "places.html";
-  }, 3000);
+  }, 5000);
 }
 
 function AppViewmodel() {
@@ -129,22 +129,26 @@ function AppViewmodel() {
 
   self.savePlace = (data) => {
     // saving shit to the database
-    $.ajax({
-      url: apiURL,
-      data: JSON.stringify(data),
-      type: "POST",
-      contentType: "application/json",
-      success: (result) => {
-        console.log('saved place', result);
+    self.map(false);
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    document.querySelector('.search-box').classList.add('none');
+    setTimeout(() => {
+      $.ajax({
+        url: apiURL,
+        data: JSON.stringify(data),
+        type: "POST",
+        contentType: "application/json",
+        success: (result) => {
+          console.log('saved place', result);
 
-        if (result.msg === "exists") {
-          Materialize.toast(data.Name + " has already been saved", 2000);
-          return;
+          if (result.msg === "exists") {
+            Materialize.toast(data.Name + " has already been saved", 2000);
+            return;
+          }
+          Materialize.toast(data.Name + " is saved for Viewing", 2000);
         }
-        Materialize.toast(data.Name + " is saved for Viewing", 2000);
-        window.location.replace("http://localhost:8000/places.html")
-      }
-    })
+      })
+    }, 2000);
   }
 
 }

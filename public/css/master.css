@@ -16,6 +16,10 @@
     display: block;
 }
 
+.none {
+    display: none;
+}
+
 .places-wrapper {
     overflow: auto;
     white-space: normal;
