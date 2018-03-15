@@ -30,7 +30,7 @@ class Route {
         if (foundPlaceWithName) {
             res.json({
                 code,
-                msg: "Place already exist"
+                msg: "exists"
             });
 
         } else {
