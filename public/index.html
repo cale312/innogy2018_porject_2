@@ -16,11 +16,12 @@
 
   <div data-bind="html: loading"></div>
   <div class="main container">
+      <a href="searched.html" class="btn-floating btn-large waves-effect waves-light black right"><i class="material-icons">add</i></a>
     <div class="search-box-wrapper">
       <div class="search-box input-field">
         <i class="material-icons prefix center">search</i>
         <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place">
-        <input data-bind="click: showMap" type="button" value="search" class="right btn black">
+        <input data-bind="click: search" type="button" value="search" class="right btn black">
       </div>
     </div>
   </div>
@@ -36,17 +37,30 @@
     <br>
   </div>
   <div class="container">
-    <div class="places-wrapper left" data-bind="visible: map">
+    <div class="places-wrapper" data-bind="visible: map">
       <div class="container map" id="map"></div>
-
-      
-      <div data-bind="foreach: place" class="align-left">
-        <p data-bind="text: $data.Name"></p>
-        <p data-bind="text: $data.Address"></p>
-        <input data-bind="click: $parent.savePlace" type="button" value="Save" class="right btn black">
+<br>
+<br>
+<br>
+      <div class="row">
+        <div data-bind="foreach: place">
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-content Black-text">
+              <span data-bind="text: $data.Name" class="card-title"></span>
+              <p data-bind="text: $data.Address"></p>
+              <p data-bind="text: $data.Category"></p>
+            <div class="card-action">
+              </a><input data-bind="click: $parent.savePlace" type="button" value="Save" class="right btn black">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
 
 </body>
 <script src="javascript/handlebars-v4.0.5.js"></script>
