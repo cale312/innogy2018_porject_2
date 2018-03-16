@@ -108,9 +108,11 @@ function AppViewmodel() {
   self.place = ko.observable();
   self.map = ko.observable(false);
   self.placesPage = ko.observable('places.html');
+  self.error = ko.observable();
 
   self.search = () => {
-    self.map(false)
+    self.map(false);
+    self.error('');
     document.querySelector('.search-box').classList.add('search-box-after');
     document.querySelector('.btn').classList.add('btn-width');
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
@@ -118,7 +120,7 @@ function AppViewmodel() {
 
     setTimeout(() => {
       if (foundPlacesHolder.length === 0) {
-        self.place('could not find place');
+        self.error('could not find place');
       } else {
         self.map(true)
         self.place(foundPlacesHolder);
@@ -131,7 +133,7 @@ function AppViewmodel() {
     // saving shit to the database
     self.map(false);
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
-    document.querySelector('.search-box').classList.add('none');
+    document.querySelector('.search-box-wrapper').classList.add('none');
     setTimeout(() => {
       $.ajax({
         url: apiURL,

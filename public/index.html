@@ -20,7 +20,7 @@
       <div class="search-box input-field">
         <i class="material-icons prefix center">search</i>
         <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place">
-        <input data-bind="click: search" type="button" value="search" class="right btn black">
+        <input data-bind="click: search" type="button" value="search" class="right btn black btn-large waves-light">
       </div>
     </div>
   </div>
@@ -36,6 +36,7 @@
     <br>
   </div>
   <div class="container">
+    <div data-bind="text: error" class="center"></div>
     <div class="places-wrapper" data-bind="visible: map">
       <div class="container map" id="map"></div>
       <br>
