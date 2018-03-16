@@ -17,7 +17,6 @@ function Place(placeName, adress, category) {
 }
 
 function initAutocomplete() {
-  foundPlacesHolder = [];
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: -33.8688,
@@ -42,12 +41,14 @@ function initAutocomplete() {
   // more details for that place.
   searchBox.addListener('places_changed', function () {
     var places = searchBox.getPlaces();
+    foundPlacesHolder.length = 0;
     if (places.length > 1) {
       places.map((place) => {
-        foundPlacesHolder.push(JSON.stringify(place));
+        foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
       })
     } else {
-      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name), JSON.stringify(places[0].formatted_address, JSON.stringify(places[0].types[0]))));
+      console.log("******", places[0].types[0])
+      foundPlacesHolder.push(new Place(places[0].name.trim(), places[0].formatted_address.trim(), places[0].types[0]));
     }
 
     if (places.length == 0) {
@@ -78,8 +79,8 @@ function initAutocomplete() {
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,
-        icon: icon,
         title: place.name,
+        animation: google.maps.Animation.DROP,
         position: place.geometry.location
       }));
     
@@ -98,30 +99,18 @@ function initAutocomplete() {
 
 function AppViewmodel() {
   const self = this;
-
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
   self.map = ko.observable(false);
 
-  self.showMap = () => {
-    console.log(foundPlacesHolder[0]);
-
-    // saving shit to the database
-    $.ajax({
-      url: apiURL,
-      data: JSON.stringify(foundPlacesHolder[0]),
-      type: "POST", contentType: "application/json",
-      success: () => {
-        console.log('nawe viwe');
-      }
-    })
-
+  self.search = () => {
+    self.map(false)
     document.querySelector('.search-box').classList.add('search-box-after');
     document.querySelector('.btn').classList.add('btn-width');
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.place('');
 
-    setTimeout( () => {
+    setTimeout(() => {
       if (foundPlacesHolder.length === 0) {
         self.place('could not find place');
       } else {
@@ -132,10 +121,25 @@ function AppViewmodel() {
     }, 2000)
   }
 
-  
+  self.savePlace = (data) => {
+    // saving shit to the database
+    $.ajax({
+      url: apiURL,
+      data: JSON.stringify(data),
+      type: "POST",
+      contentType: "application/json",
+      success: (result) => {
+        console.log('saved place', result);
+
+        if(result.msg === "exists"){
+          Materialize.toast(data.Name + " has already been saved", 4000)
+          return;
+        }
+        Materialize.toast(data.Name + " is saved for Viewing", 4000)
+      }
+    })
+  }
+
 }
-
-
-
 
 ko.applyBindings(new AppViewmodel());
