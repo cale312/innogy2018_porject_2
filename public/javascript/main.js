@@ -47,7 +47,7 @@ function initAutocomplete() {
         foundPlacesHolder.push(JSON.stringify(place));
       })
     } else {
-      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name.replace('"', "")), JSON.stringify(places[0].formatted_address.replace('"', ""), JSON.stringify(places[0].types[0].replace('"', "")))));
+      foundPlacesHolder.push(new Place(JSON.stringify(places[0].name), JSON.stringify(places[0].formatted_address, JSON.stringify(places[0].types[0]))));
     }
 
     if (places.length == 0) {
@@ -82,6 +82,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
+    
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -131,6 +132,10 @@ function AppViewmodel() {
     }, 2000)
   }
 
+  
 }
+
+
+
 
 ko.applyBindings(new AppViewmodel());

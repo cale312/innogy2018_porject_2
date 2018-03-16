@@ -33,36 +33,40 @@
 <body>
   <div class="main">
     <div class="wrapper">
+    
+    
       <div class="filter-box">
+          
         <span>
-          <input class="with-gap" name="filter" type="radio" id="all" checked/>
+          <input class="with-gap" name="filter" type="radio" value="all" id="all"/>
           <label for="all">All</label>
         </span>
         <br>
         <span>
-          <input class="with-gap" name="filter" type="radio" id="coffee" />
+          <input class="with-gap" name="filter" type="radio" value="coffee" id="coffee" />
           <label for="coffee">Coffee Shops</label>
         </span>
         <br>
         <span>
-          <input class="with-gap" name="filter" type="radio" id="museums" />
+          <input class="with-gap" name="filter" value="museums" type="radio" id="museums"/>
           <label for="museums">Museums</label>
         </span>
         <br>
         <span>
-          <input class="with-gap" name="filter" type="radio" id="artshops" />
+          <input class="with-gap" name="filter" value="artshops" type="radio" id="artshops" />
           <label for="artshops">Artshops</label>
         </span>
         <br>
         <span>
-          <input class="with-gap" name="filter" type="radio" id="clubs" />
+          <input class="with-gap" name="filter" value="clubs" type="radio" id="clubs" />
           <label for="clubs">Clubs</label>
         </span>
         <br>
         <span>
-          <input class="with-gap" name="filter" type="radio" id="park" />
+          <input class="with-gap" name="filter" value="park" type="radio" id="park" />
           <label for="park">Parks</label>
         </span>
+        
       </div>
       <div class="listOfPlaces">
         <script id="closePlaces" type="text/x-handlebars-template">
@@ -92,11 +96,13 @@
               <p>{{this.Address}}</p>
             <p>{{this.City}}</p>
             <p>{{this.Category}}</p>
+            
+            
           </div>
         </div>
         {{/each}}
       </script>
-
+<div id="display"></div>
 
       <hr style="width: 50%;">
       <div class="wrapper">
@@ -106,9 +112,11 @@
   </div>
 </body>
 
-<script src="handlebars-v4.0.5.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="javascript/handlebars-v4.0.5.js"></script>
+<script src="javascript/knockout-3.4.2.js"></script>
 <script src="javascript/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="javascript/searched.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=geometry,places"></script>
 

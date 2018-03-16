@@ -35,7 +35,7 @@ class Route {
 
         } else {
             let newPlace = new Place();
-             
+    
             newPlace.Name = req.body.Name;
             newPlace.Address = req.body.Address;
             newPlace.Category = req.body.Category;
