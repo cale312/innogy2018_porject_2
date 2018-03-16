@@ -1,7 +1,7 @@
 var foundPlaces = document.getElementById("closePlaces").innerHTML;
 $(document).ready(function () {
   var template = Handlebars.compile(foundPlaces);
-  let apiURL = 'http://localhost:8000/api/v1/places';
+  var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
 
   var categories = document.getElementById("FilterCategories").innerHTML;
