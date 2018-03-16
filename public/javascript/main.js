@@ -19,12 +19,45 @@ function Place(placeName, adress, category) {
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -33.8688,
-      lng: 151.2195
+      lat: -33.918861,
+      lng: 18.423300
     },
     zoom: 13,
-    mapTypeId: 'roadmap'
+    mapTypeId: 'roadmap',
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.TOP_CENTER
+  },
+  zoomControl: true,
+  zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_CENTER
+  },
+  scaleControl: true,
+  streetViewControl: true,
+  streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_TOP
+  },
+  fullscreenControl: true
   });
+
+
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+    
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');

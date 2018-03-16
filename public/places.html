@@ -16,44 +16,48 @@
   <div class="main">
     <div class="wrapper">
       <div class="filter-box">
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="all" checked/>
-          <label for="all">All</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="coffee" />
-          <label for="coffee">Coffee Shops</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="museums" />
-          <label for="museums">Museums</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="artshops" />
-          <label for="artshops">Artshops</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="clubs" />
-          <label for="clubs">Clubs</label>
-        </span>
-        <br>
-        <span>
-          <input class="with-gap" name="filter" type="radio" id="park" />
-          <label for="park">Parks</label>
-        </span>
+        <div class="filter">
+          <script id="FilterCategories" type="text/x-handlebars-template">
+            <span>
+              <input class="with-gap" name="filter" type="radio" id="all" checked/>
+              <label for="all">{{this.types}}</label>
+            </span>
+            <br>
+          </script>
+        </div>
       </div>
       <div class="listOfPlaces">
         <script id="closePlaces" type="text/x-handlebars-template">
           <div class="places-box">
             {{#each place}}
+
+            <div class="row">
+              <div class="col s12 m12">
+                <div class="card">
+                  <div class="card-image">
+                    <img src="images/download.jpeg">
+
+                    <a href="place.html" class="btn-floating halfway-fab waves-effect waves-light red">
+                      <i class="material-icons">add</i>
+                    </a>
+                  </div>
+                  <div class="card-content center">
+                    <span class="card-title">{{this.Name}}</span>
+                    <p>{{this.Address}}</p>
+                    <p>{{this.City}}</p>
+                    <hr>
+                    <p>{{this.Category}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {{/each}}
+        </script>
+
+        <!-- 
             <div>
-              <a href="place.html">
-                <div class="place-img center"></div>
-              </a>
+              <a href="place.html"><div class="place-img center"></div></a>
               <hr style="visibility: hidden;">
               <div class="place-action">
                 <h6 class="center"> {{this.Name}}</h6>
@@ -71,22 +75,30 @@
                 </span>
               </div>
               <div class="place-content">
-                <p>{{this.Address}}</p>
+                  <p>{{this.Address}}</p>
                 <p>{{this.City}}</p>
                 <p>{{this.Category}}</p>
               </div>
             </div>
             {{/each}}
-        </script>
+          </script> -->
+
+
+        <!-- <hr style="width: 50%;">
+          <div class="wrapper">
+            <div></div>
+          </div> -->
         </div>
       </div>
+    </div>
+  </div>
 </body>
 
 <script src="javascript/handlebars-v4.0.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="javascript/knockout-3.4.2.js"></script>
-<script src="javascript/places.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="javascript/places.js"></script>
 
 
 </html>
