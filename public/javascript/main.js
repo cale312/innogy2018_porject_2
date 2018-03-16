@@ -8,7 +8,7 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 var foundPlacesHolder = [];
-var apiURL = 'http://localhost:8000/api/v1/places'
+var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
 
 function Place(placeName, adress, category) {
   this.Name = placeName;
