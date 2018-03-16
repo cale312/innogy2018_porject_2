@@ -1,8 +1,6 @@
 
  $(document).ready(function () {
 //populating radio buttons
- 
-
 
    $('.filter-box input').on('change', function(){
         var RadioTemplate = document.getElementById('closePlaces').innerHTML;
@@ -37,7 +35,7 @@
     }
         
 
-    }
+    })
   
      
    
@@ -55,4 +53,4 @@
     //         }
   
           })
-        })
+        

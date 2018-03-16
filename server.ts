@@ -26,6 +26,7 @@ import getPlaceByNameRoute from "./src/routes/getPlaceByNameRoute";
 import likePlaceRoute from "./src/routes/likePlaceRoute";
 import dislikePlaceRoute from "./src/routes/dislikePlaceRoute";
 import reviewPlaceRoute from "./src/routes/reviewPlaceRoute";
+import getPlaceByCategoryRoute from "./src/routes/getPlaceByCategoryRoute";
 
 // Creates and configures an ExpressJS web server.
 class Server {
@@ -69,6 +70,8 @@ class Server {
     this.app.use('/api/v1/places', getPlaceRoute);
     // Get place by Name
     this.app.use('/api/v1/places', getPlaceByNameRoute);
+    //Get place by Category
+    this.app.use('/api/v1/places', getPlaceByCategoryRoute);    
     // Add new places route
     this.app.use('/api/v1/places', addPlaceRoute);
     // Get place by ID
