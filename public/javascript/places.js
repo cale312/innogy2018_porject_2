@@ -1,56 +1,51 @@
-var foundPlaces = document.getElementById("closePlaces").innerHTML;
-$(document).ready(function () {
-  var template = Handlebars.compile(foundPlaces);
-  let apiURL = 'http://localhost:8000/api/v1/places';
-  let AllRecords = document.querySelector(".listOfPlaces");
 
-  var categories = document.getElementById("FilterCategories").innerHTML;
-  var template2 = Handlebars.compile(categories);
-  var displayCategories = document.querySelector(".filter");
+  let apiURL = 'http://localhost:8000/api/v1/places';
+  var foundPlaces = document.getElementById("closePlaces").innerHTML;
+  var template = Handlebars.compile(foundPlaces);
+  let AllRecords = document.querySelector(".listOfPlaces");
+  let categories = [];
 
   //get all the places that are stored in the database
   $.ajax({
     url: apiURL,
     type: "GET",
     success: (data) => {
-      console.log("data from the database", data);
+    
       AllRecords.innerHTML = template({
         place: data.places
       })
-
     }
-
   });
 
-  function placeCategoryFilter() {
-    //Populates radio buttons with available categories
-    $.ajax({
-      url: apiURL,
-      type: "GET",
-      success: (data) => {
-        //maps through data in the api and returns Categories
-        var uniqueT = [];
-        var map = {};
 
-        for (var i = 0; i < data.length; i++) {
-          var cat = data[i];
-          console.log(cat);
-
-          if (map[cat.Category] === undefined) {
-            map[cat.Category] = cat.Category;
-            uniqueT.push(cat.Category)
-            console.log(uniqueT);
-          }
-        }
-        displayCategories.innerHTML = template2({
-          Category: uniqueT
-        });
-      }
-    })
+  function placeCategoryFilter(Category){
+    this.Category = Category;
   }
-  placeCategoryFilter();
 
-});
+
+  function AppViewmodel(){
+    var self = this;
+    self.place = ko.observable();
+
+      $.getJSON(apiURL, function(data) { 
+        self.place(data.places);
+            console.log("/....../" ,data)
+         
+          });
+      
+
+
+
+    };
+    ko.applyBindings(new AppViewmodel());
+  
+
+
+
+
+
+
+
 // function placeCategoryFilter(){
 
 

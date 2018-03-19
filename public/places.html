@@ -16,16 +16,14 @@
   <div class="main">
     <div class="wrapper">
       <div class="filter-box">
-        <div class="filter">
-          <script id="FilterCategories" type="text/x-handlebars-template">
-            <span>
-              <input class="with-gap" name="filter" type="radio" id="all" checked/>
-              <label for="all">{{this.types}}</label>
-            </span>
-            <br>
-          </script>
-        </div>
+          <div data-bind="foreach: place">
+            <input type="checkbox" data-bind="attr: {id: $data.Category}">
+            <label data-bind="text: $data.Category, attr: { for: $data.Category }"></label><br>
+            </div>
+
       </div>
+
+
       <div class="listOfPlaces">
         <script id="closePlaces" type="text/x-handlebars-template">
           <div class="places-box">
@@ -91,7 +89,6 @@
         </div>
       </div>
     </div>
-  </div>
 </body>
 
 <script src="javascript/handlebars-v4.0.5.js"></script>
