@@ -1,8 +1,7 @@
-
-  let apiURL = 'http://localhost:8000/api/v1/places';
-  var foundPlaces = document.getElementById("closePlaces").innerHTML;
-  var template = Handlebars.compile(foundPlaces);
+$(document).ready(function () {
+  var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
+  var foundPlaces = document.getElementById("closePlaces").innerHTML;
   let categories = [];
 
   //get all the places that are stored in the database
