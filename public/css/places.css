@@ -2,6 +2,9 @@
     margin: 100px 0px 0px 100px;
     position: fixed;
 }
+label{
+ text-transform: capitalize;
+}
 
 .place-img {
     background-image: url('http://www.bedroomchecker.com/wp-content/uploads/2014/04/Cape-Town-Attractions-_-The-Best-Places-To-Visit-Around-Cape-Town.png');

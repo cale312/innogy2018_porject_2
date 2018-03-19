@@ -16,9 +16,9 @@
   <div class="main">
     <div class="wrapper">
       <div class="filter-box">
-        <div data-bind="foreach: place">
-          <input type="checkbox" data-bind="attr: {id: $data.Category}">
-          <label data-bind="text: $data.Category, attr: { for: $data.Category }"></label>
+        <div data-bind="foreach: categories">
+          <input type="checkbox" data-bind="attr: {id: $data}">
+          <label data-bind="text: $data, attr: { for: $data}"></label>
           <br>
         </div>
       </div>
@@ -31,7 +31,7 @@
             <div class="card">
               <div class="card-image">
                 <img src="images/download.jpeg">
-                <a href="place.html" class="btn-floating halfway-fab waves-effect waves-light red">
+                <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light red">
                   <i class="material-icons">add</i>
                 </a>
               </div>
