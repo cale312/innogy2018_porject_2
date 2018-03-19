@@ -8,7 +8,7 @@
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
 var foundPlacesHolder = [];
-var apiURL = 'http://localhost:8000/api/v1/places'
+var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
 
 function Place(placeName, adress, category) {
   this.Name = placeName;
@@ -19,12 +19,45 @@ function Place(placeName, adress, category) {
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -33.8688,
-      lng: 151.2195
+      lat: -33.918861,
+      lng: 18.423300
     },
     zoom: 13,
-    mapTypeId: 'roadmap'
+    mapTypeId: 'roadmap',
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+      position: google.maps.ControlPosition.TOP_CENTER
+  },
+  zoomControl: true,
+  zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_CENTER
+  },
+  scaleControl: true,
+  streetViewControl: true,
+  streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_TOP
+  },
+  fullscreenControl: true
   });
+
+
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+    
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
@@ -47,7 +80,7 @@ function initAutocomplete() {
         foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
       })
     } else {
-      console.log("******", places[0].types[0])
+      console.log("******", places[0])
       foundPlacesHolder.push(new Place(places[0].name.trim(), places[0].formatted_address.trim(), places[0].types[0]));
     }
 
@@ -97,14 +130,23 @@ function initAutocomplete() {
 
 }
 
+function Redirect() {
+  setTimeout(() => {
+    window.location = "places.html";
+  }, 5000);
+}
+
 function AppViewmodel() {
   const self = this;
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
   self.map = ko.observable(false);
+  self.placesPage = ko.observable('places.html');
+  self.error = ko.observable();
 
   self.search = () => {
-    self.map(false)
+    self.map(false);
+    self.error('');
     document.querySelector('.search-box').classList.add('search-box-after');
     document.querySelector('.btn').classList.add('btn-width');
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
@@ -112,7 +154,7 @@ function AppViewmodel() {
 
     setTimeout(() => {
       if (foundPlacesHolder.length === 0) {
-        self.place('could not find place');
+        self.error('could not find place');
       } else {
         self.map(true)
         self.place(foundPlacesHolder);
@@ -123,21 +165,26 @@ function AppViewmodel() {
 
   self.savePlace = (data) => {
     // saving shit to the database
-    $.ajax({
-      url: apiURL,
-      data: JSON.stringify(data),
-      type: "POST",
-      contentType: "application/json",
-      success: (result) => {
-        console.log('saved place', result);
+    self.map(false);
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    document.querySelector('.search-box-wrapper').classList.add('none');
+    setTimeout(() => {
+      $.ajax({
+        url: apiURL,
+        data: JSON.stringify(data),
+        type: "POST",
+        contentType: "application/json",
+        success: (result) => {
+          console.log('saved place', result);
 
-        if(result.msg === "exists"){
-          Materialize.toast(data.Name + " has already been saved", 4000)
-          return;
+          if (result.msg === "exists") {
+            Materialize.toast(data.Name + " has already been saved", 2000);
+            return;
+          }
+          Materialize.toast(data.Name + " is saved for Viewing", 2000);
         }
-        Materialize.toast(data.Name + " is saved for Viewing", 4000)
-      }
-    })
+      })
+    }, 2000);
   }
 
 }

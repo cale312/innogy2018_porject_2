@@ -16,11 +16,17 @@
     display: block;
 }
 
+.none {
+    display: none;
+    animation: fadeout 2s;
+}
+
 .places-wrapper {
     overflow: auto;
     white-space: normal;
     overflow-x: hidden;
     height: 600px;
+    animation: fadein 2s;
 }
 
 .search-box {
@@ -29,6 +35,7 @@
     top: 40%;
     left: 28%;
     right: 15%;
+    animation: fadein 2s;
 }
 
 .search-box-after {
@@ -39,6 +46,18 @@
 
 .btn-width {
     width: 10%;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
 }
 
 @keyframes floatup {
