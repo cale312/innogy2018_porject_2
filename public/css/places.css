@@ -48,4 +48,7 @@ label{
     br:nth-child(odd) {
         display: none;
     }
+    .input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content {
+        margin-left: 0;
+    }
 }
