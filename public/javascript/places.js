@@ -3,47 +3,33 @@
   var foundPlaces = document.getElementById("closePlaces").innerHTML;
   var template = Handlebars.compile(foundPlaces);
   let categories = [];
- 
-
-  //get all the places that are stored in the database
-  $.ajax({
-    url: apiURL,
-    type: "GET",
-    success: (data) => {
-
-      AllRecords.innerHTML = template({
-        place: data.places
-      })
-    }
-  });
-
-
-  function placeCategoryFilter(Category) {
-    this.Category = Category;
-  }
-
+  let catMap = {};
+  let allData = null;
 
   function AppViewmodel() {
     var self = this;
-    self.categories =ko.observable();
+    self.categories = ko.observable();
     self.place = ko.observable();
 
-    $.getJSON(apiURL, function (data) {
-      data.places.map(function(results){
-        var place = results.Category;
-        if(categories.indexOf(place) < 0){
-          categories.push(results.Category.split("_").join(" "));
-        }
-        //console.log(results);
-        console.log(categories);
-      })
-      self.categories(categories);
-     
-      })
-
-
-
-
+    //get all the places that are stored in the database
+    $.ajax({
+      url: apiURL,
+      type: "GET",
+      success: (data) => {
+        // caching the data for easy access
+        allData = data.places;
+        AllRecords.innerHTML = template({
+          place: data.places
+        })
+        allData.map((place) => {
+          if (catMap[place.Category] === undefined) {
+            catMap[place.Category] = null;
+            categories.push(place.Category.split("_").join(" "));
+          }
+        });
+        self.categories(categories);
+      }
+    });
 
   };
   ko.applyBindings(new AppViewmodel());

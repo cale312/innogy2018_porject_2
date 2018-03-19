@@ -88,4 +88,10 @@
     .mobile-view br {
         display: none;
     }
+    .main {
+        width: 100%;
+    }
+    .filter-box .input-field i {
+        display: none !important;
+    }
 }

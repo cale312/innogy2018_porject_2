@@ -16,13 +16,19 @@
   <div class="main">
     <div class="wrapper">
       <div class="filter-box">
+        <div class="input-field">
+          <i class="material-icons prefix">search</i>
+          <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place" class="autocomplete">
+          <input type="button" value="search" class="btn black">
+        </div>
+        <br>
+        <br>
         <div data-bind="foreach: categories">
           <input type="checkbox" data-bind="attr: {id: $data}">
-          <label data-bind="text: $data, attr: { for: $data}"></label>
+          <label data-bind="text: $data, attr: { for: $data }"></label>
           <br>
         </div>
       </div>
-
 
       <div class="listOfPlaces">
         <script id="closePlaces" type="text/x-handlebars-template">
@@ -40,7 +46,6 @@
                 <p>{{this.Address}}</p>
                 <p>{{this.City}}</p>
                 <hr>
-                <p>{{this.Category}}</p>
               </div>
             </div>
           </div>
@@ -50,10 +55,10 @@
     </div>
 </body>
 
-<script src="javascript/handlebars-v4.0.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="javascript/knockout-3.4.2.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="javascript/handlebars-v4.0.5.js"></script>
+<script src="javascript/knockout-3.4.2.js"></script>
 <script src="javascript/places.js"></script>
 
 

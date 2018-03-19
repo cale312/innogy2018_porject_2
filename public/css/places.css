@@ -6,6 +6,10 @@ label{
  text-transform: capitalize;
 }
 
+.filter-search {
+    width: 100%;
+}
+
 .place-img {
     background-image: url('http://www.bedroomchecker.com/wp-content/uploads/2014/04/Cape-Town-Attractions-_-The-Best-Places-To-Visit-Around-Cape-Town.png');
 }
@@ -25,20 +29,23 @@ label{
 
 @media(max-width: 750px) {
     .wrapper {
-        display: grid;
-        grid-gap: 1em;
-        grid-template-columns: 1fr;
+        display: inline-block;
     }
     .listOfPlaces {
         display: grid;
         grid-gap: 1em;
         grid-template-columns: 1fr;
-        margin-top: 50px;
+        margin-top: 190px;
     }
     .filter-box {
         position: fixed;
         z-index: 9999;
         margin: 0;
         background: white;
+        text-align: center;
+        word-spacing: 1em;
+    }
+    br:nth-child(odd) {
+        display: none;
     }
 }
