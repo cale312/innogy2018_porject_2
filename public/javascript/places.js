@@ -13,12 +13,13 @@ $(document).ready(() => {
     self.categories = ko.observable();
     self.place = ko.observable();
     self.matches = ko.observable();
+    self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    self.data = ko.observable(false);
 
     //get all the places that are stored in the database
-    $.ajax({
-      url: apiURL,
-      type: "GET",
-      success: (data) => {
+    $.getJSON(apiURL, (data) => {
+      setTimeout(() => {
         // caching the data for easy access
         allData = data.places;
         AllRecords.innerHTML = template({
@@ -39,8 +40,10 @@ $(document).ready(() => {
           },
           minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
         });
+        self.data(true);
+        self.loading('');
         self.categories(categories);
-      }
+      }, 2000);
     });
 
     self.search = () => {

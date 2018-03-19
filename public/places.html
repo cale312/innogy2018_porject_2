@@ -13,7 +13,8 @@
 </head>
 
 <body>
-  <div class="main">
+  <div data-bind="html: loading"></div>
+  <div class="main" data-bind="visible: data">
     <div class="wrapper">
       <div class="filter-box">
         <div class="input-field">

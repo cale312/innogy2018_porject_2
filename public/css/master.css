@@ -1,5 +1,6 @@
 .main {
     width: 100%;
+    animation: fadein 2s;
 }
 
 .wrapper {
@@ -26,7 +27,6 @@
     white-space: normal;
     overflow-x: hidden;
     height: 600px;
-    animation: fadein 2s;
 }
 
 .search-box {
@@ -34,8 +34,6 @@
     width: 40%;
     top: 40%;
     left: 28%;
-    right: 15%;
-    animation: fadein 2s;
 }
 
 .search-box-after {
@@ -51,12 +49,6 @@
 @keyframes fadein {
     from {
         opacity: 0;
-    }
-}
-
-@keyframes fadeout {
-    from {
-        opacity: 1;
     }
 }
 
