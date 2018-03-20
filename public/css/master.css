@@ -74,7 +74,7 @@
     }
 }
 
-@media(max-width: 750px) {
+@media(max-width: 800px) {
     .search-box, .search-box-after {
         position: relative;
         top: 5%;

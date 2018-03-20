@@ -80,7 +80,7 @@ describe('', () => {
                 .then((res) => {
                     res.should.have.status(200);
                     res.body.place.should.be.a('object');
-                    res.body.place.Name.should.equal('test1');
+                    res.body.place.name.should.equal('test1');
                     done();
                 }).catch(function (err) {
                     throw err;
