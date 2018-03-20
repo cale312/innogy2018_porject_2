@@ -8,14 +8,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/map.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/reviews.css" />
 </head>
 
 <body>
-    <div class="main">
+    <!-- <div class="main">
         <div class="wrapper">
-                <div class="container center" id="map">
-                    </div>
+               
             <div class="reviews">
                 <div class="review">
                     <label for="username">Viwe (@viwe)</label>
@@ -64,21 +63,49 @@
                 </div>
             </div>
         </div>
-        <hr style="width: 50%">
-        <div class="nearby-places">
-            <div></div>
-            <div></div>
+
+        <div class="warapper">
+
+                <div id="map"></div>
+
         </div>
-    </div>
+        <hr style="width: 50%">
+       
+            
+       
+    </div> -->
+    <ul id="slide-out" class="side-nav fixed">
+        <li><div class="user-view">
+          <div class="background">
+            <img src="images/background.jpg">
+          </div>
+          <a href="#!user"><img class="circle" src="images/avatar.png"></a>
+          <a href="#!name"><span class="white-text name">Nonzulu</span></a>
+          <a href="#!email"><span class="white-text email">knzulu16@gmail.com</span></a>
+        </div></li>
+        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+      </ul>
+       <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+            
+
+
+
+
+
+    <div id="map"></div>
 </body>
 
 <script src="javascript/handlebars-v4.0.5.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="javascript/knockout-3.4.2.js"></script>
-<script src="javascript/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initAutocomplete"
-  async defer></script>
+<script src="javascript/knockout-3.4.2.js"></script>
+<script src="javascript/reviews.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initMap" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places"></script> -->
 
 
 </html>
