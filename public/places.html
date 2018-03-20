@@ -32,26 +32,22 @@
       </div>
 
       <div class="listOfPlaces">
-        <script id="closePlaces" type="text/x-handlebars-template">
-          {{#each place}}
-          <div class="">
-            <div class="card">
-              <div class="card-image">
-                <img src="images/download.jpeg">
-                <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light black">
-                  <i class="material-icons">map</i>
-                </a>
-              </div>
-              <div class="card-content center">
-                <span class="card-title">{{this.name}}</span>
-                <p>{{this.address}}</p>
-                <p>{{this.city}}</p>
-                <hr>
-              </div>
+        <div class="places" data-bind="foreach: places">
+          <div class="card">
+            <div class="card-image">
+              <img src="images/download.jpeg">
+              <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light black" data-bind="click: reviews">
+                <i class="material-icons">map</i>
+              </a>
+            </div>
+            <div class="card-content center">
+              <span class="card-title" data-bind="text: $data.name"></span>
+              <p data-bind="text: $data.address"></p>
+              <p data-bond="text: $data.city"></p>
+              <hr>
             </div>
           </div>
-          {{/each}}
-        </script>
+        </div>
       </div>
     </div>
 </body>

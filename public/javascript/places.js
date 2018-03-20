@@ -1,8 +1,6 @@
 $(document).ready(() => {
   var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
-  var foundPlaces = document.getElementById("closePlaces").innerHTML;
-  var template = Handlebars.compile(foundPlaces);
   let categories = [];
   let catMap = {};
   let allData = null;
@@ -12,6 +10,7 @@ $(document).ready(() => {
     var self = this;
     self.categories = ko.observable();
     self.place = ko.observable();
+    self.places = ko.observable();
     self.matches = ko.observable();
     self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
@@ -22,9 +21,7 @@ $(document).ready(() => {
       setTimeout(() => {
         // caching the data for easy access
         allData = data.places;
-        AllRecords.innerHTML = template({
-          place: allData
-        })
+        self.places(allData);
         allData.map((place) => {
           (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
           if (catMap[place.category] === undefined) {
@@ -55,17 +52,17 @@ $(document).ready(() => {
             matches.push(place);
           }
         })
-        AllRecords.innerHTML = template({
-          place: matches
-        });
+        self.places(matches);
         return;
       } else {
         Materialize.toast("please enter valid place", 2000);
       }
       console.log('found...', matches);
-      AllRecords.innerHTML = template({
-        place: allData
-      })
+      self.places(allData);
+    }
+
+    self.reviews = () => {
+      console.log('test');
     }
 
   };
