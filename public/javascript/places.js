@@ -6,6 +6,10 @@ $(document).ready(() => {
   let allData = null;
   let placesObj = {};
 
+  $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+
   function AppViewmodel() {
     var self = this;
     self.categories = ko.observable();
@@ -22,10 +26,10 @@ $(document).ready(() => {
         // caching the data for easy access
         allData = data.places;
 
-        // if (allData.length === 0) {
-        //   window.location = "/";
-        //   return;
-        // }
+        if (allData.length === 0) {
+          window.location = "search.html";
+          return;
+        }
 
         self.places(allData);
         allData.map((place) => {

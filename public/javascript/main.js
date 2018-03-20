@@ -10,12 +10,12 @@
 var foundPlacesHolder = [];
 var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
 
-$.getJSON(apiURL, (data) => {
-  if (data.places.length > 0) {
-    window.location = "search.html";
-    return;
-  }
-});
+// $.getJSON(apiURL, (data) => {
+//   if (data.places.length > 0) {
+//     window.location = "search.html";
+//     return;
+//   }
+// });
 
 function Place(placeName, adress, category, lng, lat) {
   this.Name = placeName;
