@@ -16,19 +16,19 @@ let Reviews = class Reviews {
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Reviews.prototype, "ID", void 0);
+], Reviews.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({ type: 'varchar' }),
     __metadata("design:type", String)
-], Reviews.prototype, "UserName", void 0);
+], Reviews.prototype, "userName", void 0);
 __decorate([
     typeorm_1.Column({ type: 'varchar' }),
     __metadata("design:type", String)
-], Reviews.prototype, "Review", void 0);
+], Reviews.prototype, "review", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => Place_entity_1.Place, place => place.Reviews),
+    typeorm_1.ManyToOne(type => Place_entity_1.Place, place => place.reviews),
     __metadata("design:type", Place_entity_1.Place)
-], Reviews.prototype, "Place", void 0);
+], Reviews.prototype, "place", void 0);
 Reviews = __decorate([
     typeorm_1.Entity()
 ], Reviews);

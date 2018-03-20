@@ -17,9 +17,9 @@ class Route {
             const code = res.statusCode;
             let placeName = req.params._placeName;
             let placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
-            placesRepository.findOne({ Name: placeName })
+            placesRepository.findOne({ name: placeName })
                 .then((place) => __awaiter(this, void 0, void 0, function* () {
-                place.Address = req.body.Address;
+                place.address = req.body.Address;
                 yield placesRepository
                     .save(place)
                     .then((place) => __awaiter(this, void 0, void 0, function* () {

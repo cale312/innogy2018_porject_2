@@ -21,9 +21,9 @@ class Route {
         const code = res.statusCode;
         let placeName = req.params._placeName;
         let placesRepository = await getRepository(Place);
-        let placeToLike = await placesRepository.findOne({ Name: placeName });
+        let placeToLike = await placesRepository.findOne({ name: placeName });
 
-        placeToLike.Likes = placeToLike.Likes+=1;
+        placeToLike.likes = placeToLike.likes+=1;
 
         await placesRepository
             .save(placeToLike)

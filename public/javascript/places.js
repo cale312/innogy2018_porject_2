@@ -26,10 +26,10 @@ $(document).ready(() => {
           place: allData
         })
         allData.map((place) => {
-          (placesObj[place.Name] === undefined) ? placesObj[place.Name] = null: false;
-          if (catMap[place.Category] === undefined) {
-            catMap[place.Category] = null;
-            categories.push(place.Category.split("_").join(" "));
+          (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
+          if (catMap[place.category] === undefined) {
+            catMap[place.category] = null;
+            categories.push(place.category.split("_").join(" "));
           }
         });
         $('input.autocomplete').autocomplete({

@@ -11,22 +11,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const express_1 = require("express");
 const Reviews_entity_1 = require("../entity/Reviews.entity");
+const Place_entity_1 = require("../entity/Place.entity");
 class Route {
     constructor() {
         this.reviewPlace = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const code = res.statusCode;
             let data = req.body;
-            let reviewsRepo = yield typeorm_1.getRepository(Reviews_entity_1.Reviews);
-            let newReview = new Reviews_entity_1.Reviews();
-            newReview.UserName = data.userName;
-            newReview.Review = data.review;
-            yield reviewsRepo
-                .save(newReview)
-                .then((result) => {
-                res.json({
-                    result
-                });
-            });
+            let placeName = req.params._placeName;
+            let placeRepo = yield typeorm_1.getRepository(Place_entity_1.Place);
+            yield placeRepo
+                .findOne({
+                name: placeName
+            })
+                .then((place) => __awaiter(this, void 0, void 0, function* () {
+                if (place) {
+                    let newReview = new Reviews_entity_1.Reviews();
+                    newReview.userName = data.userName;
+                    newReview.review = data.review;
+                    newReview.place = place;
+                    typeorm_1.getRepository(Reviews_entity_1.Reviews)
+                        .manager
+                        .save(newReview)
+                        .then(() => {
+                        placeRepo.find({
+                            relations: ["Reviews"]
+                        })
+                            .then((places) => __awaiter(this, void 0, void 0, function* () {
+                            res.json({
+                                code,
+                                places
+                            });
+                        }));
+                    });
+                }
+                else {
+                    res.json({
+                        msg: 'place not found'
+                    });
+                }
+            }));
         });
         this.router = express_1.Router();
         this.route();

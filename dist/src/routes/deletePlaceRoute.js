@@ -18,7 +18,7 @@ class Route {
             let placeName = req.params._placeName;
             let placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
             let toDelete = yield placesRepository.findOne({
-                Name: placeName
+                name: placeName
             });
             yield placesRepository
                 .remove(toDelete)

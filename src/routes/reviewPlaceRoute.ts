@@ -7,6 +7,9 @@ import {
 import {
     Reviews
 } from "../entity/Reviews.entity";
+import {
+    Place
+} from "../entity/Place.entity";
 
 class Route {
 
@@ -20,19 +23,41 @@ class Route {
     public reviewPlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
         let data = req.body;
-        let reviewsRepo = await getRepository(Reviews);
+        let placeName = req.params._placeName;
+        let placeRepo = await getRepository(Place);
 
-        let newReview = new Reviews();
+        await placeRepo
+            .findOne({
+                name: placeName
+            })
+            .then(async (place) => {
+                if (place) {
+                    let newReview = new Reviews();
 
-        newReview.UserName = data.userName;
-        newReview.Review = data.review;
+                    newReview.userName = data.userName;
+                    newReview.review = data.review;
 
-        await reviewsRepo
-            .save(newReview)
-            .then( (result) => {
-                res.json({
-                    result
-                })
+                    newReview.place = place;
+
+                    getRepository(Reviews)
+                        .manager
+                        .save(newReview)
+                        .then( () => {
+                            placeRepo.find({
+                                    relations: ["Reviews"]
+                                })
+                                .then(async (places: any) => {
+                                    res.json({
+                                        code,
+                                        places
+                                    });
+                                })
+                        })
+                } else {
+                    res.json({
+                        msg: 'place not found'
+                    })
+                }
             })
 
     };
