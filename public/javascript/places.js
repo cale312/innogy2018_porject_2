@@ -3,37 +3,44 @@
   var foundPlaces = document.getElementById("closePlaces").innerHTML;
   var template = Handlebars.compile(foundPlaces);
   let categories = [];
-
-  //get all the places that are stored in the database
-  $.ajax({
-    url: apiURL,
-    type: "GET",
-    success: (data) => {
-
-      AllRecords.innerHTML = template({
-        place: data.places
-      })
-    }
-  });
-
-
-  function placeCategoryFilter(Category) {
-    this.Category = Category;
-  }
-
+  let catMap = {};
+  let allData = null;
 
   function AppViewmodel() {
     var self = this;
+    self.categories = ko.observable();
     self.place = ko.observable();
 
-    $.getJSON(apiURL, function (data) {
-      self.place(data.places);
-      console.log("/....../", data)
+    //get all the places that are stored in the database
+    $.ajax({
+      url: apiURL,
+      type: "GET",
+      success: (data) => {
+        // caching the data for easy access
+        allData = data.places;
+        AllRecords.innerHTML = template({
+          place: data.places
+        })
+        allData.map((place) => {
+          var checkBox="";
+          
+          if (catMap[place.Category] === undefined) {
 
+            catMap[place.Category] = null;
+            categories.push(place.Category.split("_").join(" "));
+          }
+         // self.categories = ko.computed(function(){
+         
+        //});
+        });
+       allData.forEach(function(data){
+         console.log("is this happening",data);
+         return data;
+       })
+      
+        self.categories(categories);
+      }
     });
-
-
-
 
   };
   ko.applyBindings(new AppViewmodel());

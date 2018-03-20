@@ -16,6 +16,7 @@ const getPlaceByNameRoute_1 = require("./src/routes/getPlaceByNameRoute");
 const likePlaceRoute_1 = require("./src/routes/likePlaceRoute");
 const dislikePlaceRoute_1 = require("./src/routes/dislikePlaceRoute");
 const reviewPlaceRoute_1 = require("./src/routes/reviewPlaceRoute");
+const getPlaceByCategoryRoute_1 = require("./src/routes/getPlaceByCategoryRoute");
 // Creates and configures an ExpressJS web server.
 class Server {
     //Run configuration methods on the Express instance.
@@ -52,6 +53,8 @@ class Server {
         this.app.use('/api/v1/places', getPlacesRoute_1.default);
         // Get place by Name
         this.app.use('/api/v1/places', getPlaceByNameRoute_1.default);
+        //Get place by Category
+        this.app.use('/api/v1/places', getPlaceByCategoryRoute_1.default);
         // Add new places route
         this.app.use('/api/v1/places', addPlaceRoute_1.default);
         // Get place by ID
