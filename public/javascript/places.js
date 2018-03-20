@@ -51,7 +51,7 @@ $(document).ready(() => {
       let placeName = $('#pac-input').val();
       if (placeName.trim().length != 0) {
         allData.map((place) => {
-          if (placeName.toLowerCase() === place.Name.toLowerCase()) {
+          if (placeName.toLowerCase() === place.name.toLowerCase()) {
             matches.push(place);
           }
         })

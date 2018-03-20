@@ -9,6 +9,12 @@
     grid-gap: 1em;
 }
 
+.searched-places-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+}
+
 .wrapper > div {
     padding: 1em;
 }
