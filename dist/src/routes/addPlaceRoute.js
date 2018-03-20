@@ -34,6 +34,8 @@ class Route {
                 newPlace.category = req.body.Category;
                 newPlace.likes = 0;
                 newPlace.dislikes = 0;
+                newPlace.lng = req.body.Lng;
+                newPlace.lat = req.body.Lat;
                 yield placesRepository.save(newPlace)
                     .then((place) => {
                     res.json({

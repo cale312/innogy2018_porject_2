@@ -8,94 +8,50 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/reviews.css" />
 </head>
 
 <body>
-    <!-- <div class="main">
-        <div class="wrapper">
-               
-            <div class="reviews">
-                <div class="review">
-                    <label for="username">Viwe (@viwe)</label>
-                    <br>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <br>
-                    <div class="review-content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam porro natus, aliquam impedit error exercitationem blanditiis.
-                        Autem laudantium beatae tenetur minus consectetur, ullam obcaecati vero cupiditate saepe ipsam unde
-                        at?
+    <div class="main">
+        <ul id="slide-out" class="side-nav fixed">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="images/background.jpg">
                     </div>
+                    <a href="#!user">
+                        <img class="circle" src="images/avatar.png">
+                    </a>
+                    <a href="#!name">
+                        <span class="white-text name">Nonzulu</span>
+                    </a>
+                    <a href="#!email">
+                        <span class="white-text email">knzulu16@gmail.com</span>
+                    </a>
                 </div>
-                <div class="review">
-                    <label for="username">Viwe (@viwe)</label>
-                    <br>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <br>
-                    <div class="review-content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam porro natus, aliquam impedit error exercitationem blanditiis.
-                        Autem laudantium beatae tenetur minus consectetur, ullam obcaecati vero cupiditate saepe ipsam unde
-                        at?
-                    </div>
-                </div>
-                <div class="review">
-                    <label for="username">Viwe (@viwe)</label>
-                    <br>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <br>
-                    <div class="review-content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam porro natus, aliquam impedit error exercitationem blanditiis.
-                        Autem laudantium beatae tenetur minus consectetur, ullam obcaecati vero cupiditate saepe ipsam unde
-                        at?
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="warapper">
-
-                <div id="map"></div>
-
-        </div>
-        <hr style="width: 50%">
-       
-            
-       
-    </div> -->
-    <ul id="slide-out" class="side-nav fixed">
-        <li><div class="user-view">
-          <div class="background">
-            <img src="images/background.jpg">
-          </div>
-          <a href="#!user"><img class="circle" src="images/avatar.png"></a>
-          <a href="#!name"><span class="white-text name">Nonzulu</span></a>
-          <a href="#!email"><span class="white-text email">knzulu16@gmail.com</span></a>
-        </div></li>
-        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a href="#!">Second Link</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-      </ul>
-       <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-            
-
-
-
-
-
+            </li>
+            <li>
+                <a href="#!">
+                    <i class="material-icons">cloud</i>First Link With Icon</a>
+            </li>
+            <li>
+                <a href="#!">Second Link</a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a class="subheader">Subheader</a>
+            </li>
+            <li>
+                <a class="waves-effect" href="#!">Third Link With Waves</a>
+            </li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse">
+            <i class="material-icons">menu</i>
+        </a>
+    </div>
     <div id="map"></div>
 </body>
 
@@ -104,7 +60,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="javascript/knockout-3.4.2.js"></script>
 <script src="javascript/reviews.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initMap"
+    async defer></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places"></script> -->
 
 

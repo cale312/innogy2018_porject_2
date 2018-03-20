@@ -21,6 +21,12 @@ $(document).ready(() => {
       setTimeout(() => {
         // caching the data for easy access
         allData = data.places;
+
+        // if (allData.length === 0) {
+        //   window.location = "/";
+        //   return;
+        // }
+
         self.places(allData);
         allData.map((place) => {
           (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
@@ -61,8 +67,8 @@ $(document).ready(() => {
       self.places(allData);
     }
 
-    self.reviews = () => {
-      console.log('test');
+    self.reviews = (evt) => {
+      console.log('clicked on', evt);
     }
 
   };
