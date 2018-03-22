@@ -1,9 +1,10 @@
-  var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
+  var apiURL = `http://${window.location.hostname}:8000/api/v1/places/`;
   let AllRecords = document.querySelector(".listOfPlaces");
   let categories = [];
   let catMap = {};
   let allData = null;
   let placesObj = {};
+  let placeToReview = [];
 
   $(document).ready(function () {
     $('.tooltipped').tooltip({
@@ -37,6 +38,11 @@
     self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.data = ko.observable(false);
     self.review_data = ko.observable(false);
+    self.selectedPlace = ko.observable();
+    self.visits = ko.observable();
+    self.selectedPlaceReviews = ko.observable();
+
+    var placeReviwing = null;
 
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
 
@@ -93,9 +99,18 @@
 
     self.reviews = (evt) => {
       console.log('clicked on', evt);
+      let thePlace = [];
 
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
       self.data(false);
+
+      allData.map((place) => {
+        if (place.name === evt.name) {
+          placeReviwing = evt.name;
+          self.selectedPlace(place);
+          self.selectedPlaceReviews(place.reviews)
+        }
+      })
 
       setTimeout(() => {
         self.review_data(true);
@@ -105,7 +120,15 @@
 
         console.log('clicked on', evt.lat);
         console.log('clicked on', evt.lng);
-        initMap(lat, lng, 15)
+        initMap(lat, lng, 15);
+
+        self.visits(`${evt.visits} people visited this place`);
+
+        document.getElementById("send-review").disabled = true;
+
+        $('#Username, #reviewInfo').on('keyup', () => {
+          ($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false: document.getElementById("send-review").disabled = true;
+        })
       }, 1500);
 
     }
@@ -117,6 +140,21 @@
         self.data(true);
         self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
       }, 1500);
+    }
+
+    self.sendReview = () => {
+      var reviewData = {
+        userName: $('#Username').val(),
+        review: $("#reviewInfo").val()
+      }
+      $.ajax(apiURL + placeReviwing + '/review', {
+        data: JSON.stringify(reviewData),
+        type: "POST",
+        contentType: "application/json",
+        success: function (result) {
+          console.log(result)
+        }
+      });
     }
 
   };
@@ -147,9 +185,3 @@
   }
 
   ko.applyBindings(new AppViewmodel());
-
-  document.getElementById("send-review").disabled = true;
-
-  $('#Username, #reviewInfo').on('keyup', () => {
-    ($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false : document.getElementById("send-review").disabled = true;
-  })
