@@ -4,57 +4,80 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Places of interest</title>
+  <title>POS | Home</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/places.css" />
+  <link rel="shortcut icon" href="https://i.pinimg.com/originals/d1/35/ca/d135ca708f1c3efcf9c890943dabff68.jpg" type="image/x-icon">
 </head>
 
 <body>
   <div data-bind="html: loading"></div>
-  <div class="main" data-bind="visible: data">
-    <div class="wrapper">
-      <div class="filter-box">
-        <div class="input-field">
-          <i class="material-icons prefix">search</i>
-          <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place" class="autocomplete">
-          <input type="button" value="search" class="btn black" data-bind="click: search">
-        </div>
-        <br>
-        <br>
-        <div data-bind="foreach: categories">
-          <input type="checkbox" data-bind="attr: {id: $data}">
-          <label data-bind="text: $data, attr: { for: $data }"></label>
-          <br>
-        </div>
-      </div>
+  <div class="main">
 
-      <div class="listOfPlaces">
-        <div class="places" data-bind="foreach: places">
-          <div class="card">
-            <div class="card-image">
-              <img src="images/download.jpeg">
-              <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light black" data-bind="click: $parent.reviews">
-                <i class="material-icons">map</i>
-              </a>
-            </div>
-            <div class="card-content center">
-              <span class="card-title" data-bind="text: $data.name"></span>
-              <p data-bind="text: $data.address"></p>
-              <p data-bond="text: $data.city"></p>
-              <hr>
+    <div class="places-template" data-bind="visible: data">
+      <div class="wrapper">
+        <div class="filter-box">
+          <div class="input-field">
+            <i class="material-icons prefix">search</i>
+            <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place" class="autocomplete">
+            <input type="button" value="search" class="btn black" data-bind="click: search">
+          </div>
+          <br>
+          <br>
+          <div data-bind="foreach: categories">
+            <input type="checkbox" data-bind="attr: {id: $data}">
+            <label data-bind="text: $data, attr: { for: $data }"></label>
+            <br>
+          </div>
+        </div>
+
+        <div class="listOfPlaces">
+          <div class="places" data-bind="foreach: places">
+            <div class="card">
+              <div class="card-image">
+                <img src="images/download.jpeg">
+                <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light black" data-bind="click: $parent.reviews">
+                  <i class="material-icons">map</i>
+                </a>
+              </div>
+              <div class="card-content center">
+                <span class="card-title" data-bind="text: $data.name"></span>
+                <p data-bind="text: $data.address"></p>
+                <p data-bond="text: $data.city"></p>
+                <hr>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="fixed-action-btn">
+        <a href="search.html" class="btn-floating btn-large black tooltipped" data-position="left" data-delay="50" data-tooltip="Add more places">
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
     </div>
-    <div class="fixed-action-btn">
-      <a href="search.html" class="btn-floating btn-large black tooltipped" data-position="left" data-delay="50" data-tooltip="Add more places">
-        <i class="large material-icons">add</i>
+
+    <div class="review-template" data-bind="visible: review_data">
+      <a data-bind="click: back" style="cursor: pointer">
+        <i class="material-icons large black-text">arrow_back</i>
       </a>
+      <div class="row">
+
+        <div class="col s12 m4 l3">
+          <h1>Side Nav</h1>
+        </div>
+
+        <div class="col s12 m8 l9">
+          <h1>map goes here</h1>
+          <div id="map"></div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -62,7 +85,9 @@
 <script src="javascript/handlebars-v4.0.5.js"></script>
 <script src="javascript/knockout-3.4.2.js"></script>
 <script src="javascript/places.js"></script>
-<script src="javascript/reviews.js"></script>
-
+<!-- <script src="javascript/reviews.js"></script> -->
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initMap" async defer></script> -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&callback=initMap">
+</script>
 
 </html>

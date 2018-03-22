@@ -1,4 +1,4 @@
-$(document).ready(() => {
+// $(document).ready(() => {
   var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
   let categories = [];
@@ -6,9 +6,44 @@ $(document).ready(() => {
   let allData = null;
   let placesObj = {};
 
-  $(document).ready(function(){
-    $('.tooltipped').tooltip({delay: 50});
+  $(document).ready(function () {
+    $('.tooltipped').tooltip({
+      delay: 50
+    });
   });
+
+  var map, infoWindow;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: -33.918861,
+        lng: 18.423300
+      },
+      zoom: 15
+    });
+    infoWindow = new google.maps.InfoWindow;
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Location found.');
+        infoWindow.open(map);
+        map.setCenter(pos);
+      }, function () {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  }
 
   function AppViewmodel() {
     var self = this;
@@ -17,8 +52,10 @@ $(document).ready(() => {
     self.places = ko.observable();
     self.matches = ko.observable();
     self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.data = ko.observable(false);
+    self.review_data = ko.observable(false);
+
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
 
     //get all the places that are stored in the database
     $.getJSON(apiURL, (data) => {
@@ -100,10 +137,60 @@ $(document).ready(() => {
 
     self.reviews = (evt) => {
       console.log('clicked on', evt);
+      self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      self.data(false);
+
+      setTimeout(() => {
+        self.review_data(true);
+        self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+        var map, infoWindow;
+  
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+              lat: evt.lat,
+              lng: evt.lng
+            },
+            zoom: 15
+          });
+          infoWindow = new google.maps.InfoWindow;
+  
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+  
+              infoWindow.setPosition(pos);
+              infoWindow.setContent('Location found.');
+              infoWindow.open(map);
+              map.setCenter(pos);
+            }, function () {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+        }
+        
+      }, 2000);
+
+    }
+
+    self.back = () => {
+      self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      setTimeout(() => {
+        self.data(true);
+        self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+        self.review_data(false);
+      }, 2000);
     }
 
   };
 
   ko.applyBindings(new AppViewmodel());
 
-})
+// })
