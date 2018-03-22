@@ -37,6 +37,8 @@ class Route {
                     newReview.userName = data.userName;
                     newReview.review = data.review;
 
+                    place.visits = place.visits+=1;
+
                     newReview.place = place;
 
                     getRepository(Reviews)
