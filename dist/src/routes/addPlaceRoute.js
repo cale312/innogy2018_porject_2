@@ -32,8 +32,7 @@ class Route {
                 newPlace.name = req.body.Name;
                 newPlace.address = req.body.Address;
                 newPlace.category = req.body.Category;
-                newPlace.likes = 0;
-                newPlace.dislikes = 0;
+                newPlace.visits = 0;
                 newPlace.lng = req.body.Lng;
                 newPlace.lat = req.body.Lat;
                 yield placesRepository.save(newPlace)
