@@ -37,7 +37,7 @@
         infoWindow.open(map);
         map.setCenter(pos);
       }, function () {
-        handleLocationError(true, infoWindow, map.getCenter());
+       // handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
       // Browser doesn't support Geolocation
@@ -97,40 +97,51 @@
         self.categories(categories);
       }, 2000);
     });
-
+    var matches = [];
     self.search = () => {
-      var matches = [];
+     
       let placeName = $('#pac-input').val();
+     
 
       if (placeName.trim().length != 0) {
         allData.map((place) => {
           if (placeName.toLowerCase() === place.name.toLowerCase()) {
             matches.push(place);
           }
+         
         })
         self.places(matches);
         return;
-      } else {
+      } 
+  
+      else {
         Materialize.toast("please enter valid place", 2000);
       }
       console.log('found...', matches);
       self.places(allData);
     }
       //****
-    self.categories=() => {
-    var categ=[];
-    let placeCateg = $('#checkbox').val();
-     
-    if(placeCateg!==0){
-      allData.matches.forEach(function(data){
-       if(placeCateg==data.category){
-        categ.push(data);
-       }
-      })
-      self.categories(categories);
-    }
+      $('#checkbox').on('change', function(){
+        alert($('input').val());
+    });
+    self.categPlace=()=>{
+       
+      let categ =$("#checkbox").val();
+      console.log("Am i?",categ);
+      if(categ.checked.length>0){
 
-  }
+        categories.map((data)=>{
+
+          console.log("Is data getting in",data)
+           if(categ.toLowerCase()==data.category.toLowerCase()){
+            matches.push(data);
+            }
+
+        })
+        self.places(matches);
+        return;
+      }
+    }
   //**** 
 
 
