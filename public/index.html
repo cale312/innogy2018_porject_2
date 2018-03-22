@@ -8,67 +8,61 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/map.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="css/places.css" />
 </head>
 
 <body>
-   <a href="places.html"><input type="button" value="Save" class="right btn black"></a> 
-
   <div data-bind="html: loading"></div>
-  <div class="main container">
-    <div class="search-box-wrapper">
-      <div class="search-box input-field">
-        <i class="material-icons prefix center">search</i>
-        <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place">
-        <input data-bind="click: search" type="button" value="search" class="right btn black btn-large waves-light">
+  <div class="main" data-bind="visible: data">
+    <div class="wrapper">
+      <div class="filter-box">
+        <div class="input-field">
+          <i class="material-icons prefix">search</i>
+          <input type="text" name="" id="pac-input" required autofocus autocomplete="off" placeholder="search place" class="autocomplete">
+          <input type="button" value="search" class="btn black" data-bind="click: search">
+        </div>
+        <br>
+        <br>
+        <div data-bind="foreach: categories">
+          <input type="checkbox" data-bind="attr: {id: $data}">
+          <label data-bind="text: $data, attr: { for: $data }"></label>
+          <br>
+        </div>
       </div>
-    </div>
-  </div>
-  <br>
-  <br>
-  <div class="mobile-view">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-  </div>
-  <div class="container">
-    <div data-bind="text: error" class="center"></div>
-    <div class="places-wrapper" data-bind="visible: map">
-      <div class="container map" id="map"></div>
-      <br>
-      <br>
-      <br>
-      <div class="">
-        <div data-bind="foreach: place" class="searched-places-wrapper">
-          <div class="">
-            <div class="card">
-              <div class="card-content Black-text">
-                <span data-bind="text: $data.Name" class="card-title"></span>
-                <p data-bind="text: $data.Address"></p>
-                <div class="card-action">
-                  <input data-bind="click: $parent.savePlace" type="button" value="Save" class="right btn black" onclick="Redirect()">
-                </div>
-              </div>
+
+      <div class="listOfPlaces">
+        <div class="places" data-bind="foreach: places">
+          <div class="card">
+            <div class="card-image">
+              <img src="images/download.jpeg">
+              <a href="reviews.html" class="btn-floating halfway-fab waves-effect waves-light black" data-bind="click: $parent.reviews">
+                <i class="material-icons">map</i>
+              </a>
+            </div>
+            <div class="card-content center">
+              <span class="card-title" data-bind="text: $data.name"></span>
+              <p data-bind="text: $data.address"></p>
+              <p data-bond="text: $data.city"></p>
+              <hr>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-
+    <div class="fixed-action-btn">
+      <a href="search.html" class="btn-floating btn-large black tooltipped" data-position="left" data-delay="50" data-tooltip="Add more places">
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
 </body>
-<script src="javascript/handlebars-v4.0.5.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="javascript/knockout-3.4.2.js"></script>
-<script src="javascript/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initAutocomplete"
-  async defer></script>
+<script src="javascript/handlebars-v4.0.5.js"></script>
+<script src="javascript/knockout-3.4.2.js"></script>
+<script src="javascript/places.js"></script>
+<script src="javascript/reviews.js"></script>
+
 
 </html>

@@ -6,6 +6,10 @@ $(document).ready(() => {
   let allData = null;
   let placesObj = {};
 
+  $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+
   function AppViewmodel() {
     var self = this;
     self.categories = ko.observable();
@@ -21,6 +25,12 @@ $(document).ready(() => {
       setTimeout(() => {
         // caching the data for easy access
         allData = data.places;
+
+        if (allData.length === 0) {
+          window.location = "search.html";
+          return;
+        }
+
         self.places(allData);
         allData.map((place) => {
           (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
@@ -69,33 +79,27 @@ $(document).ready(() => {
       console.log('found...', matches);
       self.places(allData);
     }
+      //****
+    self.categories=() => {
+    var categ=[];
+    let placeCateg = $('#checkbox').val();
+     
+    if(placeCateg!==0){
+      allData.matches.forEach(function(data){
+       if(placeCateg==data.category){
+        categ.push(data);
+       }
+      })
+      self.categories(categories);
+    }
+
+  }
+  //**** 
 
 
-//       self.categories=()=>{
-//         var categ=[];
-//       let placeCategory = $('#checkbox').val();
-//       if(placeCategory!==0){
-//        allData.categories.map((data) => {
-//          console.log("*****",data);
-//        if(placeCategory==data.category){
-//         categ.push(data);
 
-//       }
-
-//     })
-//   }
-// }
-
-    //var checkbox=$("#checkbox").val();
-         // if(){
-           // allData.forEach(function(data){
-              //console.log(data);
-             //return matches.pus(data);
-            //})
-          //}
-
-    self.reviews = () => {
-      console.log('test');
+    self.reviews = (evt) => {
+      console.log('clicked on', evt);
     }
 
   };

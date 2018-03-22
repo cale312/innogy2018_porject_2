@@ -37,6 +37,18 @@ __decorate([
 ], Place.prototype, "category", void 0);
 __decorate([
     typeorm_1.Column({
+        type: 'varchar'
+    }),
+    __metadata("design:type", String)
+], Place.prototype, "lng", void 0);
+__decorate([
+    typeorm_1.Column({
+        type: 'varchar'
+    }),
+    __metadata("design:type", String)
+], Place.prototype, "lat", void 0);
+__decorate([
+    typeorm_1.Column({
         type: 'int'
     }),
     __metadata("design:type", Number)
