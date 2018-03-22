@@ -52,13 +52,7 @@ __decorate([
         type: 'int'
     }),
     __metadata("design:type", Number)
-], Place.prototype, "likes", void 0);
-__decorate([
-    typeorm_1.Column({
-        type: 'int'
-    }),
-    __metadata("design:type", Number)
-], Place.prototype, "dislikes", void 0);
+], Place.prototype, "visits", void 0);
 __decorate([
     typeorm_1.OneToMany(type => Reviews_entity_1.Reviews, reviews => reviews.place),
     typeorm_1.JoinColumn(),

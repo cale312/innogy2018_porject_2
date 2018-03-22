@@ -43,12 +43,7 @@ export class Place {
     @Column({
         type: 'int'
     })
-    likes: number;
-
-    @Column({
-        type: 'int'
-    })
-    dislikes: number;
+    visits: number;
 
     @OneToMany(type => Reviews, reviews => reviews.place)
     @JoinColumn()

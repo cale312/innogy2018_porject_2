@@ -17,16 +17,16 @@ class Route {
         this.route();
     }
 
-    public dislikePlace = async (req: any, res: any, next: any) => {
+    public visitedPlace = async (req: any, res: any, next: any) => {
         const code = res.statusCode;
         let placeName = req.params._placeName;
         let placesRepository = await getRepository(Place);
-        let placeToDislike = await placesRepository.findOne({ name: placeName });
+        let placeVisited = await placesRepository.findOne({ name: placeName });
 
-        placeToDislike.dislikes = placeToDislike.dislikes+=1;
+        placeVisited.visits = placeVisited.visits+=1;
 
         await placesRepository
-            .save(placeToDislike)
+            .save(placeVisited)
             .then(async (place: any) => {
                 res.json({
                     code,
@@ -37,7 +37,7 @@ class Route {
     };
 
     route() {
-        this.router.put('/:_placeName/dislike', this.dislikePlace);
+        this.router.put('/:_placeName/visited', this.visitedPlace);
     }
 
 }
