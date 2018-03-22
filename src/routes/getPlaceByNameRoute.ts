@@ -23,7 +23,7 @@ class Route {
         const _placesRepository = await getRepository(Place);
 
         await _placesRepository
-            .findOne({ Name: placeName })
+            .findOne({ name: placeName })
             .then(async (place: any) => {
                 if (place) {
                     res.json({

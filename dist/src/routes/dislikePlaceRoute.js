@@ -17,8 +17,8 @@ class Route {
             const code = res.statusCode;
             let placeName = req.params._placeName;
             let placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
-            let placeToDislike = yield placesRepository.findOne({ Name: placeName });
-            placeToDislike.Dislikes = placeToDislike.Dislikes += 1;
+            let placeToDislike = yield placesRepository.findOne({ name: placeName });
+            placeToDislike.dislikes = placeToDislike.dislikes += 1;
             yield placesRepository
                 .save(placeToDislike)
                 .then((place) => __awaiter(this, void 0, void 0, function* () {

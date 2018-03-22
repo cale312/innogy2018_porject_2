@@ -22,9 +22,9 @@ class Route {
         let placeName = req.params._placeName;
         let placesRepository = await getRepository(Place);
         
-        placesRepository.findOne({ Name: placeName })
+        placesRepository.findOne({ name: placeName })
             .then( async (place) => {
-                place.Address = req.body.Address;
+                place.address = req.body.Address;
         
                 await placesRepository
                     .save(place)

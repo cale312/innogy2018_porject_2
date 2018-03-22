@@ -18,7 +18,7 @@ class Route {
             const placeName = req.params._placeName;
             const _placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
             yield _placesRepository
-                .findOne({ Name: placeName })
+                .findOne({ name: placeName })
                 .then((place) => __awaiter(this, void 0, void 0, function* () {
                 if (place) {
                     res.json({

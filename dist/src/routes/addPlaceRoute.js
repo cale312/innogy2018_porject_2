@@ -18,7 +18,7 @@ class Route {
             let placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
             // Check if place with the same name exists 
             let foundPlaceWithName = yield placesRepository.findOne({
-                Name: req.body.Name
+                name: req.body.Name
             });
             // If place with same name is found, return error
             if (foundPlaceWithName) {
@@ -29,11 +29,11 @@ class Route {
             }
             else {
                 let newPlace = new Place_entity_1.Place();
-                newPlace.Name = req.body.Name;
-                newPlace.Address = req.body.Address;
-                newPlace.Category = req.body.Category;
-                newPlace.Likes = 0;
-                newPlace.Dislikes = 0;
+                newPlace.name = req.body.Name;
+                newPlace.address = req.body.Address;
+                newPlace.category = req.body.Category;
+                newPlace.likes = 0;
+                newPlace.dislikes = 0;
                 yield placesRepository.save(newPlace)
                     .then((place) => {
                     res.json({

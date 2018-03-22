@@ -16,42 +16,42 @@ let Place = class Place {
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Place.prototype, "ID", void 0);
+], Place.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'varchar'
     }),
     __metadata("design:type", String)
-], Place.prototype, "Name", void 0);
+], Place.prototype, "name", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'varchar'
     }),
     __metadata("design:type", String)
-], Place.prototype, "Address", void 0);
+], Place.prototype, "address", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'varchar'
     }),
     __metadata("design:type", String)
-], Place.prototype, "Category", void 0);
+], Place.prototype, "category", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int'
     }),
     __metadata("design:type", Number)
-], Place.prototype, "Likes", void 0);
+], Place.prototype, "likes", void 0);
 __decorate([
     typeorm_1.Column({
         type: 'int'
     }),
     __metadata("design:type", Number)
-], Place.prototype, "Dislikes", void 0);
+], Place.prototype, "dislikes", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => Reviews_entity_1.Reviews, reviews => reviews.Place),
+    typeorm_1.OneToMany(type => Reviews_entity_1.Reviews, reviews => reviews.place),
     typeorm_1.JoinColumn(),
     __metadata("design:type", Array)
-], Place.prototype, "Reviews", void 0);
+], Place.prototype, "reviews", void 0);
 Place = __decorate([
     typeorm_1.Entity()
 ], Place);
