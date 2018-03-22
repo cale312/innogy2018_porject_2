@@ -10,10 +10,19 @@
 var foundPlacesHolder = [];
 var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
 
-function Place(placeName, adress, category) {
+// $.getJSON(apiURL, (data) => {
+//   if (data.places.length > 0) {
+//     window.location = "search.html";
+//     return;
+//   }
+// });
+
+function Place(placeName, adress, category, lng, lat) {
   this.Name = placeName;
   this.Address = adress;
   this.Category = category;
+  this.Lng = lng;
+  this.Lat = lat;
 }
 
 function initAutocomplete() {
@@ -77,11 +86,11 @@ function initAutocomplete() {
     foundPlacesHolder.length = 0;
     if (places.length > 1) {
       places.map((place) => {
-        foundPlacesHolder.push(new Place(place.name.trim(), place.formatted_address.trim(), place.types[0]));
+        foundPlacesHolder.push(new Place(place.name, place.formatted_address, place.types[0], place.geometry.viewport.b.b, place.geometry.viewport.f.b));
       })
     } else {
       console.log("******", places[0])
-      foundPlacesHolder.push(new Place(places[0].name.trim(), places[0].formatted_address.trim(), places[0].types[0]));
+      foundPlacesHolder.push(new Place(places[0].name, places[0].formatted_address, places[0].types[0], places[0].geometry.viewport.b.b, places[0].geometry.viewport.f.b));
     }
 
     if (places.length == 0) {
@@ -131,7 +140,7 @@ function initAutocomplete() {
 
 function Redirect() {
   setTimeout(() => {
-    window.location = "places.html";
+    window.location = "index.html";
   }, 5000);
 }
 
@@ -140,8 +149,8 @@ function AppViewmodel() {
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
   self.map = ko.observable(false);
-  self.placesPage = ko.observable('places.html');
   self.error = ko.observable();
+  self.backBtn = ko.observable(true);
 
   self.search = () => {
     self.map(false);
@@ -153,18 +162,20 @@ function AppViewmodel() {
 
     setTimeout(() => {
       if (foundPlacesHolder.length === 0) {
+        self.map(false);
         self.error('could not find place');
       } else {
         self.map(true)
         self.place(foundPlacesHolder);
       }
       self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-    }, 2000)
+    }, 1500)
   }
 
   self.savePlace = (data) => {
     // saving shit to the database
     self.map(false);
+    self.backBtn(false);
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     document.querySelector('.search-box-wrapper').classList.add('none');
     setTimeout(() => {
@@ -177,13 +188,13 @@ function AppViewmodel() {
           console.log('saved place', result);
 
           if (result.msg === "exists") {
-            Materialize.toast(data.Name + " has already been saved", 2000);
+            Materialize.toast(data.Name + " has already been saved", 1500);
             return;
           }
-          Materialize.toast(data.Name + " is saved for Viewing", 2000);
+          Materialize.toast(data.Name + " is saved for Viewing", 1500);
         }
       })
-    }, 2000);
+    }, 1500);
   }
 
 }

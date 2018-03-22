@@ -1,10 +1,32 @@
-$(document).ready(() => {
   var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
   let categories = [];
   let catMap = {};
   let allData = null;
   let placesObj = {};
+
+  $(document).ready(function () {
+    $('.tooltipped').tooltip({
+      delay: 50
+    });
+  });
+
+  var placesMap = function initMap(latitude, longitude, zoom) {
+
+    var uluru = {
+      lat: -25.363,
+      lng: 131.044
+    };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: place
+    });
+    var marker = new google.maps.Marker({
+      position: place,
+      map: map
+    });
+  }
+
 
   function AppViewmodel() {
     var self = this;
@@ -13,14 +35,22 @@ $(document).ready(() => {
     self.places = ko.observable();
     self.matches = ko.observable();
     self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     self.data = ko.observable(false);
+    self.review_data = ko.observable(false);
+
+    self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
 
     //get all the places that are stored in the database
     $.getJSON(apiURL, (data) => {
       setTimeout(() => {
         // caching the data for easy access
         allData = data.places;
+
+        if (allData.length === 0) {
+          window.location = "search.html";
+          return;
+        }
+
         self.places(allData);
         allData.map((place) => {
           (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
@@ -40,7 +70,7 @@ $(document).ready(() => {
         self.data(true);
         self.loading('');
         self.categories(categories);
-      }, 2000);
+      }, 1500);
     });
 
     self.search = () => {
@@ -55,18 +85,71 @@ $(document).ready(() => {
         self.places(matches);
         return;
       } else {
-        Materialize.toast("please enter valid place", 2000);
+        Materialize.toast("please enter valid place", 1500);
       }
       console.log('found...', matches);
       self.places(allData);
     }
 
-    self.reviews = () => {
-      console.log('test');
+    self.reviews = (evt) => {
+      console.log('clicked on', evt);
+
+      self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      self.data(false);
+
+      setTimeout(() => {
+        self.review_data(true);
+        self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+        var lat = parseFloat(evt.lat);
+        var lng = parseFloat(evt.lng);
+
+        console.log('clicked on', evt.lat);
+        console.log('clicked on', evt.lng);
+        initMap(lat, lng, 15)
+      }, 1500);
+
+    }
+
+    self.back = () => {
+      self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      self.review_data(false);
+      setTimeout(() => {
+        self.data(true);
+        self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      }, 1500);
     }
 
   };
 
+  function initMap(latitude, longitude, zoom) {
+    let data = {
+      lat: -33.918861,
+      lng: 18.423300
+    }
+
+    if (latitude && longitude) {
+      data = {
+        lat: latitude,
+        lng: longitude
+      }
+    }
+
+    console.log("DATA", data);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: zoom,
+      center: data
+    });
+    var marker = new google.maps.Marker({
+      position: data,
+      map: map
+    });
+  }
+
   ko.applyBindings(new AppViewmodel());
 
-})
+  document.getElementById("send-review").disabled = true;
+
+  $('#Username, #reviewInfo').on('keyup', () => {
+    ($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false : document.getElementById("send-review").disabled = true;
+  })

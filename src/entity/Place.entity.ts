@@ -31,6 +31,16 @@ export class Place {
     category: string;
 
     @Column({
+        type: 'varchar'
+    })
+    lng: string;
+
+    @Column({
+        type: 'varchar'
+    })
+    lat: string;
+
+    @Column({
         type: 'int'
     })
     likes: number;
