@@ -10,15 +10,15 @@ import { Place } from "./Place.entity";
 export class Reviews {
 
     @PrimaryGeneratedColumn()
-    ID: number;
+    id: number;
 
     @Column({ type: 'varchar'})
-    UserName: string;
+    userName: string;
 
     @Column({ type: 'varchar'})
-    Review: string;
+    review: string;
 
-    @ManyToOne( type => Place, place => place.Reviews)
-    Place: Place;
+    @ManyToOne( type => Place, place => place.reviews)
+    place: Place;
 
 }

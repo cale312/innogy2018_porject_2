@@ -13,35 +13,35 @@ import {
 export class Place {
 
     @PrimaryGeneratedColumn()
-    ID: number;
+    id: number;
 
     @Column({
         type: 'varchar'
     })
-    Name: string;
+    name: string;
 
     @Column({
         type: 'varchar'
     })
-    Address: string;
+    address: string;
 
     @Column({
         type: 'varchar'
     })
-    Category: string;
+    category: string;
 
     @Column({
         type: 'int'
     })
-    Likes: number;
+    likes: number;
 
     @Column({
         type: 'int'
     })
-    Dislikes: number;
+    dislikes: number;
 
-    @OneToMany(type => Reviews, reviews => reviews.Place)
+    @OneToMany(type => Reviews, reviews => reviews.place)
     @JoinColumn()
-    Reviews: Reviews[];
+    reviews: Reviews[];
 
 }

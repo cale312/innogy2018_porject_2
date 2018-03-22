@@ -19,7 +19,7 @@ class Route {
             // create repository for the places entity
             const _placesRepository = yield typeorm_1.getRepository(Place_entity_1.Place);
             yield _placesRepository
-                .find({ relations: ["Reviews"] })
+                .find({ relations: ["reviews"] })
                 .then((places) => __awaiter(this, void 0, void 0, function* () {
                 res.json({
                     code,

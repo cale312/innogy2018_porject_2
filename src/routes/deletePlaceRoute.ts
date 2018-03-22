@@ -23,7 +23,7 @@ class Route {
         let placesRepository = await getRepository(Place);
 
         let toDelete = await placesRepository.findOne({
-            Name: placeName
+            name: placeName
         });
 
         await placesRepository

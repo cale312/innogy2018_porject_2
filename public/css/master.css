@@ -1,10 +1,17 @@
 .main {
     width: 100%;
+    animation: fadein 2s;
 }
 
 .wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.searched-places-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1em;
 }
 
@@ -26,7 +33,6 @@
     white-space: normal;
     overflow-x: hidden;
     height: 600px;
-    animation: fadein 2s;
 }
 
 .search-box {
@@ -34,8 +40,6 @@
     width: 40%;
     top: 40%;
     left: 28%;
-    right: 15%;
-    animation: fadein 2s;
 }
 
 .search-box-after {
@@ -51,12 +55,6 @@
 @keyframes fadein {
     from {
         opacity: 0;
-    }
-}
-
-@keyframes fadeout {
-    from {
-        opacity: 1;
     }
 }
 
@@ -76,7 +74,7 @@
     }
 }
 
-@media(max-width: 750px) {
+@media(max-width: 800px) {
     .search-box, .search-box-after {
         position: relative;
         top: 5%;
