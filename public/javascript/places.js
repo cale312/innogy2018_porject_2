@@ -12,7 +12,7 @@
     });
   });
 
-  var placesMap = function initMap(latitude, longitude, zoom) {
+  var placesMap = function initMap(latitude, longitude, zoom) { //This function creates another initial map
 
     var uluru = {
       lat: -25.363,
@@ -29,7 +29,7 @@
   }
 
 
-  function AppViewmodel() {
+  function AppViewmodel() {  //creates a knockoutJS viewmodel
     var self = this;
     self.categories = ko.observable();
     self.place = ko.observable();
@@ -42,7 +42,7 @@
     self.visits = ko.observable();
     self.selectedPlaceReviews = ko.observable();
 
-    var placeReviwing = null;
+    var placeReviwing = null; //
 
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
 
@@ -65,6 +65,7 @@
             categories.push(place.category.split("_").join(" "));
           }
         });
+        // autocomplete
         $('input.autocomplete').autocomplete({
           data: placesObj,
           limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
@@ -120,7 +121,7 @@
 
         console.log('clicked on', evt.lat);
         console.log('clicked on', evt.lng);
-        initMap(lat, lng, 15);
+        initMap(lat, lng, 18);
 
         self.visits(`${evt.visits} people visited this place`);
 
@@ -144,7 +145,7 @@
 
     self.sendReview = () => {
       var reviewData = {
-        userName: $('#Username').val(),
+        userName:$('#Username').val(),
         review: $("#reviewInfo").val()
       }
       $.ajax(apiURL + placeReviwing + '/review', {

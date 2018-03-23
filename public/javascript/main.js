@@ -10,14 +10,8 @@
 var foundPlacesHolder = [];
 var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
 
-// $.getJSON(apiURL, (data) => {
-//   if (data.places.length > 0) {
-//     window.location = "search.html";
-//     return;
-//   }
-// });
 
-function Place(placeName, adress, category, lng, lat) {
+function Place(placeName, adress, category, lng, lat) { //creates variables that will store the following values
   this.Name = placeName;
   this.Address = adress;
   this.Category = category;
@@ -25,8 +19,8 @@ function Place(placeName, adress, category, lng, lat) {
   this.Lat = lat;
 }
 
-function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+function initAutocomplete() { //Map function
+  var map = new google.maps.Map(document.getElementById('map'), { //Renders a new map with the following specifiations
     center: {
       lat: -33.918861,
       lng: 18.423300
@@ -52,7 +46,7 @@ function initAutocomplete() {
 
 
   // Try HTML5 geolocation.
-  if (navigator.geolocation) {
+  if (navigator.geolocation) { //gets your current Location.
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
         lat: position.coords.latitude,
@@ -81,6 +75,9 @@ function initAutocomplete() {
   var markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
+  //Capture place details.
+  //Render a marker in the map for that place.
+  
   searchBox.addListener('places_changed', function () {
     var places = searchBox.getPlaces();
     foundPlacesHolder.length = 0;
@@ -138,13 +135,13 @@ function initAutocomplete() {
 
 }
 
-function Redirect() {
+function Redirect() { //takes you to the index page for a view with more information
   setTimeout(() => {
     window.location = "index.html";
   }, 5000);
 }
 
-function AppViewmodel() {
+function AppViewmodel() { //creates a knockoutJS viewmodel
   const self = this;
   self.loading = ko.observable(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
   self.place = ko.observable();
@@ -152,7 +149,7 @@ function AppViewmodel() {
   self.error = ko.observable();
   self.backBtn = ko.observable(true);
 
-  self.search = () => {
+  self.search = () => { //creates a page loader across events
     self.map(false);
     self.error('');
     document.querySelector('.search-box').classList.add('search-box-after');
@@ -172,7 +169,7 @@ function AppViewmodel() {
     }, 1500)
   }
 
-  self.savePlace = (data) => {
+  self.savePlace = (data) => { //this button gets data from google places api and saves it to the database
     // saving shit to the database
     self.map(false);
     self.backBtn(false);
