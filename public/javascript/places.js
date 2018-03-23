@@ -98,9 +98,12 @@
       self.places(allData);
     }
 
+    let placeForReviews = null;
+
     self.reviews = (evt) => {
       console.log('clicked on', evt);
       let thePlace = [];
+      placeForReviews = evt;
 
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
       self.data(false);
@@ -144,17 +147,59 @@
     }
 
     self.sendReview = () => {
+      console.log("IM HAPPENING");
+      
       var reviewData = {
         userName:$('#Username').val(),
         review: $("#reviewInfo").val()
       }
+      console.log(placeReviwing);
+      
       $.ajax(apiURL + placeReviwing + '/review', {
         data: JSON.stringify(reviewData),
         type: "POST",
         contentType: "application/json",
         success: function (result) {
-          console.log(result)
-        }
+          $.getJSON(apiURL, (data) => {
+            setTimeout(() => {
+              // caching the data for easy access
+              allData = data.places;
+      
+              if (allData.length === 0) {
+                window.location = "search.html";
+                return;
+              }
+      
+              self.places(allData);
+              allData.map((place) => {
+                (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
+                if (catMap[place.category] === undefined) {
+                  catMap[place.category] = null;
+                  categories.push(place.category.split("_").join(" "));
+                }
+              });
+              // autocomplete
+              $('input.autocomplete').autocomplete({
+                data: placesObj,
+                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                onAutocomplete: function (val) {
+                  // Callback function when value is autcompleted.
+                },
+                minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+              });
+              self.data(true);
+              self.loading('');
+              self.categories(categories);
+              allData.map((place) => {
+                if (place.name === placeForReviews.name) {
+                  placeReviwing = placeForReviews.name;
+                  self.selectedPlace(place);
+                  self.selectedPlaceReviews(place.reviews)
+                }
+              })
+            }, 1500);
+          });
+        },
       });
     }
 

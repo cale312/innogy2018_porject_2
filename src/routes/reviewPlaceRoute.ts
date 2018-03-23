@@ -37,7 +37,7 @@ class Route {
                     newReview.userName = data.userName;
                     newReview.review = data.review;
 
-                    place.visits = place.reviews.length;
+                    place.visits = place && place.reviews &&  place.reviews.length;
 
                     newReview.place = place;
 
