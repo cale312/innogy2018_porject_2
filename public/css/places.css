@@ -1,9 +1,23 @@
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.side-nav {
+    width: 400px !important;
+}
+
 .filter-box {
     margin: 100px 0px 0px 100px;
     position: fixed;
 }
-label{
- text-transform: capitalize;
+
+label {
+    text-transform: capitalize;
 }
 
 .filter-search {
@@ -30,7 +44,21 @@ label{
     grid-template-columns: 1fr 1fr;
 }
 
+.all-reviews {
+    overflow: auto;
+    height: 300px;
+    overflow-x: hidden;
+}
+
 @media(max-width: 800px) {
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+    }
     .wrapper {
         display: inline-block;
     }
@@ -51,12 +79,17 @@ label{
         text-align: center;
         word-spacing: 1em;
         left: 0;
-        right: 0;;
+        right: 0;
+        ;
     }
     br:nth-child(odd) {
         display: none;
     }
-    .input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content {
+    .input-field .prefix~input,
+    .input-field .prefix~textarea,
+    .input-field .prefix~label,
+    .input-field .prefix~.validate~label,
+    .input-field .prefix~.autocomplete-content {
         margin-left: 0;
     }
 }

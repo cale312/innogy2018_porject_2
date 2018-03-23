@@ -151,6 +151,7 @@ function AppViewmodel() {
   self.place = ko.observable();
   self.map = ko.observable(false);
   self.error = ko.observable();
+  self.backBtn = ko.observable(true);
 
   self.search = () => {
     self.map(false);
@@ -169,12 +170,13 @@ function AppViewmodel() {
         self.place(foundPlacesHolder);
       }
       self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-    }, 2000)
+    }, 1500)
   }
 
   self.savePlace = (data) => {
     // saving shit to the database
     self.map(false);
+    self.backBtn(false);
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
     document.querySelector('.search-box-wrapper').classList.add('none');
     setTimeout(() => {
@@ -187,13 +189,13 @@ function AppViewmodel() {
           console.log('saved place', result);
 
           if (result.msg === "exists") {
-            Materialize.toast(data.Name + " has already been saved", 2000);
+            Materialize.toast(data.Name + " has already been saved", 1500);
             return;
           }
-          Materialize.toast(data.Name + " is saved for Viewing", 2000);
+          Materialize.toast(data.Name + " is saved for Viewing", 1500);
         }
       })
-    }, 2000);
+    }, 1500);
   }
 
 }

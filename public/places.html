@@ -25,7 +25,7 @@
         <br>
         <br>
         <div data-bind="foreach: categories">
-          <input id="checkbox" type="checkbox" data-bind="attr: {id: $data}">
+          <input class="checkbox" type="checkbox" data-bind="attr: {id: $data}, change: categPlace">
           <label data-bind="text: $data, attr: { for: $data }"></label>
           <br>
         </div>

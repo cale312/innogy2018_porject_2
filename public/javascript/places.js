@@ -1,10 +1,11 @@
-// $(document).ready(() => {
   var apiURL = `http://${window.location.hostname}:8000/api/v1/places`;
   let AllRecords = document.querySelector(".listOfPlaces");
   let categories = [];
   let catMap = {};
   let allData = null;
   let placesObj = {};
+  let filterdCat = [];
+  let filterdCatMap = {};
 
   $(document).ready(function () {
     $('.tooltipped').tooltip({
@@ -12,38 +13,22 @@
     });
   });
 
-  var map, infoWindow;
+  var placesMap = function initMap(latitude, longitude, zoom) {
 
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: -33.918861,
-        lng: 18.423300
-      },
-      zoom: 15
+    var uluru = {
+      lat: -25.363,
+      lng: 131.044
+    };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: place
     });
-    infoWindow = new google.maps.InfoWindow;
-
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
-        infoWindow.open(map);
-        map.setCenter(pos);
-      }, function () {
-       // handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
+    var marker = new google.maps.Marker({
+      position: place,
+      map: map
+    });
   }
+
 
   function AppViewmodel() {
     var self = this;
@@ -75,14 +60,9 @@
             catMap[place.category] = null;
             categories.push(place.category.split("_").join(" "));
           }
-          
-          
-         // self.categories = ko.computed(function(){
-         
-        //});
-        });
 
-     
+
+        });
 
         $('input.autocomplete').autocomplete({
           data: placesObj,
@@ -95,113 +75,124 @@
         self.data(true);
         self.loading('');
         self.categories(categories);
-      }, 2000);
+      }, 1500);
     });
+
     var matches = [];
     self.search = () => {
-     
-      let placeName = $('#pac-input').val();
-     
 
+      let placeName = $('#pac-input').val();
       if (placeName.trim().length != 0) {
         allData.map((place) => {
           if (placeName.toLowerCase() === place.name.toLowerCase()) {
             matches.push(place);
           }
-         
+
         })
         self.places(matches);
         return;
-      } 
-  
-      else {
-        Materialize.toast("please enter valid place", 2000);
+      } else {
+        Materialize.toast("please enter valid place", 1500);
       }
       console.log('found...', matches);
       self.places(allData);
     }
-      //****
-      $('#checkbox').on('change', function(){
-        alert($('input').val());
-    });
-    self.categPlace=()=>{
-       
-      let categ =$("#checkbox").val();
-      console.log("Am i?",categ);
-      if(categ.checked.length>0){
 
-        categories.map((data)=>{
+    //****
+    // $('.checkbox').val(this.checked);
+    // $(document).ready(function () {
+    //   //set initial state.
+    //   $('#textbox1').val($(this).is(':checked'));
 
-          console.log("Is data getting in",data)
-           if(categ.toLowerCase()==data.category.toLowerCase()){
-            matches.push(data);
-            }
+    //   $('#checkbox1').change(function () {
+    //     $('#textbox1').val($(this).is(':checked'));
+    //   });
 
-        })
-        self.places(matches);
-        return;
+    //   $('#checkbox1').mousedown(function () {});
+    // });
+
+    $(document).on('click', '[type=checkbox]', function (e) {
+      matches.length = 0;
+      let category = e.target.id.toLowerCase().trim().replace(" ", "_");
+      console.log(e)
+
+      if (document.getElementById(e.target.id).hasAttribute("checked")) {
+        console.log(category, 'is checked');
+        
+        // if (filterdCatMap[category] === undefined) {
+        //   filterdCatMap[category] = null;
+        //   filterdCat.push(category);
+        // }
+
+      } else {
+        // delete filterdCatMap.category;
+        console.log(category, 'is unchecked');
+        // return;
       }
-    }
-  //**** 
 
+      self.places(matches);
 
+    });
 
     self.reviews = (evt) => {
       console.log('clicked on', evt);
+
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
       self.data(false);
 
       setTimeout(() => {
         self.review_data(true);
         self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-        var map, infoWindow;
-  
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-              lat: evt.lat,
-              lng: evt.lng
-            },
-            zoom: 15
-          });
-          infoWindow = new google.maps.InfoWindow;
-  
-          // Try HTML5 geolocation.
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-  
-              infoWindow.setPosition(pos);
-              infoWindow.setContent('Location found.');
-              infoWindow.open(map);
-              map.setCenter(pos);
-            }, function () {
-              handleLocationError(true, infoWindow, map.getCenter());
-            });
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-        }
-        
-      }, 2000);
+        var lat = parseFloat(evt.lat);
+        var lng = parseFloat(evt.lng);
+
+        console.log('clicked on', evt.lat);
+        console.log('clicked on', evt.lng);
+        initMap(lat, lng, 15)
+      }, 1500);
 
     }
 
     self.back = () => {
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+      self.review_data(false);
       setTimeout(() => {
         self.data(true);
         self.loading(`<div class="progress black" style="visibility: hidden;margin-top: 0;"><div class="indeterminate white"></div></div>`);
-        self.review_data(false);
-      }, 2000);
+      }, 1500);
     }
 
   };
 
+  function initMap(latitude, longitude, zoom) {
+    let data = {
+      lat: -33.918861,
+      lng: 18.423300
+    }
+
+    if (latitude && longitude) {
+      data = {
+        lat: latitude,
+        lng: longitude
+      }
+    }
+
+    console.log("DATA", data);
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: zoom,
+      center: data
+    });
+    var marker = new google.maps.Marker({
+      position: data,
+      map: map
+    });
+  }
+
   ko.applyBindings(new AppViewmodel());
 
-// })
+  document.getElementById("send-review").disabled = true;
+
+  $('#Username, #reviewInfo').on('keyup', () => {
+    ($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false: document.getElementById("send-review").disabled = true;
+  })

@@ -62,16 +62,99 @@
 
     <div class="review-template" data-bind="visible: review_data">
       <a data-bind="click: back" style="cursor: pointer">
-        <i class="material-icons large black-text">arrow_back</i>
+        <i class="material-icons medium black-text">arrow_back</i>
       </a>
       <div class="row">
 
-        <div class="col s12 m4 l3">
+        <div class="col s12 m6 l3">
           <h1>Side Nav</h1>
+          <ul id="slide-out" class="side-nav fixed">
+            <a data-bind="click: back" style="cursor: pointer">
+              <i class="material-icons medium black-text">arrow_back</i>
+            </a>
+            <li>
+              <div class="user-view">
+                <div class="background">
+                  <img src="images/background.jpg">
+                </div>
+                <a>
+                  <h3 class="white-text">Place Name</h3>
+                </a>
+                <a>
+                  <span class="white-text">place address</span>
+                </a>
+                <br>
+                <small class="white-text">10 people visited 'Place name'</small>
+              </div>
+            </li>
+            <br>
+            <div class="container">
+              First Name *
+              <input type="text" id="Username">
+              <input type="text" id="reviewInfo" placeholder="write a review here">
+              <input type="submit" value="submit" class="btn black" id="send-review">
+            </div>
+            <li>
+            </li>
+            <li>
+              <div class="divider"></div>
+            </li>
+            <div class="all-reviews">
+              <div class="card white">
+                <div class="card-content black-text">
+                  <span class="card-title">Card Title</span>
+                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
+                    little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+              <div class="card white">
+                <div class="card-content black-text">
+                  <span class="card-title">Card Title</span>
+                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
+                    little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+              <div class="card white">
+                <div class="card-content black-text">
+                  <span class="card-title">Card Title</span>
+                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
+                    little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+              <div class="card white">
+                <div class="card-content black-text">
+                  <span class="card-title">Card Title</span>
+                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
+                    little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">This is a link</a>
+                  <a href="#">This is a link</a>
+                </div>
+              </div>
+            </div>
+          </ul>
+          <a href="#" data-target="slide-out" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+
+
+
         </div>
 
-        <div class="col s12 m8 l9">
-          <h1>map goes here</h1>
+        <div class="map-view col s12 m8 l9">
           <div id="map"></div>
         </div>
 
@@ -85,9 +168,13 @@
 <script src="javascript/handlebars-v4.0.5.js"></script>
 <script src="javascript/knockout-3.4.2.js"></script>
 <script src="javascript/places.js"></script>
-<!-- <script src="javascript/reviews.js"></script> -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&libraries=places&callback=initMap" async defer></script> -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoJooCkgGUmrDylfGB0uHg6bJRcaZf65A&callback=initMap"></script>
 </script>
+
+<!-- <script>
+  $(document).ready(function () {
+    $('.sidenav').sidenav();
+  });
+</script> -->
 
 </html>
