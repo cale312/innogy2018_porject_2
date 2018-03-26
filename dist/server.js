@@ -13,8 +13,6 @@ const deletePlaceRoute_1 = require("./src/routes/deletePlaceRoute");
 const updatePlaceRoute_1 = require("./src/routes/updatePlaceRoute");
 const getPlaceByIdRoute_1 = require("./src/routes/getPlaceByIdRoute");
 const getPlaceByNameRoute_1 = require("./src/routes/getPlaceByNameRoute");
-const likePlaceRoute_1 = require("./src/routes/likePlaceRoute");
-const dislikePlaceRoute_1 = require("./src/routes/dislikePlaceRoute");
 const reviewPlaceRoute_1 = require("./src/routes/reviewPlaceRoute");
 const getPlaceByCategoryRoute_1 = require("./src/routes/getPlaceByCategoryRoute");
 // Creates and configures an ExpressJS web server.
@@ -63,10 +61,6 @@ class Server {
         this.app.use('/api/v1/places', updatePlaceRoute_1.default);
         // Delete places route
         this.app.use('/api/v1/places', deletePlaceRoute_1.default);
-        // Like places route
-        this.app.use('/api/v1/places', likePlaceRoute_1.default);
-        // Dislike places route
-        this.app.use('/api/v1/places', dislikePlaceRoute_1.default);
         // Add review about a place
         this.app.use('/api/v1/places', reviewPlaceRoute_1.default);
     }

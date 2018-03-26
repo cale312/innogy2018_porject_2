@@ -68,8 +68,8 @@
 
         <div class="col s12 m6 l3">
           <h1>Side Nav</h1>
-          <ul id="slide-out" class="side-nav fixed">
-            <a data-bind="click: back" style="cursor: pointer">
+          <ul id="slide-out" class="side-nav fixed" data-bind="foreach: selectedPlace">
+            <a data-bind="click: $parent.back" style="cursor: pointer">
               <i class="material-icons medium black-text">arrow_back</i>
             </a>
             <li>
@@ -77,14 +77,12 @@
                 <div class="background">
                   <img src="images/background.jpg">
                 </div>
-                <a>
-                  <h3 class="white-text">Place Name</h3>
-                </a>
-                <a>
-                  <span class="white-text">place address</span>
-                </a>
+                <h3 class="white-text" data-bind="text: $data.name"></h3>
+                <small class="white-text" data-bind="text: $data.address"></small>
                 <br>
-                <small class="white-text">10 people visited 'Place name'</small>
+                <div class="white-text">
+                  <span class="white-text" data-bind="text: $data.visits"></span> people visited this place
+                </div>
               </div>
             </li>
             <br>
@@ -92,52 +90,18 @@
               First Name *
               <input type="text" id="Username">
               <input type="text" id="reviewInfo" placeholder="write a review here">
-              <input type="submit" value="submit" class="btn black" id="send-review">
+              <input type="submit" value="submit" class="btn black" id="send-review" data-bind="click: $root.sendReview">
             </div>
             <li>
             </li>
             <li>
               <div class="divider"></div>
             </li>
-            <div class="all-reviews">
-              <div class="card white">
+            <div class="all-reviews" data-bind="foreach: $parent.selectedPlaceReviews">
+              <div class="card white darken-1">
                 <div class="card-content black-text">
-                  <span class="card-title">Card Title</span>
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                    little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-              <div class="card white">
-                <div class="card-content black-text">
-                  <span class="card-title">Card Title</span>
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                    little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-              <div class="card white">
-                <div class="card-content black-text">
-                  <span class="card-title">Card Title</span>
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                    little markup to use effectively.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-              <div class="card white">
-                <div class="card-content black-text">
-                  <span class="card-title">Card Title</span>
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                    little markup to use effectively.</p>
+                  <span class="card-title" data-bind="text: $data.userName"></span>
+                  <p data-bind="text: $data.review"></p>
                 </div>
                 <div class="card-action">
                   <a href="#">This is a link</a>

@@ -23,8 +23,6 @@ import deletePlaceRoute from './src/routes/deletePlaceRoute';
 import updatePlaceRoute from './src/routes/updatePlaceRoute';
 import getPlaceByIdRoute from './src/routes/getPlaceByIdRoute';
 import getPlaceByNameRoute from "./src/routes/getPlaceByNameRoute";
-import likePlaceRoute from "./src/routes/likePlaceRoute";
-import dislikePlaceRoute from "./src/routes/dislikePlaceRoute";
 import reviewPlaceRoute from "./src/routes/reviewPlaceRoute";
 import getPlaceByCategoryRoute from "./src/routes/getPlaceByCategoryRoute";
 
@@ -80,10 +78,6 @@ class Server {
     this.app.use('/api/v1/places', updatePlaceRoute);
     // Delete places route
     this.app.use('/api/v1/places', deletePlaceRoute);
-    // Like places route
-    this.app.use('/api/v1/places', likePlaceRoute);
-    // Dislike places route
-    this.app.use('/api/v1/places', dislikePlaceRoute);
     // Add review about a place
     this.app.use('/api/v1/places', reviewPlaceRoute);
   }
