@@ -28,14 +28,14 @@ class Route {
                     let newReview = new Reviews_entity_1.Reviews();
                     newReview.userName = data.userName;
                     newReview.review = data.review;
-                    place.visits = place.visits += 1;
+                    place.visits = place && place.reviews && place.reviews.length;
                     newReview.place = place;
                     typeorm_1.getRepository(Reviews_entity_1.Reviews)
                         .manager
                         .save(newReview)
                         .then(() => {
                         placeRepo.find({
-                            relations: ["Reviews"]
+                            relations: ["reviews"]
                         })
                             .then((places) => __awaiter(this, void 0, void 0, function* () {
                             res.json({

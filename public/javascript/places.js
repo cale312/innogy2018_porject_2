@@ -12,7 +12,7 @@
     });
   });
 
-  var placesMap = function initMap(latitude, longitude, zoom) {
+  var placesMap = function initMap(latitude, longitude, zoom) { //This function creates another initial map
 
     var uluru = {
       lat: -25.363,
@@ -29,7 +29,7 @@
   }
 
 
-  function AppViewmodel() {
+  function AppViewmodel() {  //creates a knockoutJS viewmodel
     var self = this;
     self.categories = ko.observable();
     self.place = ko.observable();
@@ -42,7 +42,7 @@
     self.visits = ko.observable();
     self.selectedPlaceReviews = ko.observable();
 
-    var placeReviwing = null;
+    var placeReviwing = null; //
 
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
 
@@ -67,7 +67,7 @@
 
 
         });
-
+        // autocomplete
         $('input.autocomplete').autocomplete({
           data: placesObj,
           limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
@@ -102,45 +102,40 @@
       self.places(allData);
     }
 
-    //****
-    // $('.checkbox').val(this.checked);
-    // $(document).ready(function () {
-    //   //set initial state.
-    //   $('#textbox1').val($(this).is(':checked'));
-
-    //   $('#checkbox1').change(function () {
-    //     $('#textbox1').val($(this).is(':checked'));
-    //   });
-
-    //   $('#checkbox1').mousedown(function () {});
-    // });
 
     $(document).on('click', '[type=checkbox]', function (e) {
       matches.length = 0;
       let category = e.target.id.toLowerCase().trim().replace(" ", "_");
       console.log(e)
 
-      if (document.getElementById(e.target.id).hasAttribute("checked")) {
+
+
+     if (document.getElementById(e.target.id).hasAttribute("checked")) {
         console.log(category, 'is checked');
         
-        // if (filterdCatMap[category] === undefined) {
-        //   filterdCatMap[category] = null;
-        //   filterdCat.push(category);
-        // }
+        if (filterdCatMap[category] === undefined) {
+          filterdCatMap[category] = null;
+          filterdCat.push(category);
+        }
 
-      } else {
+      //} else {
         // delete filterdCatMap.category;
-        console.log(category, 'is unchecked');
+        //console.log(category, 'is unchecked');
         // return;
+     // }
       }
-
       self.places(matches);
 
-    });
+    
+  })
+
+
+    let placeForReviews = null;
 
     self.reviews = (evt) => {
       console.log('clicked on', evt);
       let thePlace = [];
+      placeForReviews = evt;
 
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
       self.data(false);
@@ -161,7 +156,7 @@
 
         console.log('clicked on', evt.lat);
         console.log('clicked on', evt.lng);
-        initMap(lat, lng, 15);
+        initMap(lat, lng, 18);
 
         self.visits(`${evt.visits} people visited this place`);
 
@@ -184,17 +179,59 @@
     }
 
     self.sendReview = () => {
+      console.log("IM HAPPENING");
+      
       var reviewData = {
-        userName: $('#Username').val(),
+        userName:$('#Username').val(),
         review: $("#reviewInfo").val()
       }
+      console.log(placeReviwing);
+      
       $.ajax(apiURL + placeReviwing + '/review', {
         data: JSON.stringify(reviewData),
         type: "POST",
         contentType: "application/json",
         success: function (result) {
-          console.log(result)
-        }
+          $.getJSON(apiURL, (data) => {
+            setTimeout(() => {
+              // caching the data for easy access
+              allData = data.places;
+      
+              if (allData.length === 0) {
+                window.location = "search.html";
+                return;
+              }
+      
+              self.places(allData);
+              allData.map((place) => {
+                (placesObj[place.name] === undefined) ? placesObj[place.name] = null: false;
+                if (catMap[place.category] === undefined) {
+                  catMap[place.category] = null;
+                  categories.push(place.category.split("_").join(" "));
+                }
+              });
+              // autocomplete
+              $('input.autocomplete').autocomplete({
+                data: placesObj,
+                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                onAutocomplete: function (val) {
+                  // Callback function when value is autcompleted.
+                },
+                minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+              });
+              self.data(true);
+              self.loading('');
+              self.categories(categories);
+              allData.map((place) => {
+                if (place.name === placeForReviews.name) {
+                  placeReviwing = placeForReviews.name;
+                  self.selectedPlace(place);
+                  self.selectedPlaceReviews(place.reviews)
+                }
+              })
+            }, 1500);
+          });
+        },
       });
     }
 
@@ -224,5 +261,8 @@
       map: map
     });
   }
+
+
+  
 
   ko.applyBindings(new AppViewmodel());

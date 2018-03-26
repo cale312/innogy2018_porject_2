@@ -37,7 +37,7 @@ class Route {
                     newReview.userName = data.userName;
                     newReview.review = data.review;
 
-                    place.visits = place.visits+=1;
+                    place.visits = place && place.reviews &&  place.reviews.length;
 
                     newReview.place = place;
 
@@ -46,7 +46,7 @@ class Route {
                         .save(newReview)
                         .then( () => {
                             placeRepo.find({
-                                    relations: ["Reviews"]
+                                    relations: ["reviews"]
                                 })
                                 .then(async (places: any) => {
                                     res.json({

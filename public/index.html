@@ -81,16 +81,24 @@
                 <small class="white-text" data-bind="text: $data.address"></small>
                 <br>
                 <div class="white-text">
-                  <span class="white-text" data-bind="text: $data.visits"></span> people visited this place
+                  <span class="white-text" data-bind="text: $data.reviews.length"></span> people visited this place
                 </div>
               </div>
             </li>
             <br>
             <div class="container">
-              First Name *
+            <div class="input-field">
+                <i class="material-icons prefix">account_circle</i>
               <input type="text" id="Username">
-              <input type="text" id="reviewInfo" placeholder="write a review here">
+              <label for="Username">First Name</label> 
+            </div>
+              <div class="input-field">
+                <i class="material-icons prefix">mode_edit</i>
+              <input type="text" id="reviewInfo">
+              <label for="reviewInfo">Write a review</label></div>
+
               <input type="submit" value="submit" class="btn black" id="send-review" data-bind="click: $root.sendReview">
+            
             </div>
             <li>
             </li>
@@ -100,13 +108,11 @@
             <div class="all-reviews" data-bind="foreach: $parent.selectedPlaceReviews">
               <div class="card white darken-1">
                 <div class="card-content black-text">
-                  <span class="card-title" data-bind="text: $data.userName"></span>
+                  
+                 <span class="left blue-text">@</span> <u><h6 class="blue-text" data-bind="text: $data.userName"></h6></u>
                   <p data-bind="text: $data.review"></p>
                 </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                  <a href="#">This is a link</a>
-                </div>
+              
               </div>
             </div>
           </ul>

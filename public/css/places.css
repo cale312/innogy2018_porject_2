@@ -1,3 +1,6 @@
+html {
+    font-family: Calibri, Trebuchet, sans-serif;
+}
 #map {
     position: absolute;
     top: 0;
@@ -5,6 +8,11 @@
     left: 0;
     right: 0;
     z-index: 1;
+}
+
+.dropdown-content {
+    margin-top: 10px !important;
+    margin-bottom: 0px !important;
 }
 
 .side-nav {

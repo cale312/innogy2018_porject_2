@@ -3,6 +3,10 @@
     animation: fadein 2s;
 }
 
+#slide-out{
+    width: 8em;
+}
+
 .wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
