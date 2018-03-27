@@ -44,6 +44,7 @@
     let matchedPlacesMap = {}; // maps the filtering categories
 
     self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
+    document.getElementById("send-review").disabled = true; // disable comment button    
 
     // get all the places that are stored in the database
     $.getJSON(apiURL, (data) => {
@@ -136,8 +137,6 @@
     };
 
     self.submitReview = () => {
-
-      document.getElementById("send-review").disabled = true; // disable comment button
 
       // enable submit button if both input fields filled
       $('#Username, #reviewInfo').on('keyup', () => {
