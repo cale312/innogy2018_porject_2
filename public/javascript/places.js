@@ -5,13 +5,13 @@
   let placesObj = {};
   let placeToReview = [];
 
-  document.getElementById("send-review").disabled = true; // disable comment button
-
   $(document).ready(function () {
     $('.tooltipped').tooltip({
       delay: 50
     });
   });
+
+  //document.getElementById("send-review").disabled = true
 
   var placesMap = function initMap(latitude, longitude, zoom) { // This function creates another initial map
 
@@ -111,9 +111,9 @@
       placeReviwing = evt;
       
       // enable submit button if both input fields filled
-      $('#Username, #reviewInfo').on('keyup', () => {
-        ($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false : document.getElementById("send-review").disabled = true;
-      });
+      //$('#Username, #reviewInfo').on('keyup', () => {
+        //($('#Username').val().length > 0 && $("#reviewInfo").val().length > 0) ? document.getElementById("send-review").disabled = false : document.getElementById("send-review").disabled = true;
+      //});
 
       self.loading(`<div class="progress black" style="margin-top: 0;"><div class="indeterminate white"></div></div>`);
       self.data(false);
