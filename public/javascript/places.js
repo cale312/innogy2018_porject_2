@@ -5,6 +5,8 @@
   let placesObj = {};
   let placeToReview = [];
 
+  document.getElementById("send-review").disabled = true; // disable comment button
+
   $(document).ready(function () {
     $('.tooltipped').tooltip({
       delay: 50
@@ -107,8 +109,6 @@
       console.log('clicked on', evt);
       let thePlace = [];
       placeReviwing = evt;
-      
-      document.getElementById("send-review").disabled = true; // disable comment button
       
       // enable submit button if both input fields filled
       $('#Username, #reviewInfo').on('keyup', () => {
